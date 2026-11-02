@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "أكاديمية التفوق"
+description = "منصة تعليمية عربية تفاعلية لطلاب الأردن، تنظّم المسارات حسب الصف والمادة والوحدة والدرس، وتقدم اختبارات مرتبطة بدروس محددة مع حفظ التقدم ونقاط الإنجاز وأدوات لإدارة المحتوى."
+version = "1.0.0"
+id = "artifacts/tafaweq-learning"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22909
+
+[services.development]
+run = "pnpm --filter @workspace/tafaweq-learning run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/tafaweq-learning", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/tafaweq-learning/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22909"
+BASE_PATH = "/"

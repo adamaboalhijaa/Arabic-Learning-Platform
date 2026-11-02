@@ -2,21 +2,22 @@ openapi: 3.1.0
 info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
-  version: 0.1.0
-  description: API specification
+  version: 0.2.0
+  description: Curriculum, lesson practice, student progress, and admin content tools.
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
-    description: Health operations
+  - name: curriculum
+  - name: students
+  - name: admin
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,13 +25,1057 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /curriculum/grades:
+    get:
+      operationId: listGrades
+      tags: [curriculum]
+      summary: List grades with curriculum status
+      responses:
+        "200":
+          description: Grade list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GradeList"
+  /curriculum/grades/{gradeId}/subjects:
+    get:
+      operationId: listGradeSubjects
+      tags: [curriculum]
+      summary: List subjects for a grade
+      parameters:
+        - in: path
+          name: gradeId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "200":
+          description: Subject list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubjectList"
+  /curriculum/subjects/{subjectId}/units:
+    get:
+      operationId: listSubjectUnits
+      tags: [curriculum]
+      summary: List units for a subject
+      parameters:
+        - in: path
+          name: subjectId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "200":
+          description: Unit list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnitList"
+  /curriculum/units/{unitId}/lessons:
+    get:
+      operationId: listUnitLessons
+      tags: [curriculum]
+      summary: List lessons for a unit
+      parameters:
+        - in: path
+          name: unitId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "200":
+          description: Lesson list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LessonList"
+  /lessons/{lessonId}:
+    get:
+      operationId: getLesson
+      tags: [curriculum]
+      summary: Get a lesson and its learning objectives
+      parameters:
+        - in: path
+          name: lessonId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "200":
+          description: Lesson
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lesson"
+        "404":
+          description: Lesson not found
+  /lessons/{lessonId}/quiz:
+    get:
+      operationId: getLessonQuiz
+      tags: [curriculum]
+      summary: Get only questions belonging to this lesson
+      parameters:
+        - in: path
+          name: lessonId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "200":
+          description: Lesson-specific questions with no answer key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuizQuestionList"
+        "404":
+          description: Lesson not found
+  /quiz-attempts:
+    post:
+      operationId: submitQuizAttempt
+      tags: [students]
+      summary: Submit answers for one lesson quiz
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuizAttemptInput"
+      responses:
+        "200":
+          description: Score, explanations, and earned progress
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuizAttemptResult"
+        "400":
+          description: Invalid answer set
+        "401":
+          description: Sign in required
+        "404":
+          description: Lesson or question not found
+
+  /me:
+    get:
+      operationId: getMyProfile
+      tags: [students]
+      summary: Get or create the signed-in student's profile
+      responses:
+        "200":
+          description: Student profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudentProfile"
+        "401":
+          description: Sign in required
+    patch:
+      operationId: updateMyProfile
+      tags: [students]
+      summary: Update the signed-in student's display name or grade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileUpdate"
+      responses:
+        "200":
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudentProfile"
+        "401":
+          description: Sign in required
+        "404":
+          description: Grade not found
+  /me/dashboard:
+    get:
+      operationId: getMyDashboard
+      tags: [students]
+      summary: Get dashboard totals, learning queue, and recent activity
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudentDashboard"
+        "401":
+          description: Sign in required
+  /me/progress:
+    get:
+      operationId: getMyProgress
+      tags: [students]
+      summary: List the signed-in student's lesson progress
+      responses:
+        "200":
+          description: Progress by lesson
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LessonProgressList"
+        "401":
+          description: Sign in required
+  /leaderboard:
+    get:
+      operationId: getLeaderboard
+      tags: [students]
+      summary: Get real student rankings by earned experience
+      responses:
+        "200":
+          description: Leaderboard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaderboardList"
+
+  /admin/overview:
+    get:
+      operationId: getAdminOverview
+      tags: [admin]
+      summary: Get content and student totals for the admin dashboard
+      responses:
+        "200":
+          description: Admin summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminOverview"
+        "401":
+          description: Sign in required
+        "403":
+          description: Admin role required
+  /admin/grades:
+    get:
+      operationId: listAdminGrades
+      tags: [admin]
+      summary: List grades for curriculum management
+      responses:
+        "200":
+          description: Grades
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GradeList"
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+    post:
+      operationId: createGrade
+      tags: [admin]
+      summary: Create a grade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GradeInput"
+      responses:
+        "201":
+          description: Created grade
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Grade"
+        "400": { description: Invalid grade }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+  /admin/grades/{gradeId}:
+    patch:
+      operationId: updateGrade
+      tags: [admin]
+      summary: Update a grade
+      parameters:
+        - in: path
+          name: gradeId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GradeUpdate"
+      responses:
+        "200":
+          description: Updated grade
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Grade"
+        "400": { description: Invalid grade }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Grade not found }
+    delete:
+      operationId: deleteGrade
+      tags: [admin]
+      summary: Delete an empty grade
+      parameters:
+        - in: path
+          name: gradeId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "204": { description: Grade deleted }
+        "400": { description: Grade still contains subjects }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Grade not found }
+  /admin/subjects:
+    get:
+      operationId: listAdminSubjects
+      tags: [admin]
+      summary: List subjects, optionally filtered by grade
+      parameters:
+        - in: query
+          name: gradeId
+          required: false
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "200":
+          description: Subjects
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubjectList"
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+    post:
+      operationId: createSubject
+      tags: [admin]
+      summary: Create a subject under a grade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubjectInput"
+      responses:
+        "201":
+          description: Created subject
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subject"
+        "400": { description: Invalid subject or grade }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+  /admin/subjects/{subjectId}:
+    patch:
+      operationId: updateSubject
+      tags: [admin]
+      summary: Update a subject
+      parameters:
+        - in: path
+          name: subjectId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubjectUpdate"
+      responses:
+        "200":
+          description: Updated subject
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subject"
+        "400": { description: Invalid subject }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Subject not found }
+    delete:
+      operationId: deleteSubject
+      tags: [admin]
+      summary: Delete an empty subject
+      parameters:
+        - in: path
+          name: subjectId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "204": { description: Subject deleted }
+        "400": { description: Subject still contains units }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Subject not found }
+  /admin/units:
+    get:
+      operationId: listAdminUnits
+      tags: [admin]
+      summary: List units, optionally filtered by subject
+      parameters:
+        - in: query
+          name: subjectId
+          required: false
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "200":
+          description: Units
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnitList"
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+    post:
+      operationId: createUnit
+      tags: [admin]
+      summary: Create a unit under a subject
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UnitInput"
+      responses:
+        "201":
+          description: Created unit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Unit"
+        "400": { description: Invalid unit or subject }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+  /admin/units/{unitId}:
+    patch:
+      operationId: updateUnit
+      tags: [admin]
+      summary: Update a unit
+      parameters:
+        - in: path
+          name: unitId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UnitUpdate"
+      responses:
+        "200":
+          description: Updated unit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Unit"
+        "400": { description: Invalid unit }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Unit not found }
+    delete:
+      operationId: deleteUnit
+      tags: [admin]
+      summary: Delete an empty unit
+      parameters:
+        - in: path
+          name: unitId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "204": { description: Unit deleted }
+        "400": { description: Unit still contains lessons }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Unit not found }
+  /admin/lessons:
+    get:
+      operationId: listAdminLessons
+      tags: [admin]
+      summary: List lessons, optionally filtered by unit
+      parameters:
+        - in: query
+          name: unitId
+          required: false
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "200":
+          description: Lessons
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LessonList"
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+    post:
+      operationId: createLesson
+      tags: [admin]
+      summary: Create a lesson
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LessonInput"
+      responses:
+        "201":
+          description: Created lesson
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lesson"
+        "400": { description: Invalid lesson or unit }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+  /admin/lessons/{lessonId}:
+    patch:
+      operationId: updateLesson
+      tags: [admin]
+      summary: Update a lesson
+      parameters:
+        - in: path
+          name: lessonId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LessonUpdate"
+      responses:
+        "200":
+          description: Updated lesson
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lesson"
+        "400": { description: Invalid lesson }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Lesson not found }
+    delete:
+      operationId: deleteLesson
+      tags: [admin]
+      summary: Delete a lesson and its questions
+      parameters:
+        - in: path
+          name: lessonId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "204": { description: Lesson deleted }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Lesson not found }
+  /admin/questions:
+    get:
+      operationId: listAdminQuestions
+      tags: [admin]
+      summary: List questions for one lesson
+      parameters:
+        - in: query
+          name: lessonId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "200":
+          description: Questions with answer keys for authorized admins
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminQuestionList"
+        "400": { description: Invalid lesson }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+    post:
+      operationId: createQuestion
+      tags: [admin]
+      summary: Add a question to its lesson
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuestionInput"
+      responses:
+        "201":
+          description: Created question
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminQuestion"
+        "400": { description: Invalid question or lesson }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+  /admin/questions/{questionId}:
+    patch:
+      operationId: updateQuestion
+      tags: [admin]
+      summary: Update a question
+      parameters:
+        - in: path
+          name: questionId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuestionUpdate"
+      responses:
+        "200":
+          description: Updated question
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminQuestion"
+        "400": { description: Invalid question }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Question not found }
+    delete:
+      operationId: deleteQuestion
+      tags: [admin]
+      summary: Delete a question
+      parameters:
+        - in: path
+          name: questionId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        "204": { description: Question deleted }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Question not found }
+  /admin/students:
+    get:
+      operationId: listAdminStudents
+      tags: [admin]
+      summary: List student accounts and progress
+      responses:
+        "200":
+          description: Students
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminStudentList"
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+  /admin/students/{studentId}:
+    patch:
+      operationId: updateAdminStudent
+      tags: [admin]
+      summary: Update a student's grade, status, or role
+      parameters:
+        - in: path
+          name: studentId
+          required: true
+          schema: { type: integer, minimum: 1 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudentUpdate"
+      responses:
+        "200":
+          description: Updated student
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminStudent"
+        "400": { description: Invalid student update }
+        "401": { description: Sign in required }
+        "403": { description: Admin role required }
+        "404": { description: Student not found }
+
 components:
   schemas:
     HealthStatus:
       type: object
+      required: [status]
       properties:
-        status:
-          type: string
-      required:
-        - status
+        status: { type: string }
+    ContentStatus:
+      type: string
+      enum: [draft, reviewed, verified]
+    AccountStatus:
+      type: string
+      enum: [active, disabled]
+    StudentRole:
+      type: string
+      enum: [student, admin]
+    QuestionKind:
+      type: string
+      enum: [multiple_choice, true_false]
 
+    Grade:
+      type: object
+      required: [id, gradeNumber, title, stage, contentStatus, subjectCount]
+      properties:
+        id: { type: integer }
+        gradeNumber: { type: integer, minimum: 1, maximum: 12 }
+        title: { type: string }
+        stage: { type: string }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+        subjectCount: { type: integer, minimum: 0 }
+    GradeList:
+      type: array
+      items: { $ref: "#/components/schemas/Grade" }
+    GradeInput:
+      type: object
+      required: [gradeNumber, title, stage, contentStatus]
+      properties:
+        gradeNumber: { type: integer, minimum: 1, maximum: 12 }
+        title: { type: string, minLength: 1, maxLength: 100 }
+        stage: { type: string, minLength: 1, maxLength: 100 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+    GradeUpdate:
+      type: object
+      properties:
+        gradeNumber: { type: integer, minimum: 1, maximum: 12 }
+        title: { type: string, minLength: 1, maxLength: 100 }
+        stage: { type: string, minLength: 1, maxLength: 100 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+
+    Subject:
+      type: object
+      required: [id, gradeId, title, description, unitCount]
+      properties:
+        id: { type: integer }
+        gradeId: { type: integer }
+        title: { type: string }
+        description: { type: ["string", "null"] }
+        unitCount: { type: integer, minimum: 0 }
+    SubjectList:
+      type: array
+      items: { $ref: "#/components/schemas/Subject" }
+    SubjectInput:
+      type: object
+      required: [gradeId, title]
+      properties:
+        gradeId: { type: integer, minimum: 1 }
+        title: { type: string, minLength: 1, maxLength: 120 }
+        description: { type: ["string", "null"] }
+    SubjectUpdate:
+      type: object
+      properties:
+        gradeId: { type: integer, minimum: 1 }
+        title: { type: string, minLength: 1, maxLength: 120 }
+        description: { type: ["string", "null"] }
+
+    Unit:
+      type: object
+      required: [id, subjectId, title, position, contentStatus, lessonCount]
+      properties:
+        id: { type: integer }
+        subjectId: { type: integer }
+        title: { type: string }
+        position: { type: integer, minimum: 0 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+        lessonCount: { type: integer, minimum: 0 }
+    UnitList:
+      type: array
+      items: { $ref: "#/components/schemas/Unit" }
+    UnitInput:
+      type: object
+      required: [subjectId, title, position, contentStatus]
+      properties:
+        subjectId: { type: integer, minimum: 1 }
+        title: { type: string, minLength: 1, maxLength: 160 }
+        position: { type: integer, minimum: 0 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+    UnitUpdate:
+      type: object
+      properties:
+        subjectId: { type: integer, minimum: 1 }
+        title: { type: string, minLength: 1, maxLength: 160 }
+        position: { type: integer, minimum: 0 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+
+    Lesson:
+      type: object
+      required:
+        - id
+        - unitId
+        - title
+        - description
+        - objective
+        - explanation
+        - objectives
+        - durationMinutes
+        - contentStatus
+        - sourceReference
+        - questionCount
+        - isCompleted
+        - bestScore
+        - unitTitle
+        - subjectTitle
+        - gradeNumber
+      properties:
+        id: { type: integer }
+        unitId: { type: integer }
+        title: { type: string }
+        description: { type: ["string", "null"] }
+        objective: { type: string }
+        explanation: { type: string }
+        objectives:
+          type: array
+          items: { type: string }
+        durationMinutes: { type: integer, minimum: 1 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+        sourceReference: { type: ["string", "null"] }
+        questionCount: { type: integer, minimum: 0 }
+        isCompleted: { type: boolean }
+        bestScore: { type: ["integer", "null"], minimum: 0, maximum: 100 }
+        unitTitle: { type: string }
+        subjectTitle: { type: string }
+        gradeNumber: { type: integer, minimum: 1, maximum: 12 }
+    LessonList:
+      type: array
+      items: { $ref: "#/components/schemas/Lesson" }
+    LessonInput:
+      type: object
+      required: [unitId, title, objective, explanation, durationMinutes, contentStatus]
+      properties:
+        unitId: { type: integer, minimum: 1 }
+        title: { type: string, minLength: 1, maxLength: 180 }
+        description: { type: ["string", "null"] }
+        objective: { type: string, minLength: 1 }
+        explanation: { type: string, minLength: 1 }
+        objectives:
+          type: array
+          items: { type: string, minLength: 1 }
+        durationMinutes: { type: integer, minimum: 1, maximum: 300 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+        sourceReference: { type: ["string", "null"] }
+    LessonUpdate:
+      type: object
+      properties:
+        unitId: { type: integer, minimum: 1 }
+        title: { type: string, minLength: 1, maxLength: 180 }
+        description: { type: ["string", "null"] }
+        objective: { type: string, minLength: 1 }
+        explanation: { type: string, minLength: 1 }
+        objectives:
+          type: array
+          items: { type: string, minLength: 1 }
+        durationMinutes: { type: integer, minimum: 1, maximum: 300 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+        sourceReference: { type: ["string", "null"] }
+
+    QuizQuestion:
+      type: object
+      required: [id, prompt, kind, options, position]
+      properties:
+        id: { type: integer }
+        prompt: { type: string }
+        kind: { $ref: "#/components/schemas/QuestionKind" }
+        options:
+          type: array
+          items: { type: string }
+        position: { type: integer, minimum: 0 }
+    QuizQuestionList:
+      type: array
+      items: { $ref: "#/components/schemas/QuizQuestion" }
+    AdminQuestion:
+      type: object
+      required: [id, lessonId, prompt, kind, options, correctOption, explanation, position, contentStatus, sourceReference]
+      properties:
+        id: { type: integer }
+        lessonId: { type: integer }
+        prompt: { type: string }
+        kind: { $ref: "#/components/schemas/QuestionKind" }
+        options:
+          type: array
+          items: { type: string }
+        correctOption: { type: integer, minimum: 0 }
+        explanation: { type: string }
+        position: { type: integer, minimum: 0 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+        sourceReference: { type: ["string", "null"] }
+    AdminQuestionList:
+      type: array
+      items: { $ref: "#/components/schemas/AdminQuestion" }
+    QuestionInput:
+      type: object
+      required: [lessonId, prompt, kind, options, correctOption, explanation, contentStatus]
+      properties:
+        lessonId: { type: integer, minimum: 1 }
+        prompt: { type: string, minLength: 1 }
+        kind: { $ref: "#/components/schemas/QuestionKind" }
+        options:
+          type: array
+          minItems: 2
+          items: { type: string, minLength: 1 }
+        correctOption: { type: integer, minimum: 0 }
+        explanation: { type: string, minLength: 1 }
+        position: { type: integer, minimum: 0 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+        sourceReference: { type: ["string", "null"] }
+    QuestionUpdate:
+      type: object
+      properties:
+        lessonId: { type: integer, minimum: 1 }
+        prompt: { type: string, minLength: 1 }
+        kind: { $ref: "#/components/schemas/QuestionKind" }
+        options:
+          type: array
+          minItems: 2
+          items: { type: string, minLength: 1 }
+        correctOption: { type: integer, minimum: 0 }
+        explanation: { type: string, minLength: 1 }
+        position: { type: integer, minimum: 0 }
+        contentStatus: { $ref: "#/components/schemas/ContentStatus" }
+        sourceReference: { type: ["string", "null"] }
+
+    QuizAnswerInput:
+      type: object
+      required: [questionId, selectedOption]
+      properties:
+        questionId: { type: integer, minimum: 1 }
+        selectedOption: { type: integer, minimum: 0 }
+    QuizAttemptInput:
+      type: object
+      required: [lessonId, answers]
+      properties:
+        lessonId: { type: integer, minimum: 1 }
+        answers:
+          type: array
+          minItems: 1
+          items: { $ref: "#/components/schemas/QuizAnswerInput" }
+    QuizAnswerResult:
+      type: object
+      required: [questionId, prompt, selectedOption, correctOption, isCorrect, explanation]
+      properties:
+        questionId: { type: integer }
+        prompt: { type: string }
+        selectedOption: { type: integer }
+        correctOption: { type: integer }
+        isCorrect: { type: boolean }
+        explanation: { type: string }
+    QuizAttemptResult:
+      type: object
+      required: [attemptId, totalQuestions, correctAnswers, scorePercent, earnedXp, totalXp, level, streakDays, results]
+      properties:
+        attemptId: { type: integer }
+        totalQuestions: { type: integer }
+        correctAnswers: { type: integer }
+        scorePercent: { type: integer, minimum: 0, maximum: 100 }
+        earnedXp: { type: integer, minimum: 0 }
+        totalXp: { type: integer, minimum: 0 }
+        level: { type: integer, minimum: 1 }
+        streakDays: { type: integer, minimum: 0 }
+        results:
+          type: array
+          items: { $ref: "#/components/schemas/QuizAnswerResult" }
+
+    StudentProfile:
+      type: object
+      required: [id, displayName, gradeId, gradeTitle, totalXp, level, streakDays, role, status]
+      properties:
+        id: { type: integer }
+        displayName: { type: string }
+        gradeId: { type: ["integer", "null"] }
+        gradeTitle: { type: ["string", "null"] }
+        totalXp: { type: integer, minimum: 0 }
+        level: { type: integer, minimum: 1 }
+        streakDays: { type: integer, minimum: 0 }
+        role: { $ref: "#/components/schemas/StudentRole" }
+        status: { $ref: "#/components/schemas/AccountStatus" }
+    ProfileUpdate:
+      type: object
+      properties:
+        displayName: { type: string, minLength: 1, maxLength: 100 }
+        gradeId: { type: ["integer", "null"], minimum: 1 }
+    DailyGoal:
+      type: object
+      required: [completedLessons, targetLessons, xpEarned, targetXp]
+      properties:
+        completedLessons: { type: integer, minimum: 0 }
+        targetLessons: { type: integer, minimum: 1 }
+        xpEarned: { type: integer, minimum: 0 }
+        targetXp: { type: integer, minimum: 1 }
+    Activity:
+      type: object
+      required: [id, kind, summary, happenedAt, xpEarned]
+      properties:
+        id: { type: integer }
+        kind: { type: string }
+        summary: { type: string }
+        happenedAt: { type: string, format: date-time }
+        xpEarned: { type: integer, minimum: 0 }
+    StudentDashboard:
+      type: object
+      required: [profile, totalLessons, completedLessons, dailyGoal, continueLearning, recentActivity, contentNotice]
+      properties:
+        profile: { $ref: "#/components/schemas/StudentProfile" }
+        totalLessons: { type: integer, minimum: 0 }
+        completedLessons: { type: integer, minimum: 0 }
+        dailyGoal: { $ref: "#/components/schemas/DailyGoal" }
+        continueLearning:
+          type: array
+          items: { $ref: "#/components/schemas/Lesson" }
+        recentActivity:
+          type: array
+          items: { $ref: "#/components/schemas/Activity" }
+        contentNotice: { type: string }
+    LessonProgress:
+      type: object
+      required: [lessonId, lessonTitle, unitTitle, subjectTitle, gradeNumber, bestScore, attempts, lastAttemptAt, isCompleted]
+      properties:
+        lessonId: { type: integer }
+        lessonTitle: { type: string }
+        unitTitle: { type: string }
+        subjectTitle: { type: string }
+        gradeNumber: { type: integer }
+        bestScore: { type: integer, minimum: 0, maximum: 100 }
+        attempts: { type: integer, minimum: 1 }
+        lastAttemptAt: { type: string, format: date-time }
+        isCompleted: { type: boolean }
+    LessonProgressList:
+      type: array
+      items: { $ref: "#/components/schemas/LessonProgress" }
+    LeaderboardEntry:
+      type: object
+      required: [rank, displayName, gradeTitle, totalXp, level]
+      properties:
+        rank: { type: integer, minimum: 1 }
+        displayName: { type: string }
+        gradeTitle: { type: ["string", "null"] }
+        totalXp: { type: integer, minimum: 0 }
+        level: { type: integer, minimum: 1 }
+    LeaderboardList:
+      type: array
+      items: { $ref: "#/components/schemas/LeaderboardEntry" }
+
+    AdminOverview:
+      type: object
+      required: [studentCount, gradeCount, subjectCount, unitCount, lessonCount, questionCount, draftLessonCount, verifiedLessonCount]
+      properties:
+        studentCount: { type: integer, minimum: 0 }
+        gradeCount: { type: integer, minimum: 0 }
+        subjectCount: { type: integer, minimum: 0 }
+        unitCount: { type: integer, minimum: 0 }
+        lessonCount: { type: integer, minimum: 0 }
+        questionCount: { type: integer, minimum: 0 }
+        draftLessonCount: { type: integer, minimum: 0 }
+        verifiedLessonCount: { type: integer, minimum: 0 }
+    AdminStudent:
+      type: object
+      required: [id, displayName, gradeId, gradeTitle, totalXp, level, role, status, lessonsCompleted]
+      properties:
+        id: { type: integer }
+        displayName: { type: string }
+        gradeId: { type: ["integer", "null"] }
+        gradeTitle: { type: ["string", "null"] }
+        totalXp: { type: integer, minimum: 0 }
+        level: { type: integer, minimum: 1 }
+        role: { $ref: "#/components/schemas/StudentRole" }
+        status: { $ref: "#/components/schemas/AccountStatus" }
+        lessonsCompleted: { type: integer, minimum: 0 }
+    AdminStudentList:
+      type: array
+      items: { $ref: "#/components/schemas/AdminStudent" }
+    StudentUpdate:
+      type: object
+      properties:
+        gradeId: { type: ["integer", "null"], minimum: 1 }
+        role: { $ref: "#/components/schemas/StudentRole" }
+        status: { $ref: "#/components/schemas/AccountStatus" }
