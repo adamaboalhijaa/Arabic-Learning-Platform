@@ -74,12 +74,30 @@ router.post("/", async (req, res): Promise<void> => {
     return;
   }
   const [lesson] = await db
-    .select({ id: lessonsTable.id })
+    .select({
+      id: lessonsTable.id,
+      contentStatus: lessonsTable.contentStatus,
+    })
     .from(lessonsTable)
     .where(eq(lessonsTable.id, parsed.data.lessonId))
     .limit(1);
   if (!lesson) {
     res.status(400).json({ error: "Lesson not found" });
+    return;
+  }
+  if (lesson.contentStatus === "verified") {
+    res.status(400).json({
+      error: "Move the lesson back to draft before editing its questions.",
+    });
+    return;
+  }
+  if (
+    parsed.data.contentStatus === "verified" &&
+    !parsed.data.sourceReference?.trim()
+  ) {
+    res.status(400).json({
+      error: "A source reference is required before verifying this question.",
+    });
     return;
   }
   const [created] = await db
@@ -124,6 +142,39 @@ router.patch("/:questionId", async (req, res): Promise<void> => {
     res.status(404).json({ error: "Question not found" });
     return;
   }
+  const targetLessonId = parsed.data.lessonId ?? current.lessonId;
+  const [originalLesson] = await db
+    .select({
+      id: lessonsTable.id,
+      contentStatus: lessonsTable.contentStatus,
+    })
+    .from(lessonsTable)
+    .where(eq(lessonsTable.id, current.lessonId))
+    .limit(1);
+  const [targetLesson] =
+    targetLessonId === current.lessonId
+      ? [originalLesson]
+      : await db
+          .select({
+            id: lessonsTable.id,
+            contentStatus: lessonsTable.contentStatus,
+          })
+          .from(lessonsTable)
+          .where(eq(lessonsTable.id, targetLessonId))
+          .limit(1);
+  if (!targetLesson) {
+    res.status(400).json({ error: "Lesson not found" });
+    return;
+  }
+  if (
+    originalLesson?.contentStatus === "verified" ||
+    targetLesson.contentStatus === "verified"
+  ) {
+    res.status(400).json({
+      error: "Move the lesson back to draft before editing its questions.",
+    });
+    return;
+  }
   const shapeError = validateQuestionShape({
     kind: parsed.data.kind ?? current.kind,
     options: parsed.data.options ?? current.options,
@@ -133,16 +184,16 @@ router.patch("/:questionId", async (req, res): Promise<void> => {
     res.status(400).json({ error: shapeError });
     return;
   }
-  if (parsed.data.lessonId !== undefined) {
-    const [lesson] = await db
-      .select({ id: lessonsTable.id })
-      .from(lessonsTable)
-      .where(eq(lessonsTable.id, parsed.data.lessonId))
-      .limit(1);
-    if (!lesson) {
-      res.status(400).json({ error: "Lesson not found" });
-      return;
-    }
+  const finalStatus = parsed.data.contentStatus ?? current.contentStatus;
+  const finalSource =
+    parsed.data.sourceReference !== undefined
+      ? parsed.data.sourceReference
+      : current.sourceReference;
+  if (finalStatus === "verified" && !finalSource?.trim()) {
+    res.status(400).json({
+      error: "A source reference is required before verifying this question.",
+    });
+    return;
   }
   const [updated] = await db
     .update(questionsTable)
@@ -169,14 +220,30 @@ router.delete("/:questionId", async (req, res): Promise<void> => {
     res.status(400).json({ error: params.error.message });
     return;
   }
-  const [deleted] = await db
-    .delete(questionsTable)
+  const [question] = await db
+    .select({
+      id: questionsTable.id,
+      lessonId: questionsTable.lessonId,
+    })
+    .from(questionsTable)
     .where(eq(questionsTable.id, params.data.questionId))
-    .returning({ id: questionsTable.id });
-  if (!deleted) {
+    .limit(1);
+  if (!question) {
     res.status(404).json({ error: "Question not found" });
     return;
   }
+  const [lesson] = await db
+    .select({ contentStatus: lessonsTable.contentStatus })
+    .from(lessonsTable)
+    .where(eq(lessonsTable.id, question.lessonId))
+    .limit(1);
+  if (lesson?.contentStatus === "verified") {
+    res.status(400).json({
+      error: "Move the lesson back to draft before editing its questions.",
+    });
+    return;
+  }
+  await db.delete(questionsTable).where(eq(questionsTable.id, question.id));
   res.sendStatus(204);
 });
 

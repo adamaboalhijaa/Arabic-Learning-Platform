@@ -25,6 +25,7 @@ import {
   lessonsTable,
   questionsTable,
   quizAttemptsTable,
+  studentAchievementsTable,
   studentAccountsTable,
   subjectsTable,
   unitsTable,
@@ -36,6 +37,29 @@ import {
 import { getLessonRows } from "../lib/lessonQueries";
 
 const router: IRouter = Router();
+
+const achievementCatalog: Record<string, { title: string; description: string }> = {
+  first_quiz: {
+    title: "أول اختبار",
+    description: "أكملت أول اختبار لك.",
+  },
+  first_lesson: {
+    title: "خطوة مكتملة",
+    description: "أنهيت درسًا بنتيجة 70٪ أو أكثر.",
+  },
+  five_lessons: {
+    title: "مثابر",
+    description: "أكملت خمسة دروس.",
+  },
+  week_streak: {
+    title: "أسبوع من التعلّم",
+    description: "حافظت على سلسلة تعلّم لمدة سبعة أيام.",
+  },
+  xp_500: {
+    title: "جامع الخبرة",
+    description: "وصلت إلى 500 نقطة خبرة.",
+  },
+};
 
 function levelFor(totalXp: number): number {
   return Math.floor(totalXp / 100) + 1;
@@ -210,6 +234,14 @@ router.get(
       .where(eq(quizAttemptsTable.studentId, account.id))
       .orderBy(desc(quizAttemptsTable.completedAt))
       .limit(5);
+    const achievementRows = await db
+      .select({
+        code: studentAchievementsTable.code,
+        earnedAt: studentAchievementsTable.earnedAt,
+      })
+      .from(studentAchievementsTable)
+      .where(eq(studentAchievementsTable.studentId, account.id))
+      .orderBy(asc(studentAchievementsTable.earnedAt));
 
     res.json(
       GetMyDashboardResponse.parse({
@@ -233,6 +265,12 @@ router.get(
           happenedAt: row.happenedAt,
           xpEarned: row.xpEarned,
         })),
+        achievements: achievementRows.flatMap((achievement) => {
+          const details = achievementCatalog[achievement.code];
+          return details
+            ? [{ code: achievement.code, ...details, earnedAt: achievement.earnedAt }]
+            : [];
+        }),
         contentNotice:
           "تظهر حالة كل درس ومصدره بوضوح. المحتوى غير الموثق تجريبي وليس منهجًا أردنيًا معتمدًا.",
       }),
@@ -376,6 +414,14 @@ router.post(
           ),
         )
         .limit(1);
+      const completedLessonsBefore = await tx
+        .select({
+          lessonId: quizAttemptsTable.lessonId,
+          bestScore: sql<number>`max(${quizAttemptsTable.scorePercent})::int`,
+        })
+        .from(quizAttemptsTable)
+        .where(eq(quizAttemptsTable.studentId, account.id))
+        .groupBy(quizAttemptsTable.lessonId);
       const earnedXp =
         correctAnswers * 10 + (scorePercent >= 70 && !previousCompletion ? 20 : 0);
       const streakDays =
@@ -407,6 +453,28 @@ router.post(
         })
         .where(eq(studentAccountsTable.id, account.id))
         .returning();
+      const completedCount =
+        completedLessonsBefore.filter((item) => item.bestScore >= 70).length +
+        (scorePercent >= 70 && !previousCompletion ? 1 : 0);
+      const newlyEarnedCodes = ["first_quiz"];
+      if (completedCount >= 1) newlyEarnedCodes.push("first_lesson");
+      if (completedCount >= 5) newlyEarnedCodes.push("five_lessons");
+      if (streakDays >= 7) newlyEarnedCodes.push("week_streak");
+      if (updatedAccount.totalXp >= 500) newlyEarnedCodes.push("xp_500");
+      await tx
+        .insert(studentAchievementsTable)
+        .values(
+          newlyEarnedCodes.map((code) => ({
+            studentId: account.id,
+            code,
+          })),
+        )
+        .onConflictDoNothing({
+          target: [
+            studentAchievementsTable.studentId,
+            studentAchievementsTable.code,
+          ],
+        });
       return {
         attemptId: attempt.id,
         totalQuestions: questions.length,

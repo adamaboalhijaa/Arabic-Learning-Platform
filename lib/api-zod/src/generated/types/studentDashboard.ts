@@ -5,6 +5,7 @@
  * Curriculum, lesson practice, student progress, and admin content tools.
  * OpenAPI spec version: 0.2.0
  */
+import type { Achievement } from './achievement';
 import type { Activity } from './activity';
 import type { DailyGoal } from './dailyGoal';
 import type { Lesson } from './lesson';
@@ -19,5 +20,6 @@ export interface StudentDashboard {
   dailyGoal: DailyGoal;
   continueLearning: Lesson[];
   recentActivity: Activity[];
+  achievements: Achievement[];
   contentNotice: string;
 }

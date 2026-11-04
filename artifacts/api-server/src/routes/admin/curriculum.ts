@@ -583,6 +583,13 @@ router.post("/lessons", async (req, res): Promise<void> => {
     res.status(400).json({ error: "Unit not found" });
     return;
   }
+  if (parsed.data.contentStatus === "verified") {
+    res.status(400).json({
+      error:
+        "Create the lesson as a draft, add sourced verified questions, then verify it.",
+    });
+    return;
+  }
   const [created] = await db
     .insert(lessonsTable)
     .values(parsed.data)
@@ -602,13 +609,64 @@ router.patch("/lessons/:lessonId", async (req, res): Promise<void> => {
     return;
   }
   const [existing] = await db
-    .select({ id: lessonsTable.id })
+    .select({
+      id: lessonsTable.id,
+      contentStatus: lessonsTable.contentStatus,
+      sourceReference: lessonsTable.sourceReference,
+    })
     .from(lessonsTable)
     .where(eq(lessonsTable.id, params.data.lessonId))
     .limit(1);
   if (!existing) {
     res.status(404).json({ error: "Lesson not found" });
     return;
+  }
+  const finalStatus = parsed.data.contentStatus ?? existing.contentStatus;
+  const finalSource =
+    parsed.data.sourceReference !== undefined
+      ? parsed.data.sourceReference
+      : existing.sourceReference;
+  const hasContentEdits = Object.keys(parsed.data).some(
+    (key) => key !== "contentStatus",
+  );
+  if (
+    existing.contentStatus === "verified" &&
+    finalStatus === "verified" &&
+    hasContentEdits
+  ) {
+    res.status(400).json({
+      error: "Move the lesson back to draft before editing verified content.",
+    });
+    return;
+  }
+  if (finalStatus === "verified") {
+    if (!finalSource?.trim()) {
+      res.status(400).json({
+        error: "A source reference is required before verifying this lesson.",
+      });
+      return;
+    }
+    const questions = await db
+      .select({
+        contentStatus: questionsTable.contentStatus,
+        sourceReference: questionsTable.sourceReference,
+      })
+      .from(questionsTable)
+      .where(eq(questionsTable.lessonId, existing.id));
+    if (
+      questions.length === 0 ||
+      questions.some(
+        (question) =>
+          question.contentStatus !== "verified" ||
+          !question.sourceReference?.trim(),
+      )
+    ) {
+      res.status(400).json({
+        error:
+          "Verify every question and add its source before verifying the lesson.",
+      });
+      return;
+    }
   }
   if (parsed.data.unitId !== undefined) {
     const [unit] = await db

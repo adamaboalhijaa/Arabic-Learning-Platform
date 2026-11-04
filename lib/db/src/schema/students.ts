@@ -64,14 +64,39 @@ export const quizAttemptsTable = pgTable(
   ],
 );
 
+export const studentAchievementsTable = pgTable(
+  "student_achievements",
+  {
+    id: serial("id").primaryKey(),
+    studentId: integer("student_id")
+      .notNull()
+      .references(() => studentAccountsTable.id, { onDelete: "cascade" }),
+    code: text("code").notNull(),
+    earnedAt: timestamp("earned_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("student_achievements_student_code_uq").on(
+      table.studentId,
+      table.code,
+    ),
+    index("student_achievements_student_idx").on(table.studentId, table.earnedAt),
+  ],
+);
+
 export const insertStudentAccountSchema = createInsertSchema(
   studentAccountsTable,
 ).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertQuizAttemptSchema = createInsertSchema(quizAttemptsTable).omit({
   id: true,
 });
+export const insertStudentAchievementSchema = createInsertSchema(
+  studentAchievementsTable,
+).omit({ id: true, earnedAt: true });
 
 export type StudentAccount = typeof studentAccountsTable.$inferSelect;
 export type InsertStudentAccount = typeof studentAccountsTable.$inferInsert;
 export type QuizAttempt = typeof quizAttemptsTable.$inferSelect;
 export type InsertQuizAttempt = typeof quizAttemptsTable.$inferInsert;
+export type StudentAchievement = typeof studentAchievementsTable.$inferSelect;

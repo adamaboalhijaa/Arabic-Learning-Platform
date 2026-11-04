@@ -423,6 +423,13 @@ export interface Activity {
   xpEarned: number;
 }
 
+export interface Achievement {
+  code: string;
+  title: string;
+  description: string;
+  earnedAt: string;
+}
+
 export interface StudentDashboard {
   profile: StudentProfile;
   /** @minimum 0 */
@@ -432,6 +439,7 @@ export interface StudentDashboard {
   dailyGoal: DailyGoal;
   continueLearning: Lesson[];
   recentActivity: Activity[];
+  achievements: Achievement[];
   contentNotice: string;
 }
 

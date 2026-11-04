@@ -7,6 +7,7 @@
  */
 
 export * from './accountStatus';
+export * from './achievement';
 export * from './activity';
 export * from './adminOverview';
 export * from './adminQuestion';

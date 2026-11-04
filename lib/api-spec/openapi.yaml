@@ -1001,9 +1001,17 @@ components:
         summary: { type: string }
         happenedAt: { type: string, format: date-time }
         xpEarned: { type: integer, minimum: 0 }
+    Achievement:
+      type: object
+      required: [code, title, description, earnedAt]
+      properties:
+        code: { type: string }
+        title: { type: string }
+        description: { type: string }
+        earnedAt: { type: string, format: date-time }
     StudentDashboard:
       type: object
-      required: [profile, totalLessons, completedLessons, dailyGoal, continueLearning, recentActivity, contentNotice]
+      required: [profile, totalLessons, completedLessons, dailyGoal, continueLearning, recentActivity, achievements, contentNotice]
       properties:
         profile: { $ref: "#/components/schemas/StudentProfile" }
         totalLessons: { type: integer, minimum: 0 }
@@ -1015,6 +1023,9 @@ components:
         recentActivity:
           type: array
           items: { $ref: "#/components/schemas/Activity" }
+        achievements:
+          type: array
+          items: { $ref: "#/components/schemas/Achievement" }
         contentNotice: { type: string }
     LessonProgress:
       type: object
