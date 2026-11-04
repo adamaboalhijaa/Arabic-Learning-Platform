@@ -17,8 +17,7 @@ async function grantConfiguredInitialAdmin(
     return account;
   }
 
-  const client = await clerkClient();
-  const user = await client.users.getUser(account.clerkUserId);
+  const user = await clerkClient.users.getUser(account.clerkUserId);
   bootstrapEmailChecks.add(account.clerkUserId);
   if (user.primaryEmailAddress?.verification?.status !== "verified") {
     return account;

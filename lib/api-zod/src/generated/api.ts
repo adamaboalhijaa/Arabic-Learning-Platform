@@ -373,6 +373,12 @@ export const GetMyDashboardResponse = zod.object({
   "happenedAt": zod.coerce.date(),
   "xpEarned": zod.number().int().min(getMyDashboardResponseRecentActivityItemXpEarnedMin)
 })),
+  "achievements": zod.array(zod.object({
+  "code": zod.string(),
+  "title": zod.string(),
+  "description": zod.string(),
+  "earnedAt": zod.coerce.date()
+})),
   "contentNotice": zod.string()
 })
 

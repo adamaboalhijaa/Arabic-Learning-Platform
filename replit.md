@@ -1,44 +1,60 @@
-# [Project name]
+# أكاديمية التفوق
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Arabic-first learning platform for Jordanian students, with lesson-specific quizzes, saved progress, and verified curriculum content.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/api-server run dev` — run the shared API server
+- `pnpm --filter @workspace/tafaweq-learning run dev` — run the web app through its managed workflow
 - `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
+- `pnpm --filter @workspace/tafaweq-learning run build` — build the web app; artifact workflows provide `PORT` and `BASE_PATH`
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- Artifact-managed workflows provide `PORT`, `BASE_PATH`, and the managed database connection.
+- `INITIAL_ADMIN_EMAIL` identifies the verified Clerk account that receives the initial admin role.
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
+- Web: React 19 + Vite, Wouter, TanStack Query, Clerk
+- API: Express 5 + Clerk middleware
 - DB: PostgreSQL + Drizzle ORM
 - Validation: Zod (`zod/v4`), `drizzle-zod`
 - API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Build: Vite for the web app, esbuild for the API
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `lib/api-spec/openapi.yaml` is the source of truth for API contracts.
+- `lib/db/src/schema/` contains the curriculum, student, quiz-attempt, and achievement tables.
+- `artifacts/api-server/src/routes/` contains public curriculum, student, and admin endpoints.
+- `artifacts/tafaweq-learning/src/App.tsx` contains the Arabic RTL web experience; `src/index.css` holds its visual system.
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Curriculum records start as drafts. Lessons and questions need source references before they can be marked verified.
+- A lesson cannot be verified until it has at least one sourced, verified question; verified lesson quizzes cannot be edited until the lesson is returned to draft.
+- Quiz answer keys are private until submission, and submissions are scored on the server against questions belonging to that lesson.
+- Student roles come from Clerk sessions and database records; admin authorization is enforced by API middleware.
+- XP is awarded per correct answer, with a one-time bonus for a passing lesson. Completion requires at least 70%.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Students can browse grade → subject → unit → lesson, review objectives and explanations, take lesson-specific quizzes, and track XP, levels, streaks, progress, leaderboard position, and earned badges.
+- Admins can manage curriculum records, question banks, and student access.
+- No curriculum content is seeded. Content must be entered with a source and verified by an authorized admin before it is presented as verified.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Keep the experience Arabic-first and RTL.
+- Never present invented or unverified curriculum content as official Jordanian curriculum.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Run API codegen after changing `lib/api-spec/openapi.yaml`.
+- Push DB changes only to the development database using the DB package command above; production schema changes require a separate migration plan.
+- React and ReactDOM are pinned locally at 19.1.4 for Clerk peer compatibility. Do not change the workspace-wide React catalog, which is intentionally pinned for other artifacts.
+- Vite's generated `.vite` dependency cache can retain an older ReactDOM version after changing React versions; clear that cache and restart the web workflow if a mismatch overlay appears.
 
 ## Pointers
 
