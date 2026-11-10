@@ -3,6 +3,15 @@
 
 export type MathQuestionKind = 'mcq' | 'truefalse';
 
+/** مستوى صعوبة السؤال: سهل، متوسط، متقدم. */
+export type MathQuestionLevel = 'easy' | 'medium' | 'hard';
+
+export const QUESTION_LEVEL_LABELS: Record<MathQuestionLevel, string> = {
+  easy: 'سهل',
+  medium: 'متوسط',
+  hard: 'متقدم',
+};
+
 export interface MathQuestion {
   /** معرّف ثابت مثل m10-u1-l1-q1 */
   id: string;
@@ -17,6 +26,8 @@ export interface MathQuestion {
   explanation: string;
   /** مرجع الصفحة في كتاب الطالب */
   page: string;
+  /** مستوى الصعوبة؛ إن لم يُحدَّد يُستنتج عند تحميل المنهاج */
+  level?: MathQuestionLevel;
 }
 
 export interface MathFormula {
@@ -54,3 +65,13 @@ export interface MathUnit {
 }
 
 export const TRUE_FALSE_OPTIONS = ['صح', 'خطأ'] as const;
+
+/** مستوى السؤال الفعلي، مع قيمة افتراضية آمنة. */
+export function questionLevel(question: MathQuestion): MathQuestionLevel {
+  return question.level ?? 'medium';
+}
+
+/** مرجع الدرس داخل الكتاب عندما لا تتوفر أرقام صفحات دقيقة. */
+export function lessonReference(unitTitle: string, lessonTitle: string): string {
+  return `${unitTitle} — ${lessonTitle}`;
+}
