@@ -20,3 +20,4 @@ RUN apk upgrade --no-cache
 COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/artifacts/tafaweq-learning/dist/public /usr/share/nginx/html
 EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
