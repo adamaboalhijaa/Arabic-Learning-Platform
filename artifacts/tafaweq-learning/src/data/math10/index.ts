@@ -7,6 +7,8 @@ import { unit5 } from './unit5';
 import { unit6 } from './unit6';
 import { unit7 } from './unit7';
 import { unit8 } from './unit8';
+import { EXTRA_FIRST } from './extra-first';
+import { EXTRA_SECOND } from './extra-second';
 
 export type {
   MathLesson,
@@ -17,10 +19,35 @@ export type {
   MathQuestionKind,
   MathQuestionLevel,
 } from './types';
+import { questionLevel } from './types';
 export { QUESTION_LEVEL_LABELS, questionLevel } from './types';
 
+const BASE_UNITS: MathUnit[] = [unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8];
+
+const LEVEL_ORDER: Record<'easy' | 'medium' | 'hard', number> = { easy: 0, medium: 1, hard: 2 };
+
+/** يدمج الأسئلة الأساسية مع أسئلة الصعوبة الإضافية ويرتّبها: سهل ثم متوسط ثم متقدم. */
+function mergeQuestions(lessonId: string, base: MathQuestion[]): MathQuestion[] {
+  const extra = [...(EXTRA_FIRST[lessonId] ?? []), ...(EXTRA_SECOND[lessonId] ?? [])];
+  return [...base, ...extra].sort(
+    (a, b) => LEVEL_ORDER[questionLevel(a)] - LEVEL_ORDER[questionLevel(b)],
+  );
+}
+
 // رياضيات الصف العاشر — المنهاج الأردني (الوحدات 1–4 الفصل الأول، والوحدات 5–8 الفصل الثاني)
-export const MATH10_UNITS: MathUnit[] = [unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8];
+export const MATH10_UNITS: MathUnit[] = BASE_UNITS.map((unit) => ({
+  ...unit,
+  lessons: unit.lessons.map((lesson) => ({
+    ...lesson,
+    questions: mergeQuestions(lesson.id, lesson.questions),
+  })),
+}));
+
+/** الفصلان الدراسيان مع وحدات كل فصل، لعرض المنهاج مقسّمًا كما في الكتاب. */
+export const MATH10_SEMESTERS: { number: number; title: string; units: MathUnit[] }[] = [
+  { number: 1, title: 'الفصل الدراسي الأول', units: MATH10_UNITS.slice(0, 4) },
+  { number: 2, title: 'الفصل الدراسي الثاني', units: MATH10_UNITS.slice(4) },
+];
 
 export const MATH10_META = {
   subject: 'الرياضيات',
@@ -46,6 +73,27 @@ export function findUnitOfLesson(lessonId: string): MathUnit | undefined {
 
 export function lessonQuestionCount(): number {
   return MATH10_LESSONS.reduce((sum, lesson) => sum + lesson.questions.length, 0);
+}
+
+/** عدد أسئلة الدرس موزّعًا على درجات الصعوبة. */
+export function lessonLevelCounts(lesson: MathLesson): { easy: number; medium: number; hard: number } {
+  const counts = { easy: 0, medium: 0, hard: 0 };
+  for (const question of lesson.questions) {
+    counts[questionLevel(question)] += 1;
+  }
+  return counts;
+}
+
+/** عدد أسئلة المنهاج كاملًا موزّعًا على درجات الصعوبة. */
+export function math10LevelTotals(): { easy: number; medium: number; hard: number } {
+  const totals = { easy: 0, medium: 0, hard: 0 };
+  for (const lesson of MATH10_LESSONS) {
+    const counts = lessonLevelCounts(lesson);
+    totals.easy += counts.easy;
+    totals.medium += counts.medium;
+    totals.hard += counts.hard;
+  }
+  return totals;
 }
 
 /** عدد أسئلة وحدة معيّنة. */
@@ -103,6 +151,20 @@ export function validateMathContent(): MathContentIssue[] {
         issues.push({ questionId: lesson.id, message: 'درس بلا شرح' });
       }
 
+      const levels = new Set(lesson.questions.map((question) => questionLevel(question)));
+      if (!levels.has('easy')) {
+        issues.push({ questionId: lesson.id, message: 'درس بلا سؤال سهل' });
+      }
+      if (!levels.has('hard')) {
+        issues.push({ questionId: lesson.id, message: 'درس بلا سؤال متقدم' });
+      }
+      if (!lesson.questions.some((question) => question.kind === 'mcq')) {
+        issues.push({ questionId: lesson.id, message: 'درس بلا سؤال اختيار من متعدد' });
+      }
+      if (!lesson.questions.some((question) => question.kind === 'truefalse')) {
+        issues.push({ questionId: lesson.id, message: 'درس بلا سؤال صح وخطأ' });
+      }
+
       for (const question of lesson.questions) {
         if (questionIds.has(question.id)) {
           issues.push({ questionId: question.id, message: 'معرّف سؤال مكرر' });
@@ -133,6 +195,13 @@ export function validateMathContent(): MathContentIssue[] {
           issues.push({ questionId: question.id, message: 'سؤال بلا نص' });
         }
       }
+    }
+  }
+
+  const knownLessons = new Set(MATH10_LESSONS.map((lesson) => lesson.id));
+  for (const lessonId of [...Object.keys(EXTRA_FIRST), ...Object.keys(EXTRA_SECOND)]) {
+    if (!knownLessons.has(lessonId)) {
+      issues.push({ questionId: lessonId, message: 'أسئلة إضافية مرتبطة بدرس غير موجود' });
     }
   }
 
