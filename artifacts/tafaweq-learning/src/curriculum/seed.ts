@@ -35,8 +35,13 @@ function toCurriculumQuestion(question: MathQuestion, lessonId: string): Curricu
   };
 }
 
-function toCurriculumLesson(unit: MathUnitLike, unitId: string, index: number): CurriculumLesson {
-  const lessonId = stableId('l', `${unitId}|${unit.title}|${index}`);
+function toCurriculumLesson(
+  unit: MathUnitLike,
+  unitId: string,
+  lesson: MathUnitLike['lessons'][number],
+  index: number,
+): CurriculumLesson {
+  const lessonId = stableId('l', `${unitId}|${lesson.title}|${index}`);
   return {
     id: lessonId,
     title: lesson.title,
@@ -92,7 +97,7 @@ export function seedMathContent(state: CurriculumState): CurriculumState {
       id: unitId,
       title: unit.title,
       lessons: (unit as unknown as MathUnitLike).lessons.map((lesson, lessonIndex) =>
-        toCurriculumLesson(unit as unknown as MathUnitLike, unitId, lessonIndex),
+        toCurriculumLesson(unit as unknown as MathUnitLike, unitId, lesson, lessonIndex),
       ),
     };
     semester.units.push(curriculumUnit);
