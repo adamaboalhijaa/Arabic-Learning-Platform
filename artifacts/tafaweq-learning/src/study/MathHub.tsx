@@ -1,7 +1,15 @@
 import { Link } from 'wouter';
 import { ArrowLeft, BookOpen, BookOpenCheck, CheckCircle2, Clock3, Target, Zap } from 'lucide-react';
 import { MathText } from '../MathText';
-import { MATH10_LESSONS, MATH10_META, MATH10_UNITS, lessonQuestionCount } from '../data/math10';
+import {
+  MATH10_LESSONS,
+  MATH10_META,
+  MATH10_SEMESTERS,
+  MATH10_UNITS,
+  lessonLevelCounts,
+  lessonQuestionCount,
+  math10LevelTotals,
+} from '../data/math10';
 import { levelInfo, lessonScore, useMathProgress } from '../lib/math-progress';
 import { StudyShell } from './StudyShell';
 
@@ -11,6 +19,7 @@ export function MathHub() {
   const totalQuestions = lessonQuestionCount();
   const mastered = Object.values(progress.lessons).filter((lesson) => lesson.mastered).length;
   const answered = Object.values(progress.answers).filter((answer) => answer.correct).length;
+  const levelTotals = math10LevelTotals();
 
   return (
     <StudyShell>
@@ -18,8 +27,11 @@ export function MathHub() {
         <p className="study-eyebrow">{MATH10_META.country} · {MATH10_META.semester}</p>
         <h1 className="study-title">الرياضيات — الصف العاشر</h1>
         <p className="study-sub">
-          أربع وحدات و{MATH10_LESSONS.length} درسًا، وكل درس مرتبط بأسئلته الخاصة: اختيار من متعدد وصح وخطأ،
-          سؤال واحد في كل شاشة، مع تصحيح فوري وشرح مبسّط ومرجع صفحة الكتاب.
+          {MATH10_UNITS.length} وحدات و{MATH10_LESSONS.length} درسًا موزّعة على الفصلين الدراسيين، وكل درس مرتبط بأسئلته
+          الخاصة: اختيار من متعدد وصح وخطأ، سؤال واحد في كل شاشة، مع تصحيح فوري وشرح مبسّط ومرجع صفحة الكتاب.
+        </p>
+        <p className="study-meta" style={{ marginTop: 8 }} data-testid="math-level-totals">
+          بنك الأسئلة بثلاث درجات صعوبة: {levelTotals.easy} سهلًا · {levelTotals.medium} متوسطًا · {levelTotals.hard} متقدمًا.
         </p>
 
         <div className="study-stats">
@@ -42,8 +54,22 @@ export function MathHub() {
         </div>
       </section>
 
-      <div className="study-grid">
-        {MATH10_UNITS.map((unit, unitIndex) => {
+      {MATH10_SEMESTERS.map((semester) => (
+        <section key={semester.number} style={{ marginTop: 26 }} data-testid={`semester-${semester.number}`}>
+          <div className="study-unit-head" style={{ marginBottom: 12 }}>
+            <h2 className="study-card-title" style={{ margin: 0 }}>{semester.title}</h2>
+            <span className="study-meta">
+              {semester.units.length} وحدات ·{' '}
+              {semester.units.reduce(
+                (sum, unit) => sum + unit.lessons.reduce((s, lesson) => s + lesson.questions.length, 0),
+                0,
+              )}{' '}
+              سؤالًا
+            </span>
+          </div>
+          <div className="study-grid">
+        {semester.units.map((unit) => {
+          const unitIndex = MATH10_UNITS.findIndex((item) => item.id === unit.id);
           const unitMastered = unit.lessons.filter((lesson) => progress.lessons[lesson.id]?.mastered).length;
           return (
             <article className="study-card" key={unit.id}>
@@ -58,6 +84,7 @@ export function MathHub() {
                 {unit.lessons.map((lesson, lessonIndex) => {
                   const score = lessonScore(progress, lesson.id, lesson.questions.length);
                   const record = progress.lessons[lesson.id];
+                  const levels = lessonLevelCounts(lesson);
                   return (
                     <Link
                       key={lesson.id}
@@ -71,6 +98,7 @@ export function MathHub() {
                         <small>
                           <Clock3 size={12} style={{ verticalAlign: '-1px', marginInlineEnd: 4 }} />
                           {lesson.durationMinutes} دقيقة · {lesson.page ? `ص ${lesson.page} · ` : ''}{lesson.questions.length} أسئلة
+                          {' '}· سهل {levels.easy} · متوسط {levels.medium} · متقدم {levels.hard}
                         </small>
                       </span>
                       <span className="study-row-end">
@@ -96,7 +124,9 @@ export function MathHub() {
             </article>
           );
         })}
-      </div>
+          </div>
+        </section>
+      ))}
 
       <section className="study-card" style={{ marginTop: 20 }}>
         <h2 className="study-card-title">كيف يعمل قسم الرياضيات؟</h2>
