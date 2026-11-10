@@ -47,7 +47,7 @@ export function StudyShell({ children }: { children: ReactNode }) {
       <main className="study-main">{children}</main>
 
       <footer className="study-footer">
-        <span>أكاديمية التفوّق · الرياضيات للصف العاشر — الفصل الأول، المنهاج الأردني</span>
+        <span>أكاديمية التفوّق · الرياضيات للصف العاشر — المنهاج الأردني</span>
         <span><Sparkles size={13} style={{ verticalAlign: '-2px', marginInlineEnd: 5 }} />أسئلة مرتبطة بكل درس، وتصحيح فوري مع شرح.</span>
       </footer>
     </div>

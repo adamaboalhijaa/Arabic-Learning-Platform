@@ -192,7 +192,7 @@ function handle(pathname: string, method: string, body: unknown): Response | nul
           id: GRADE_ID,
           gradeNumber: GRADE_ID,
           title: 'الصف العاشر',
-          stage: 'الفصل الأول',
+          stage: 'الفصلان الأول والثاني',
           contentStatus: 'verified',
           subjectCount: 1,
         },
@@ -204,7 +204,7 @@ function handle(pathname: string, method: string, body: unknown): Response | nul
           id: SUBJECT_ID,
           gradeId: GRADE_ID,
           title: 'الرياضيات',
-          description: 'كتاب الطالب — الرياضيات للصف العاشر، الفصل الأول',
+          description: 'كتاب الطالب — الرياضيات للصف العاشر',
           unitCount: MATH10_UNITS.length,
         },
       ]);
