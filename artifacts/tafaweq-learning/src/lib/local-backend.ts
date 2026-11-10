@@ -10,7 +10,7 @@
  */
 import { MATH10_UNITS } from '../data/math10';
 import type { MathLesson, MathUnit } from '../data/math10';
-import { XP_PER_CORRECT, getProgress, lessonScore, levelInfo } from './math-progress';
+import { completeLesson, getProgress, lessonScore, levelInfo, recordAnswer } from './math-progress';
 import { readLocalStudent } from './local-session';
 
 const GRADE_ID = 10;
@@ -156,7 +156,15 @@ function submitAttempt(rawBody: unknown): Response {
   const correctAnswers = results.filter((result) => result.isCorrect).length;
   const totalQuestions = results.length;
   const scorePercent = totalQuestions ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
-  const earnedXp = correctAnswers * XP_PER_CORRECT;
+
+  // حفظ التقدّم فعليًا: XP لكل إجابة صحيحة أولى + مكافآت الإتقان والكمال للدرس.
+  let earnedXp = 0;
+  results.forEach((result) => {
+    earnedXp += recordAnswer(String(result.questionId), result.isCorrect);
+  });
+  earnedXp += completeLesson(entry.lesson.id, correctAnswers, totalQuestions);
+
+  const progress = getProgress();
 
   return json({
     attemptId: Date.now(),
@@ -164,8 +172,8 @@ function submitAttempt(rawBody: unknown): Response {
     correctAnswers,
     scorePercent,
     earnedXp,
-    totalXp: getProgress().xp + earnedXp,
-    level: levelInfo(getProgress().xp + earnedXp).level,
+    totalXp: progress.xp,
+    level: levelInfo(progress.xp).level,
     streakDays: 1,
     results,
   });
