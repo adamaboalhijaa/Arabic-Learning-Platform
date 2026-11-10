@@ -9,6 +9,13 @@
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
   "private": true,
+  "pnpm": {
+    "overrides": {
+      "undici": "7.30.1",
+      "body-parser": "2.4.0",
+      "zod@^4.0.0": "4.6.6"
+    }
+  },
   "dependencies": {
     "@replit/connectors-sdk": "^0.4.3"
   },
