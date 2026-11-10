@@ -51,7 +51,7 @@ export function MathUnitPage() {
             <article className="study-card" key={lesson.id}>
               <div className="study-unit-head">
                 <span className="study-badge">الدرس {lessonIndex + 1}</span>
-                <span className="study-meta">ص {lesson.page} · {lesson.durationMinutes} دقيقة · {lesson.questions.length} أسئلة</span>
+                <span className="study-meta">{lesson.page ? `ص ${lesson.page} · ` : ''}{lesson.durationMinutes} دقيقة · {lesson.questions.length} أسئلة</span>
               </div>
               <h2 className="study-card-title">{lesson.title}</h2>
               <p className="study-sub" style={{ fontSize: 14, margin: '4px 0 0' }}>{lesson.objective}</p>

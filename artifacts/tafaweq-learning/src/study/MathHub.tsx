@@ -70,7 +70,7 @@ export function MathHub() {
                         <strong>{lesson.title}</strong>
                         <small>
                           <Clock3 size={12} style={{ verticalAlign: '-1px', marginInlineEnd: 4 }} />
-                          {lesson.durationMinutes} دقيقة · ص {lesson.page} · {lesson.questions.length} أسئلة
+                          {lesson.durationMinutes} دقيقة · {lesson.page ? `ص ${lesson.page} · ` : ''}{lesson.questions.length} أسئلة
                         </small>
                       </span>
                       <span className="study-row-end">

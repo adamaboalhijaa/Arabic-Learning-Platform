@@ -51,7 +51,7 @@ export function MathLessonPage() {
         <h1 className="study-title">{lesson.title}</h1>
         <p className="study-sub">{lesson.objective}</p>
         <div className="study-stats">
-          <div className="study-stat"><BookOpen size={18} /><div><strong>ص {lesson.page}</strong><span>كتاب الطالب</span></div></div>
+          <div className="study-stat"><BookOpen size={18} /><div><strong>{lesson.page ? `ص ${lesson.page}` : 'المنهاج الأردني'}</strong><span>كتاب الطالب</span></div></div>
           <div className="study-stat"><Clock3 size={18} /><div><strong>{lesson.durationMinutes}</strong><span>دقيقة</span></div></div>
           <div className="study-stat"><ListChecks size={18} /><div><strong>{lesson.questions.length}</strong><span>أسئلة الدرس</span></div></div>
           <div className="study-stat"><CheckCircle2 size={18} /><div><strong>{score}%</strong><span>أفضل نتيجة</span></div></div>
@@ -111,7 +111,7 @@ export function MathLessonPage() {
               {lesson.questions.map((question, index) => (
                 <li key={question.id}>
                   <span>{index + 1}. <MathText text={question.prompt} /></span>
-                  <small>{question.kind === 'truefalse' ? 'صح/خطأ' : 'اختيار من متعدد'} · ص {question.page}</small>
+                  <small>{question.kind === 'truefalse' ? 'صح/خطأ' : 'اختيار من متعدد'} · {question.page}</small>
                 </li>
               ))}
             </ol>
