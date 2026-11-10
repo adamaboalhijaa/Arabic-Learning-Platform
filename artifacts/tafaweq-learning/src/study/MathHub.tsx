@@ -1,5 +1,5 @@
 import { Link } from 'wouter';
-import { ArrowLeft, BookOpenCheck, CheckCircle2, Clock3, Target, Zap } from 'lucide-react';
+import { ArrowLeft, BookOpen, BookOpenCheck, CheckCircle2, Clock3, Target, Zap } from 'lucide-react';
 import { MathText } from '../MathText';
 import { MATH10_LESSONS, MATH10_META, MATH10_UNITS, lessonQuestionCount } from '../data/math10';
 import { levelInfo, lessonScore, useMathProgress } from '../lib/math-progress';
