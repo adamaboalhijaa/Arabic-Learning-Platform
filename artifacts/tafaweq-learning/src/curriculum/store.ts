@@ -380,8 +380,7 @@ export function deleteQuestion(subjectId: string, questionId: string): void {
 /* ------------------------------- الاستيراد -------------------------------- */
 
 export function importRows(rows: Array<Record<string, string>>, mode: ImportMode): ImportPlan {
-  const result = runImport(getCurriculum(), rows, mode);
-  if (result.plan.canApply) {
+  const result = runImport(getCurriculum(), rows, mode);  if (result.plan.canApply) {
     const total =
       result.plan.creates.units +
       result.plan.creates.lessons +
@@ -392,8 +391,7 @@ export function importRows(rows: Array<Record<string, string>>, mode: ImportMode
   return result.plan;
 }
 
-export function replaceCurriculum(next: CurriculumState): void {
-  commit({ ...next, version: CURRICULUM_VERSION });
+export function replaceCurriculum(next: CurriculumState): void {  commit({ ...next, version: CURRICULUM_VERSION });
 }
 
 export function resetCurriculum(): CurriculumState {

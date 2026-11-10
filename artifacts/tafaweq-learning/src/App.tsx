@@ -9,6 +9,7 @@ import { CLERK_ENABLED, ClerkBridge, useAuth, useClerk } from './lib/auth-bridge
 import { shadcn } from '@clerk/themes';
 import { arSA } from '@clerk/localizations';
 import { Route, Switch, Link, Redirect, Router as WouterRouter, useLocation, useRoute } from 'wouter';
+import { CurriculumAdmin } from './admin/CurriculumAdmin';
 import {
   Activity, ArrowLeft, ArrowRight, Award, BookOpen, BookOpenCheck, Check, ChevronLeft,
   CircleHelp, ClipboardList, Clock3, Crown, GraduationCap, House, LogOut,
@@ -628,6 +629,7 @@ function RootRoutes() {
       <Route path="/progress" component={Progress} />
       <Route path="/leaderboard" component={Leaderboard} />
       <Route path="/admin" component={Admin} />
+      <Route path="/admin/curriculum" component={CurriculumAdmin} />
       <Route><AppShell><EmptyState title="الصفحة غير موجودة" body="قد يكون الرابط غير صحيح أو أن الصفحة نُقلت." /><Link href="/dashboard" className="btn btn-primary" data-testid="link-not-found-home">الرئيسية</Link></AppShell></Route>
     </Switch>
   </>;
