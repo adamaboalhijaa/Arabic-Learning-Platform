@@ -1,7 +1,7 @@
 import { Link, useRoute } from 'wouter';
 import { ArrowLeft, BookOpen, CheckCircle2, Clock3, ListChecks, Target } from 'lucide-react';
 import { MathText } from '../MathText';
-import { findLesson, findUnitOfLesson, lessonPosition } from '../data/math10';
+import { QUESTION_LEVEL_LABELS, findLesson, findUnitOfLesson, lessonPosition, questionLevel } from '../data/math10';
 import { lessonScore, useMathProgress } from '../lib/math-progress';
 import { StudyShell } from './StudyShell';
 
@@ -111,7 +111,9 @@ export function MathLessonPage() {
               {lesson.questions.map((question, index) => (
                 <li key={question.id}>
                   <span>{index + 1}. <MathText text={question.prompt} /></span>
-                  <small>{question.kind === 'truefalse' ? 'صح/خطأ' : 'اختيار من متعدد'} · {question.page}</small>
+                  <small>
+                    {question.kind === 'truefalse' ? 'صح/خطأ' : 'اختيار من متعدد'} · {QUESTION_LEVEL_LABELS[questionLevel(question)]} · {question.page}
+                  </small>
                 </li>
               ))}
             </ol>
