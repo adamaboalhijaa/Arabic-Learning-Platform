@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
 // يعرض المعادلات كقطعة واحدة من اليسار لليمين دون أن تنكسر بين سطرين
-const PATTERN = /\u2066([^\u2069]*)\u2069|([−±]\d+(?:\/\d+)?)/g;
+// يدعم أيضًا صيغة {{ ... }} المستخدمة في محتوى الرياضيات.
+const PATTERN = /\{\{([^}]*)\}\}|\u2066([^\u2069]*)\u2069|([−±]\d+(?:\/\d+)?)/g;
 
 export function MathText({ text }: { text: string | null | undefined }) {
   const value = text ?? "";
@@ -13,7 +14,7 @@ export function MathText({ text }: { text: string | null | undefined }) {
     if (index > last) parts.push(value.slice(last, index));
     parts.push(
       <bdi key={key++} dir="ltr" style={{ whiteSpace: "nowrap" }}>
-        {match[1] ?? match[2]}
+        {match[1] ?? match[2] ?? match[3]}
       </bdi>,
     );
     last = index + match[0].length;
