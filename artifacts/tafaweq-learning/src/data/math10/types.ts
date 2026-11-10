@@ -43,8 +43,8 @@ export interface MathExample {
 export interface MathLesson {
   id: string;
   title: string;
-  /** صفحة بداية الدرس في كتاب الطالب */
-  page: number;
+  /** صفحة بداية الدرس في كتاب الطالب (تُترك فارغة إذا لم يتوفر رقم الصفحة) */
+  page?: number;
   durationMinutes: number;
   /** هدف الدرس بجملة واحدة */
   objective: string;

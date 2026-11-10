@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { Link, useLocation, useRoute } from 'wouter';
 import { ArrowLeft, CheckCircle2, RotateCcw, Trophy, XCircle, Zap } from 'lucide-react';
 import { MathText } from '../MathText';
-import { findLesson, findUnitOfLesson, lessonPosition, nextLesson } from '../data/math10';
+import {
+  findLesson,
+  findUnitOfLesson,
+  lessonPosition,
+  nextLesson,
+  QUESTION_LEVEL_LABELS,
+} from '../data/math10';
 import { completeLesson, levelInfo, recordAnswer, useMathProgress } from '../lib/math-progress';
 import { StudyShell } from './StudyShell';
 
@@ -123,7 +129,10 @@ export function MathQuiz() {
       <section className="study-question-card">
         <div className="study-quiz-top">
           <span className="study-badge">سؤال {index + 1} من {total} · الدرس {position.index} من {position.total}</span>
-          <span className="study-badge">{question.kind === 'truefalse' ? 'صح / خطأ' : 'اختيار من متعدد'} · ص {question.page}</span>
+          <span className="study-badge">
+            {question.kind === 'truefalse' ? 'صح / خطأ' : 'اختيار من متعدد'} · {question.page}
+            {question.level ? ` · ${QUESTION_LEVEL_LABELS[question.level]}` : ''}
+          </span>
         </div>
         <div className="study-bar" style={{ marginBottom: 18 }}>
           <span style={{ width: `${Math.round(((index + (answered ? 1 : 0)) / total) * 100)}%` }} />
@@ -168,7 +177,7 @@ export function MathQuiz() {
                 : `إجابة غير صحيحة — الإجابة الصحيحة: ${question.options[question.correctOption]}`}
             </strong>
             <span><MathText text={question.explanation} /></span>
-            <small className="study-feedback-ref">المرجع: كتاب الطالب، صفحة {question.page}</small>
+            <small className="study-feedback-ref">المرجع: كتاب الطالب — {question.page}</small>
           </div>
         )}
 

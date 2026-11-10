@@ -3,17 +3,30 @@ import { unit1 } from './unit1';
 import { unit2 } from './unit2';
 import { unit3 } from './unit3';
 import { unit4 } from './unit4';
+import { unit5 } from './unit5';
+import { unit6 } from './unit6';
+import { unit7 } from './unit7';
+import { unit8 } from './unit8';
 
-export type { MathLesson, MathQuestion, MathUnit, MathFormula, MathExample, MathQuestionKind } from './types';
+export type {
+  MathLesson,
+  MathQuestion,
+  MathUnit,
+  MathFormula,
+  MathExample,
+  MathQuestionKind,
+  MathQuestionLevel,
+} from './types';
+export { QUESTION_LEVEL_LABELS, questionLevel } from './types';
 
-// رياضيات الصف العاشر — الفصل الأول (المنهاج الأردني)
-export const MATH10_UNITS: MathUnit[] = [unit1, unit2, unit3, unit4];
+// رياضيات الصف العاشر — المنهاج الأردني (الوحدات 1–4 الفصل الأول، والوحدات 5–8 الفصل الثاني)
+export const MATH10_UNITS: MathUnit[] = [unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8];
 
 export const MATH10_META = {
   subject: 'الرياضيات',
   grade: 'الصف العاشر',
-  semester: 'الفصل الأول',
-  book: 'كتاب الطالب — الرياضيات للصف العاشر، الفصل الأول',
+  semester: 'الفصلان الأول والثاني',
+  book: 'كتاب الطالب — الرياضيات للصف العاشر',
   country: 'الأردن',
 } as const;
 
@@ -33,6 +46,13 @@ export function findUnitOfLesson(lessonId: string): MathUnit | undefined {
 
 export function lessonQuestionCount(): number {
   return MATH10_LESSONS.reduce((sum, lesson) => sum + lesson.questions.length, 0);
+}
+
+/** عدد أسئلة وحدة معيّنة. */
+export function unitQuestionCount(unitId: string): number {
+  const unit = findUnit(unitId);
+  if (!unit) return 0;
+  return unit.lessons.reduce((sum, lesson) => sum + lesson.questions.length, 0);
 }
 
 /** الدرس التالي في تسلسل المنهاج، أو null إذا كان الدرس الأخير. */
