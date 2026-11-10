@@ -4,8 +4,8 @@ import { clearLocalStudent, readLocalStudent, saveLocalStudent, type LocalStuden
 import { installLocalBackend } from './lib/local-backend';
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
-import { ClerkProvider, SignIn, SignUp, useAuth, useClerk } from '@clerk/react';
-import { publishableKeyFromHost } from '@clerk/react/internal';
+import { ClerkProvider, SignIn, SignUp } from '@clerk/react';
+import { CLERK_ENABLED, ClerkBridge, useAuth, useClerk } from './lib/auth-bridge';
 import { shadcn } from '@clerk/themes';
 import { arSA } from '@clerk/localizations';
 import { Route, Switch, Link, Redirect, Router as WouterRouter, useLocation, useRoute } from 'wouter';
@@ -37,7 +37,7 @@ import {
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 20_000 } } });
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
-const clerkPubKey = publishableKeyFromHost(window.location.hostname, import.meta.env.VITE_CLERK_PUBLISHABLE_KEY);
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const clerkProxyUrl = import.meta.env.VITE_CLERK_PROXY_URL;
 
 function stripBase(path: string) {
@@ -190,7 +190,7 @@ function AuthWidget({ mode }: { mode: 'in' | 'up' }) {
   const { isLoaded } = useAuth();
   const clerkReady = useClerkReady(isLoaded);
   const localStudent = useLocalStudent();
-  if (!clerkReady || localStudent) return <LocalSignInCard mode={mode} />;
+  if (!CLERK_ENABLED || !clerkReady || localStudent) return <LocalSignInCard mode={mode} />;
   return mode === 'in'
     ? <SignIn routing="path" path={`${basePath}/sign-in`} signUpUrl={`${basePath}/sign-up`} />
     : <SignUp routing="path" path={`${basePath}/sign-up`} signInUrl={`${basePath}/sign-in`} />;
@@ -219,7 +219,7 @@ function AppShell({ children }: { children: ReactNode }) {
   const localStudent = useLocalStudent();
   const clerkReady = useClerkReady(isLoaded);
   const [, navigate] = useLocation();
-  if (!clerkReady) return <PageLoading />;
+  if (CLERK_ENABLED && !clerkReady) return <PageLoading />;
   if (!isSignedIn && !localStudent) return <Unauthorized />;
   const handleSignOut = () => {
     if (localStudent) {
@@ -636,9 +636,9 @@ function RootRoutes() {
 function App() {
   // بيانات محلية احتياطية: تُشغّل صفحات المنهاج والاختبارات عند غياب خدمة الـ API.
   installLocalBackend();
-  // قسم الرياضيات عام: يعمل حتى قبل تهيئة Clerk، ويُعرض على المسار /math.
+  // قسم الرياضيات له واجهة مستقلة على المسار /math.
   const initialPath = stripBase(window.location.pathname);
-  if (!clerkPubKey || initialPath === '/math' || initialPath.startsWith('/math/')) {
+  if (initialPath === '/math' || initialPath.startsWith('/math/')) {
     return <WouterRouter base={basePath}><StudyApp /></WouterRouter>;
   }
   return <WouterRouter base={basePath}><ClerkProviderWithRoutes /></WouterRouter>;
@@ -646,10 +646,13 @@ function App() {
 
 function ClerkProviderWithRoutes() {
   const [, setLocation] = useLocation();
+  const app = <QueryClientProvider client={queryClient}><RootRoutes /></QueryClientProvider>;
+  // بلا مفتاح Clerk حقيقي لا نُحمّل سكربته إطلاقًا: تعمل المنصة بجلسة الطالب المحلية.
+  if (!CLERK_ENABLED || !clerkPubKey) return app;
   return <ClerkProvider publishableKey={clerkPubKey} proxyUrl={clerkProxyUrl} appearance={appearance}
       signInUrl={`${basePath}/sign-in`} signUpUrl={`${basePath}/sign-up`} localization={arSA}
       routerPush={to=>setLocation(stripBase(to))} routerReplace={to=>setLocation(stripBase(to), {replace:true})}>
-      <QueryClientProvider client={queryClient}><RootRoutes /></QueryClientProvider>
+      <ClerkBridge>{app}</ClerkBridge>
     </ClerkProvider>;
 }
 
