@@ -391,6 +391,14 @@ export function importRows(rows: Array<Record<string, string>>, mode: ImportMode
   return result.plan;
 }
 
+/**
+ * معاينة الاستيراد دون تطبيقه (dry-run).
+ * تستخدم نفس محرّك التنفيذ، فلا يُطبّق شيء ولا يُحفظ أي تغيير.
+ */
+export function previewImport(rows: Array<Record<string, string>>, mode: ImportMode): ImportPlan {
+  return runImport(getCurriculum(), rows, mode).plan;
+}
+
 export function replaceCurriculum(next: CurriculumState): void {  commit({ ...next, version: CURRICULUM_VERSION });
 }
 
