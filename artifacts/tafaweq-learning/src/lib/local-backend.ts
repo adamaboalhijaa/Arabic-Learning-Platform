@@ -10,7 +10,7 @@
  */
 import { MATH10_UNITS } from '../data/math10';
 import type { MathLesson, MathUnit } from '../data/math10';
-import { XP_PER_CORRECT, getProgress, lessonScore } from './math-progress';
+import { XP_PER_CORRECT, getProgress, lessonScore, levelInfo } from './math-progress';
 import { readLocalStudent } from './local-session';
 
 const GRADE_ID = 10;
@@ -89,8 +89,8 @@ function profilePayload() {
     gradeId: GRADE_ID,
     gradeTitle: 'الصف العاشر',
     totalXp: progress.xp,
-    level: progress.level,
-    streakDays: progress.streakDays ?? 0,
+    level: levelInfo(progress.xp).level,
+    streakDays: 0,
     role: 'student' as const,
     status: 'active' as const,
   };
@@ -165,8 +165,8 @@ function submitAttempt(rawBody: unknown): Response {
     scorePercent,
     earnedXp,
     totalXp: getProgress().xp + earnedXp,
-    level: getProgress().level,
-    streakDays: getProgress().streakDays ?? 1,
+    level: levelInfo(getProgress().xp + earnedXp).level,
+    streakDays: 1,
     results,
   });
 }
