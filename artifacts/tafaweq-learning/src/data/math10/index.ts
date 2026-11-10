@@ -3,10 +3,6 @@ import { unit1 } from './unit1';
 import { unit2 } from './unit2';
 import { unit3 } from './unit3';
 import { unit4 } from './unit4';
-import { unit5 } from './unit5';
-import { unit6 } from './unit6';
-import { unit7 } from './unit7';
-import { unit8 } from './unit8';
 
 export type {
   MathLesson,
@@ -19,13 +15,13 @@ export type {
 } from './types';
 export { QUESTION_LEVEL_LABELS, questionLevel } from './types';
 
-// رياضيات الصف العاشر — المنهاج الأردني (الوحدات 1–4 الفصل الأول، والوحدات 5–8 الفصل الثاني)
-export const MATH10_UNITS: MathUnit[] = [unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8];
+// رياضيات الصف العاشر — المنهاج الأردني، كتاب الفصل الأول (أربع وحدات فقط)
+export const MATH10_UNITS: MathUnit[] = [unit1, unit2, unit3, unit4];
 
 export const MATH10_META = {
   subject: 'الرياضيات',
   grade: 'الصف العاشر',
-  semester: 'الفصلان الأول والثاني',
+  semester: 'الفصل الأول',
   book: 'كتاب الطالب — الرياضيات للصف العاشر',
   country: 'الأردن',
 } as const;

@@ -34,7 +34,7 @@ export function MathUnitPage() {
       </nav>
 
       <section className="study-hero">
-        <p className="study-eyebrow">الوحدة {index + 1} · {index < 4 ? 'الفصل الأول' : 'الفصل الثاني'}</p>
+        <p className="study-eyebrow">الوحدة {index + 1} · الفصل الأول</p>
         <h1 className="study-title">{unit.title}</h1>
         <p className="study-sub">{unit.description}</p>
         <div className="study-stats">
