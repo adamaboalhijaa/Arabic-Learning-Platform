@@ -1,4 +1,5 @@
 import { MathText } from "./MathText";
+import { StudyApp } from "./study/StudyApp";
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import { ClerkProvider, SignIn, SignUp, useAuth, useClerk } from '@clerk/react';
@@ -167,7 +168,7 @@ function AppShell({ children }: { children: ReactNode }) {
       </div>
     </aside>
     <main className="main-area">
-      <header className="topbar"><div className="topbar-date">منصتك التعليمية · الأردن</div><Link className="btn btn-quiet" href="/curriculum" data-testid="link-top-curriculum"><BookOpen size={16} /> تصفّح المنهاج</Link></header>
+      <header className="topbar"><div className="topbar-date">منصتك التعليمية · الأردن</div><div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}><Link className="btn btn-quiet" href="/curriculum" data-testid="link-top-curriculum"><BookOpen size={16} /> تصفّح المنهاج</Link><Link className="btn btn-primary" href="/math" data-testid="link-top-math"><BookOpen size={16} /> رياضيات الصف العاشر</Link></div></header>
       <div className="content">{children}</div>
     </main>
     <NavLinks mobile />
@@ -561,7 +562,11 @@ function RootRoutes() {
 }
 
 function App() {
-  if (!clerkPubKey) throw new Error('Missing VITE_CLERK_PUBLISHABLE_KEY in .env file');
+  // قسم الرياضيات عام: يعمل حتى قبل تهيئة Clerk، ويُعرض على المسار /math.
+  const initialPath = stripBase(window.location.pathname);
+  if (!clerkPubKey || initialPath === '/math' || initialPath.startsWith('/math/')) {
+    return <WouterRouter base={basePath}><StudyApp /></WouterRouter>;
+  }
   return <WouterRouter base={basePath}><ClerkProviderWithRoutes /></WouterRouter>;
 }
 
