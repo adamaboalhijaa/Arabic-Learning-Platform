@@ -1,6 +1,8 @@
 import { MathText } from "./MathText";
 import { StudyApp } from "./study/StudyApp";
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { clearLocalStudent, readLocalStudent, saveLocalStudent, type LocalStudent } from './lib/local-session';
+import { installLocalBackend } from './lib/local-backend';
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import { ClerkProvider, SignIn, SignUp, useAuth, useClerk } from '@clerk/react';
 import { publishableKeyFromHost } from '@clerk/react/internal';
@@ -136,18 +138,76 @@ function ClerkCacheInvalidator() {
   return null;
 }
 
+/** Clerk قد لا يتاح تحميله في النشر الثابت؛ نعتبره غير جاهز بعد مهلة قصيرة. */
+function useClerkReady(isLoaded: boolean): boolean {
+  const [timedOut, setTimedOut] = useState(false);
+  useEffect(() => {
+    if (isLoaded || timedOut) return;
+    const timer = window.setTimeout(() => setTimedOut(true), 2500);
+    return () => window.clearTimeout(timer);
+  }, [isLoaded, timedOut]);
+  return isLoaded || timedOut;
+}
+
+function useLocalStudent(): LocalStudent | null {
+  const [student, setStudent] = useState<LocalStudent | null>(() => readLocalStudent());
+  useEffect(() => {
+    const sync = () => setStudent(readLocalStudent());
+    window.addEventListener('tafaweq:session-change', sync);
+    window.addEventListener('storage', sync);
+    return () => {
+      window.removeEventListener('tafaweq:session-change', sync);
+      window.removeEventListener('storage', sync);
+    };
+  }, []);
+  return student;
+}
+
+/** بديل محلي لبطاقة الدخول يعمل بلا خدمة سحابية ويحفظ تقدّم الطالب على جهازه. */
+function LocalSignInCard({ mode }: { mode: 'in' | 'up' }) {
+  const [, navigate] = useLocation();
+  const [name, setName] = useState('');
+  const submit = (event: FormEvent) => {
+    event.preventDefault();
+    if (!name.trim()) return;
+    saveLocalStudent(name);
+    navigate('/dashboard');
+  };
+  return <div className="card" style={{ padding: 24, width: '100%', maxWidth: 420 }} dir="rtl" data-testid="card-local-sign-in">
+    <h2 style={{ marginBottom: 8 }}>{mode === 'in' ? 'دخول الطالب' : 'إنشاء حساب طالب'}</h2>
+    <p className="row-meta" style={{ marginBottom: 16 }}>اكتب اسمك لمتابعة دروسك وحفظ تقدّمك على هذا الجهاز.</p>
+    <form onSubmit={submit} style={{ display: 'grid', gap: 12 }}>
+      <label className="field"><span>اسم الطالب</span>
+        <input value={name} onChange={(event) => setName(event.target.value)} placeholder="مثال: أحمد" required data-testid="input-local-name" />
+      </label>
+      <button type="submit" className="btn btn-primary" data-testid="button-local-submit">{mode === 'in' ? 'متابعة التعلّم' : 'ابدأ الآن'}</button>
+      <Link href="/math" className="btn btn-quiet" data-testid="link-local-math">تصفّح رياضيات الصف العاشر</Link>
+    </form>
+  </div>;
+}
+
+function AuthWidget({ mode }: { mode: 'in' | 'up' }) {
+  const { isLoaded } = useAuth();
+  const clerkReady = useClerkReady(isLoaded);
+  const localStudent = useLocalStudent();
+  if (!clerkReady || localStudent) return <LocalSignInCard mode={mode} />;
+  return mode === 'in'
+    ? <SignIn routing="path" path={`${basePath}/sign-in`} signUpUrl={`${basePath}/sign-up`} />
+    : <SignUp routing="path" path={`${basePath}/sign-up`} signInUrl={`${basePath}/sign-in`} />;
+}
+
 function AuthPages() {
   return <Switch>
     <Route path="/sign-in/*?">
       <div className="auth-frame" dir="rtl">
         <div className="auth-copy"><Brand /><div><span className="eyebrow">خطوتك الأولى</span><h1>كل درس صغير، يقربك من هدفك.</h1><p>مساحة آمنة لتتعلم، تتدرّب، وتتابع تقدّمك خطوة بخطوة.</p></div></div>
-        <div className="auth-widget"><SignIn routing="path" path={`${basePath}/sign-in`} signUpUrl={`${basePath}/sign-up`} /></div>
+        <div className="auth-widget"><AuthWidget mode="in" /></div>
       </div>
     </Route>
     <Route path="/sign-up/*?">
       <div className="auth-frame" dir="rtl">
         <div className="auth-copy"><Brand /><div><span className="eyebrow">مسارك يبدأ هنا</span><h1>تعلّم على مهل. تقدّم بثقة.</h1><p>اختر صفك، واستكشف الدروس والتمارين المرتبطة بها.</p></div></div>
-        <div className="auth-widget"><SignUp routing="path" path={`${basePath}/sign-up`} signInUrl={`${basePath}/sign-in`} /></div>
+        <div className="auth-widget"><AuthWidget mode="up" /></div>
       </div>
     </Route>
   </Switch>;
@@ -156,14 +216,25 @@ function AuthPages() {
 function AppShell({ children }: { children: ReactNode }) {
   const { signOut } = useClerk();
   const { isSignedIn, isLoaded } = useAuth();
-  if (!isLoaded) return <PageLoading />;
-  if (!isSignedIn) return <Unauthorized />;
+  const localStudent = useLocalStudent();
+  const clerkReady = useClerkReady(isLoaded);
+  const [, navigate] = useLocation();
+  if (!clerkReady) return <PageLoading />;
+  if (!isSignedIn && !localStudent) return <Unauthorized />;
+  const handleSignOut = () => {
+    if (localStudent) {
+      clearLocalStudent();
+      navigate('/');
+      return;
+    }
+    void signOut({ redirectUrl: basePath || '/' });
+  };
   return <div className="shell" dir="rtl">
     <aside className="sidebar">
       <Brand />
       <div><div className="nav-caption">مساحة التعلّم</div><NavLinks /></div>
       <div className="sidebar-foot">
-        <button type="button" className="nav-link" onClick={() => signOut({ redirectUrl: basePath || '/' })} data-testid="button-sign-out"><LogOut size={18} /><span>تسجيل الخروج</span></button>
+        <button type="button" className="nav-link" onClick={handleSignOut} data-testid="button-sign-out"><LogOut size={18} /><span>تسجيل الخروج</span></button>
         <p style={{ fontSize: 10, opacity: .55, padding: '0 13px', lineHeight: 1.8 }}>المحتوى غير المتحقق يظهر بوضوح قبل البدء.</p>
       </div>
     </aside>
@@ -197,7 +268,8 @@ function PageIntro({ eyebrow, title, subtitle }: { eyebrow: string; title: strin
 
 function Home() {
   const { isSignedIn } = useAuth();
-  if (isSignedIn) return <Redirect to="/dashboard" />;
+  const localStudent = useLocalStudent();
+  if (isSignedIn || localStudent) return <Redirect to="/dashboard" />;
   return <main dir="rtl" style={{ minHeight: '100dvh' }}>
     <header style={{ maxWidth: 1200, margin: '0 auto', padding: '22px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><Brand /><div style={{ display: 'flex', gap: 10 }}><Link className="btn btn-quiet" href="/sign-in" data-testid="link-home-sign-in">دخول الطلاب</Link><Link className="btn btn-primary" href="/sign-up" data-testid="link-home-sign-up">ابدأ التعلّم <ArrowLeft size={16} /></Link></div></header>
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '28px 22px 80px' }}>
@@ -562,6 +634,8 @@ function RootRoutes() {
 }
 
 function App() {
+  // بيانات محلية احتياطية: تُشغّل صفحات المنهاج والاختبارات عند غياب خدمة الـ API.
+  installLocalBackend();
   // قسم الرياضيات عام: يعمل حتى قبل تهيئة Clerk، ويُعرض على المسار /math.
   const initialPath = stripBase(window.location.pathname);
   if (!clerkPubKey || initialPath === '/math' || initialPath.startsWith('/math/')) {
