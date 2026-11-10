@@ -360,11 +360,17 @@ router.post(
       if (!lesson) {
         return { error: "Lesson not found", status: 404 as const };
       }
-      const questions = await tx
+      const allQuestions = await tx
         .select()
         .from(questionsTable)
         .where(eq(questionsTable.lessonId, lessonId))
         .orderBy(asc(questionsTable.position), asc(questionsTable.id));
+      const quizSize = Math.min(10, allQuestions.length);
+      const answeredIds = new Set(answers.map((answer) => answer.questionId));
+      const questions = allQuestions.filter((question) => answeredIds.has(question.id));
+      if (answers.length !== quizSize) {
+        return { error: "Answers must match this lesson's quiz", status: 400 as const };
+      }
       if (questions.length === 0) {
         return { error: "This lesson does not have a quiz yet", status: 400 as const };
       }
@@ -422,8 +428,17 @@ router.post(
         .from(quizAttemptsTable)
         .where(eq(quizAttemptsTable.studentId, account.id))
         .groupBy(quizAttemptsTable.lessonId);
+      const [{ best: previousBestCorrect }] = await tx
+        .select({
+          best: sql<number>`coalesce(max(${quizAttemptsTable.correctAnswers}), 0)::int`,
+        })
+        .from(quizAttemptsTable)
+        .where(
+          sql`${quizAttemptsTable.studentId} = ${account.id} and ${quizAttemptsTable.lessonId} = ${lessonId}`,
+        );
       const earnedXp =
-        correctAnswers * 10 + (scorePercent >= 70 && !previousCompletion ? 20 : 0);
+        Math.max(0, correctAnswers - previousBestCorrect) * 10 +
+        (scorePercent >= 70 && !previousCompletion ? 20 : 0);
       const streakDays =
         lockedAccount.lastActiveDay === dayKey
           ? lockedAccount.streakDays

@@ -158,7 +158,8 @@ router.get(
       })
       .from(questionsTable)
       .where(eq(questionsTable.lessonId, params.data.lessonId))
-      .orderBy(asc(questionsTable.position), asc(questionsTable.id));
+      .orderBy(sql`random()`)
+      .limit(10);
     res.json(GetLessonQuizResponse.parse(questions));
   },
 );
