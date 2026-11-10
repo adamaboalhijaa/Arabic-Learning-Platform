@@ -599,6 +599,7 @@ function Admin() {
   };
 
   return <AppShell><PageIntro eyebrow="مساحة المشرف" title="إدارة المحتوى والطلاب" subtitle="راجع حالة المصدر قبل النشر، واحتفظ بالمراجع مع كل تعديل." />
+    <div className="toolbar" style={{ marginTop: 18 }}><Link href="/admin/curriculum" className="btn btn-primary" data-testid="link-open-curriculum-admin">لوحة المنهاج والاستيراد المجمّع</Link></div>
     <div className="grid grid-stats" style={{ marginTop:22 }}><Stat label="الطلاب" value={overview.data?.studentCount ?? 0} icon={<UsersRound/>}/><Stat label="الدروس" value={overview.data?.lessonCount ?? 0} icon={<BookOpen/>}/><Stat label="الأسئلة" value={overview.data?.questionCount ?? 0} icon={<CircleHelp/>}/><Stat label="دروس مسودة" value={overview.data?.draftLessonCount ?? 0} icon={<ClipboardList/>}/></div>
     <div className="banner" style={{marginTop:18}}><ShieldAlert size={18}/><span>المسودة والمراجعة لا تعنيان اعتماد المحتوى. احفظ مرجع المصدر وحالة التحقق كما هي.</span></div>
     <div className="toolbar" role="tablist" aria-label="أقسام الإدارة" style={{marginTop:25}}>{adminTabs.map(tab=><button type="button" role="tab" aria-selected={section===tab.id} className={`btn ${section===tab.id?'btn-primary':'btn-quiet'}`} key={tab.id} onClick={()=>setSection(tab.id)} data-testid={`tab-admin-${tab.id}`}>{tab.label}</button>)}</div>
