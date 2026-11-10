@@ -50,13 +50,70 @@ check(
   mathStats,
 );
 
-const header =
-  'الصف,المادة,الفرع,الفصل,الوحدة,الدرس,هدف الدرس,شرح الدرس,الصفحة,نوع السؤال,السؤال,الخيار 1,الخيار 2,الخيار 3,الخيار 4,الإجابة الصحيحة,الشرح,الصعوبة,المرجع';
-const csvRows = [
-  header,
-  '10,الرياضيات,,1,وحدة فحص المحرّك,درس فحص المحرّك,هدف الفحص,شرح الفحص,7,اختيار من متعدد,ما ناتج ٢+٢؟,3,4,5,6,4,لأن ٢+٢=٤,سهل,كتاب الطالب — صفحة 7',
-  '10,الرياضيات,,1,وحدة فحص المحرّك,درس فحص المحرّك,هدف الفحص,شرح الفحص,7,صح وخطأ,٢+٢=٤,صح,خطأ,,,,صحيح,سهل,كتاب الطالب — صفحة 7',
-].join('\n');
+const HEADERS = [
+  'الصف',
+  'المادة',
+  'الفرع',
+  'الفصل',
+  'الوحدة',
+  'الدرس',
+  'هدف الدرس',
+  'شرح الدرس',
+  'الصفحة',
+  'نوع السؤال',
+  'السؤال',
+  'الخيار 1',
+  'الخيار 2',
+  'الخيار 3',
+  'الخيار 4',
+  'الإجابة الصحيحة',
+  'الشرح',
+  'الصعوبة',
+  'المرجع',
+] as const;
+
+type RowValues = Partial<Record<(typeof HEADERS)[number], string>>;
+
+/** يبني سطر CSV بالاعتماد على أسماء الأعمدة، فلا تنزاح الحقول. */
+function makeRow(values: RowValues): string {
+  return HEADERS.map((header) => values[header] ?? '').join(',');
+}
+
+const baseLesson: RowValues = {
+  'الصف': '10',
+  'المادة': 'الرياضيات',
+  'الفصل': '1',
+  'الوحدة': 'وحدة فحص المحرّك',
+  'الدرس': 'درس فحص المحرّك',
+  'هدف الدرس': 'هدف الفحص',
+  'شرح الدرس': 'شرح الفحص',
+  'الصفحة': '7',
+  'المرجع': 'كتاب الطالب — صفحة 7',
+};
+
+const mcqRow: RowValues = {
+  ...baseLesson,
+  'نوع السؤال': 'اختيار من متعدد',
+  'السؤال': 'ما ناتج ٢+٢؟',
+  'الخيار 1': '3',
+  'الخيار 2': '4',
+  'الخيار 3': '5',
+  'الخيار 4': '6',
+  'الإجابة الصحيحة': '4',
+  'الشرح': 'لأن ٢+٢=٤',
+  'الصعوبة': 'سهل',
+};
+
+const tfRow: RowValues = {
+  ...baseLesson,
+  'نوع السؤال': 'صح وخطأ',
+  'السؤال': '٢+٢=٤',
+  'الإجابة الصحيحة': 'صح',
+  'الشرح': '٢+٢ تساوي ٤ بالفعل',
+  'الصعوبة': 'سهل',
+};
+
+const csvRows = [HEADERS.join(','), makeRow(mcqRow), makeRow(tfRow)].join('\n');
 
 const rows = toRecords(parseCsv(csvRows));
 check(rows.length === 2, 'قارئ CSV أنتج صفين', rows.length);
@@ -72,13 +129,28 @@ check(second.plan.skipped.length === 2, 'إعادة الاستيراد تتجا�
 
 const invalidRows = toRecords(
   parseCsv(
-    'الصف,المادة,الفصل,الوحدة,الدرس,نوع السؤال,السؤال,الخيار 1,الخيار 2,الإجابة الصحيحة,الشرح,الصعوبة\n10,الرياضيات,1,وحدة فحص المحرّك,درس بلا شرح,اختيار من متعدد,سؤال بلا شرح,أ,ب,1,,سهل\n',
+    [
+      HEADERS.join(','),
+      makeRow({
+        ...baseLesson,
+        'الدرس': 'درس بلا شرح',
+        'نوع السؤال': 'اختيار من متعدد',
+        'السؤال': 'سؤال بلا شرح',
+        'الخيار 1': 'أ',
+        'الخيار 2': 'ب',
+        'الإجابة الصحيحة': '1',
+        'الصعوبة': 'سهل',
+      }),
+    ].join('\n'),
   ),
 );
 const invalid = runImport(first.state, invalidRows, 'skip');
 check(!invalid.plan.canApply && invalid.plan.issues.length > 0, 'الصف الناقص يمنع التطبيق ويُبلّغ بخطأ', invalid.plan.issues);
 
-const updateRows = toRecords(parseCsv(csvRows.split('\n')[1].replace('لأن ٢+٢=٤', 'شرح محدّث للفحص')));
+const updateRows = toRecords(
+  parseCsv([HEADERS.join(','), makeRow({ ...mcqRow, 'الشرح': 'شرح محدّث للفحص' })].join('\n')),
+);
+check(updateRows.length === 1, 'صف التحديث يحتوي سؤالًا واحدًا', updateRows.length);
 const updated = runImport(first.state, updateRows, 'update');
 check(updated.plan.updates.questions === 1, 'وضع التحديث يعدّل السؤال الموجود', updated.plan.updates);
 
