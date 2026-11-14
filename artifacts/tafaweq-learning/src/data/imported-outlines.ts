@@ -30,6 +30,8 @@ export type ImportedBookOutline = {
   gradeNumber: number;
   /** عنوان المادة كما في سجل المناهج. */
   subjectTitle: string;
+  /** معرّف المادة في السجل عندما يتكرر العنوان (رياضيات علمي/أدبي). */
+  subjectId?: number;
   /** الفصل الدراسي المثبَت، أو null إذا لم يثبته المصدر. */
   semester: 1 | 2 | null;
   /** هل يثبت المصدر تقسيم الوحدات على الفصلين الدراسيين؟ */
