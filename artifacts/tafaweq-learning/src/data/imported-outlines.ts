@@ -637,7 +637,381 @@ const G11_MATH: ImportedBookOutline = {
   ],
 };
 
+/**
+ * رياضيات الصف الثاني — وحدات ودروس المادة كما وردت في صفحة المادة بالمصدر.
+ * تقسيم الفصل الدراسي غير مثبَت، فلا يُنسب أي درس إلى فصل معيّن.
+ */
+const G2_MATH: ImportedBookOutline = {
+  key: 'g2-math',
+  gradeNumber: 2,
+  subjectTitle: 'الرياضيات',
+  subjectId: 1041,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الرياضيات',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/72`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة الرياضيات للصف الثاني في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'الأعداد',
+      lessons: [
+        { title: 'المئات', sourceUrl: `${MINHAJI}/24263` },
+        { title: 'الأعداد ضمن ثلاث منازل', sourceUrl: `${MINHAJI}/24266` },
+        { title: 'القيمة المنزلية', sourceUrl: `${MINHAJI}/24373` },
+        { title: 'قراءة الأعداد وكتابتها', sourceUrl: `${MINHAJI}/24376` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'ترتيب الأعداد ومقارنتها',
+      lessons: [
+        { title: 'العد بالواحدات والعشرات والمئات', sourceUrl: `${MINHAJI}/24270` },
+        { title: 'الأعداد الزوجية والأعداد الفردية', sourceUrl: `${MINHAJI}/24272` },
+        { title: 'العدد السابق والعدد التالي', sourceUrl: `${MINHAJI}/24276` },
+        { title: 'مقارنة الأعداد', sourceUrl: `${MINHAJI}/24384` },
+        { title: 'ترتيب الأعداد', sourceUrl: `${MINHAJI}/24387` },
+        { title: 'تقريب الأعداد', sourceUrl: `${MINHAJI}/24389` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الجمع',
+      lessons: [
+        { title: 'جمع مضاعفات العشرة والمئة ذهنياً', sourceUrl: `${MINHAJI}/24280` },
+        { title: 'الجمع الذهني', sourceUrl: `${MINHAJI}/24282` },
+        { title: 'الجمع', sourceUrl: `${MINHAJI}/24284` },
+        { title: 'الجمع مع إعادة التجميع (1)', sourceUrl: `${MINHAJI}/24400` },
+        { title: 'الجمع مع إعادة التجميع (2)', sourceUrl: `${MINHAJI}/25531` },
+        { title: 'خصائص الجمع', sourceUrl: `${MINHAJI}/25534` },
+        { title: 'تقدير ناتج الجمع', sourceUrl: `${MINHAJI}/25537` },
+        { title: 'التخمين والتحقق', sourceUrl: `${MINHAJI}/25540` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'الطرح',
+      lessons: [
+        { title: 'طرح مضاعفات العشرة والمئة ذهنياً', sourceUrl: `${MINHAJI}/24290` },
+        { title: 'الطرح الذهني', sourceUrl: `${MINHAJI}/24292` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'معالجة البيانات',
+      lessons: [
+        { title: 'تمثيل البيانات بالصور', sourceUrl: `${MINHAJI}/24295` },
+        { title: 'تفسير البيانات الممثلة بالصور', sourceUrl: `${MINHAJI}/24298` },
+        { title: 'جمع البيانات وتنظيمها', sourceUrl: `${MINHAJI}/24300` },
+        { title: 'تفسير البيانات بجدول الإشارات', sourceUrl: `${MINHAJI}/25523` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الضرب',
+      lessons: [
+        { title: 'المجموعات المتساوية', sourceUrl: `${MINHAJI}/24202` },
+        { title: 'الضرب كجمع متكرر', sourceUrl: `${MINHAJI}/24205` },
+        { title: 'الشبكات والضرب', sourceUrl: `${MINHAJI}/24208` },
+        { title: 'الضرب في 2', sourceUrl: `${MINHAJI}/24211` },
+        { title: 'الضرب في 5', sourceUrl: `${MINHAJI}/24213` },
+        { title: 'الضرب في 3', sourceUrl: `${MINHAJI}/24215` },
+        { title: 'الضرب في 4', sourceUrl: `${MINHAJI}/24217` },
+        { title: 'أبحث عن نمط', sourceUrl: `${MINHAJI}/24219` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'القسمة',
+      lessons: [
+        { title: 'تكوين المجموعات المتساوية', sourceUrl: `${MINHAJI}/24230` },
+        { title: 'القسمة كطرح متكرر', sourceUrl: `${MINHAJI}/24233` },
+        { title: 'العلاقة بين القسمة والضرب', sourceUrl: `${MINHAJI}/24239` },
+        { title: 'القسمة على 2', sourceUrl: `${MINHAJI}/24242` },
+        { title: 'القسمة على 5', sourceUrl: `${MINHAJI}/24246` },
+        { title: 'القسمة على 3', sourceUrl: `${MINHAJI}/24248` },
+        { title: 'القسمة على 4', sourceUrl: `${MINHAJI}/24250` },
+        { title: 'اختيار العملية', sourceUrl: `${MINHAJI}/24252` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الكسور والأشكال الهندسية',
+      lessons: [
+        { title: 'كسر الوحدة', sourceUrl: `${MINHAJI}/24304` },
+        { title: 'كسر الوحدة كجزء من مجموعة', sourceUrl: `${MINHAJI}/24307` },
+        { title: 'المجسمات', sourceUrl: `${MINHAJI}/24309` },
+        { title: 'الأحرف والأوجه والرؤوس', sourceUrl: `${MINHAJI}/24312` },
+        { title: 'الأشكال المستوية', sourceUrl: `${MINHAJI}/24315` },
+        { title: 'الأضلاع والرؤوس', sourceUrl: `${MINHAJI}/24365` },
+        { title: 'الأنماط الهندسية', sourceUrl: `${MINHAJI}/24367` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'الزمن والنقود',
+      lessons: [
+        { title: 'أشهر السنة', sourceUrl: `${MINHAJI}/24338` },
+        { title: 'الوقت لأقرب 5 دقائق', sourceUrl: `${MINHAJI}/24341` },
+        { title: 'الوقت لأقرب ربع ساعة', sourceUrl: `${MINHAJI}/24343` },
+        { title: 'الدينار', sourceUrl: `${MINHAJI}/24346` },
+        { title: 'فئات النقود الورقية', sourceUrl: `${MINHAJI}/24349` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'القياس',
+      lessons: [
+        { title: 'السنتيمتر', sourceUrl: `${MINHAJI}/24319` },
+        { title: 'المتر', sourceUrl: `${MINHAJI}/24322` },
+        { title: 'الغرام والكيلوغرام', sourceUrl: `${MINHAJI}/24325` },
+        { title: 'اللتر والمليلتر', sourceUrl: `${MINHAJI}/24328` },
+      ],
+    },
+  ],
+};
+
+/**
+ * رياضيات الصف الثالث — الوحدات والدروس كما وردت في المصدر.
+ * المصدر يعرض الوحدات بأرقام 1، 2، 3، 7، 8، 9، 10، 11 دون الوحدات 4–6،
+ * لذا سُجّلت الأرقام كما وردت ولم تُخترع وحدات ناقصة.
+ */
+const G3_MATH: ImportedBookOutline = {
+  key: 'g3-math',
+  gradeNumber: 3,
+  subjectTitle: 'الرياضيات',
+  subjectId: 1061,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الرياضيات',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/101`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة الرياضيات للصف الثالث في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'الأعداد',
+      lessons: [
+        { title: 'الألوف', sourceUrl: `${MINHAJI}/27419` },
+        { title: 'القيمة المنزلية ضمن الألوف', sourceUrl: `${MINHAJI}/27423` },
+        { title: 'مقارنة الأعداد', sourceUrl: `${MINHAJI}/27427` },
+        { title: 'ترتيب الأعداد', sourceUrl: `${MINHAJI}/27430` },
+        { title: 'تقريب الأعداد', sourceUrl: `${MINHAJI}/27433` },
+        { title: 'العد القفزي', sourceUrl: `${MINHAJI}/27437` },
+        { title: 'الأرقام الهندية', sourceUrl: `${MINHAJI}/27440` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الجمع',
+      lessons: [
+        { title: 'جمع مضاعفات 10 و100 و1000', sourceUrl: `${MINHAJI}/27445` },
+        { title: 'الجمع الذهني', sourceUrl: `${MINHAJI}/27698` },
+        { title: 'تقدير ناتج الجمع', sourceUrl: `${MINHAJI}/27703` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الطرح',
+      lessons: [
+        { title: 'طرح مضاعفات 10 و100 و1000', sourceUrl: `${MINHAJI}/34302` },
+        { title: 'الطرح الذهني', sourceUrl: `${MINHAJI}/34306` },
+        { title: 'تقدير ناتج الطرح', sourceUrl: `${MINHAJI}/34310` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الضرب في عدد من منزلة واحدة',
+      lessons: [
+        { title: 'الضرب في مضاعفات العدد 10', sourceUrl: `${MINHAJI}/26045` },
+        { title: 'تقدير ناتج الضرب', sourceUrl: `${MINHAJI}/26048` },
+        { title: 'الضرب باستعمال خاصية التوزيع', sourceUrl: `${MINHAJI}/26051` },
+        { title: 'الضرب من دون إعادة التجميع', sourceUrl: `${MINHAJI}/26055` },
+        { title: 'الضرب مع إعادة التجميع', sourceUrl: `${MINHAJI}/26058` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'القسمة على عدد من منزلة واحدة',
+      lessons: [
+        { title: 'قسمة مضاعفات العدد 10', sourceUrl: `${MINHAJI}/26179` },
+        { title: 'تقدير ناتج القسمة', sourceUrl: `${MINHAJI}/26182` },
+        { title: 'القسمة من دون باق', sourceUrl: `${MINHAJI}/26186` },
+        { title: 'القسمة مع باق', sourceUrl: `${MINHAJI}/26249` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'الكسور',
+      lessons: [
+        { title: 'الكسر كجزء من كل', sourceUrl: `${MINHAJI}/26266` },
+        { title: 'الكسر كجزء من مجموعة', sourceUrl: `${MINHAJI}/26270` },
+        { title: 'الكسور المساوية للواحد', sourceUrl: `${MINHAJI}/26273` },
+        { title: 'الكسور على خط الأعداد', sourceUrl: `${MINHAJI}/26282` },
+        { title: 'الكسور المكافئة', sourceUrl: `${MINHAJI}/26285` },
+        { title: 'مقارنة الكسور', sourceUrl: `${MINHAJI}/26289` },
+        { title: 'ترتيب الكسور', sourceUrl: `${MINHAJI}/26292` },
+        { title: 'الكسور والقسمة', sourceUrl: `${MINHAJI}/26295` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'الزمن',
+      lessons: [
+        { title: 'الوقت بالدقائق', sourceUrl: `${MINHAJI}/26299` },
+        { title: 'قراءة الوقت باستعمال (و، إلا)', sourceUrl: `${MINHAJI}/26303` },
+        { title: 'قبل الظهر، بعد الظهر', sourceUrl: `${MINHAJI}/26317` },
+        { title: 'الفترات الزمنية (1)', sourceUrl: `${MINHAJI}/26321` },
+        { title: 'الفترات الزمنية (2)', sourceUrl: `${MINHAJI}/26325` },
+        { title: 'التقويم', sourceUrl: `${MINHAJI}/26328` },
+      ],
+    },
+    {
+      number: 11,
+      title: 'الهندسة والقياس',
+      lessons: [
+        { title: 'المتر والسنتيمتر', sourceUrl: `${MINHAJI}/26388` },
+        { title: 'الكيلومتر', sourceUrl: `${MINHAJI}/26393` },
+        { title: 'الغرام والكيلوغرام', sourceUrl: `${MINHAJI}/26398` },
+      ],
+    },
+  ],
+};
+
+/**
+ * رياضيات الصف الرابع — وحدات ودروس المادة كما وردت في صفحة المادة بالمصدر.
+ * تقسيم الفصل الدراسي غير مثبَت، فلا يُنسب أي درس إلى فصل معيّن.
+ */
+const G4_MATH: ImportedBookOutline = {
+  key: 'g4-math',
+  gradeNumber: 4,
+  subjectTitle: 'الرياضيات',
+  subjectId: 1081,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الرياضيات',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/148`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة الرياضيات للصف الرابع في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'الأعداد جمعها وطرحها',
+      lessons: [
+        { title: 'القيمة المنزلية ضمن مئات الألوف', sourceUrl: `${MINHAJI}/22391` },
+        { title: 'مقارنة الأعداد وترتيبها', sourceUrl: `${MINHAJI}/22435` },
+        { title: 'تقريب الأعداد', sourceUrl: `${MINHAJI}/22446` },
+        { title: 'تقدير المجموع والفرق', sourceUrl: `${MINHAJI}/22449` },
+        { title: 'جمع الأعداد', sourceUrl: `${MINHAJI}/22451` },
+        { title: 'طرح الأعداد', sourceUrl: `${MINHAJI}/22454` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الضرب',
+      lessons: [
+        { title: 'الضرب في مضاعفات 10', sourceUrl: `${MINHAJI}/18717` },
+        { title: 'تقدير نواتج الضرب', sourceUrl: `${MINHAJI}/18888` },
+        { title: 'الضرب في عدد من منزلة واحدة', sourceUrl: `${MINHAJI}/18889` },
+        { title: 'ضرب عدد من منزلتين', sourceUrl: `${MINHAJI}/18897` },
+        { title: 'خطة حل المسألة', sourceUrl: `${MINHAJI}/22388` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'القسمة',
+      lessons: [
+        { title: 'قسمة مضاعفات 10 و100 و1000', sourceUrl: `${MINHAJI}/15251` },
+        { title: 'تقدير ناتج القسمة', sourceUrl: `${MINHAJI}/15254` },
+        { title: 'القسمة من دون باق', sourceUrl: `${MINHAJI}/22393` },
+        { title: 'القسمة مع باق', sourceUrl: `${MINHAJI}/22395` },
+        { title: 'القسمة مع وجود أصفار في الناتج', sourceUrl: `${MINHAJI}/22397` },
+        { title: 'أولويات العمليات', sourceUrl: `${MINHAJI}/22399` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'خصائص الأعداد',
+      lessons: [
+        { title: 'قابلية القسمة على 2 و3 و5 و10', sourceUrl: `${MINHAJI}/25121` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'الهندسة',
+      lessons: [
+        { title: 'تصنيف الزوايا', sourceUrl: `${MINHAJI}/22780` },
+        { title: 'المستقيمات المتوازية والمتقاطعة', sourceUrl: `${MINHAJI}/22783` },
+        { title: 'قياس الزوايا ورسمها', sourceUrl: `${MINHAJI}/22787` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الكسور',
+      lessons: [
+        { title: 'الكسور المتكافئة', sourceUrl: `${MINHAJI}/23849` },
+        { title: 'جمع الكسور المتشابهة وطرحها', sourceUrl: `${MINHAJI}/23852` },
+        { title: 'الأعداد الكسرية والكسور غير الفعلية', sourceUrl: `${MINHAJI}/23855` },
+        { title: 'تقريب الكسور والأعداد الكسرية', sourceUrl: `${MINHAJI}/24034` },
+        { title: 'مقارنة الكسور وترتيبها', sourceUrl: `${MINHAJI}/24038` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الكسور العشرية',
+      lessons: [
+        { title: 'أجزاء العشرة', sourceUrl: `${MINHAJI}/23813` },
+        { title: 'أجزاء المئة', sourceUrl: `${MINHAJI}/23817` },
+        { title: 'الأعداد العشرية', sourceUrl: `${MINHAJI}/23821` },
+        { title: 'التحويل بين الكسور العادية والكسور العشرية', sourceUrl: `${MINHAJI}/23824` },
+        { title: 'مقارنة الأعداد العشرية وترتيبها', sourceUrl: `${MINHAJI}/23826` },
+        { title: 'تقريب الأعداد العشرية', sourceUrl: `${MINHAJI}/23829` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الأنماط',
+      lessons: [
+        { title: 'الأنماط', sourceUrl: `${MINHAJI}/20444` },
+        { title: 'جداول المدخلات والمخرجات', sourceUrl: `${MINHAJI}/20445` },
+        { title: 'الأنماط الهندسية', sourceUrl: `${MINHAJI}/20446` },
+        { title: 'المقادير والمتغيرات', sourceUrl: `${MINHAJI}/20482` },
+        { title: 'المعادلات', sourceUrl: `${MINHAJI}/35671` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'القياس',
+      lessons: [
+        { title: 'وحدات قياس الطول', sourceUrl: `${MINHAJI}/23862` },
+        { title: 'وحدات قياس الكتلة', sourceUrl: `${MINHAJI}/23869` },
+        { title: 'وحدات قياس السعة', sourceUrl: `${MINHAJI}/23872` },
+        { title: 'الزمن', sourceUrl: `${MINHAJI}/23859` },
+        { title: 'المحيط', sourceUrl: `${MINHAJI}/23875` },
+        { title: 'المساحة', sourceUrl: `${MINHAJI}/23878` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'الإحصاء والاحتمال',
+      lessons: [
+        { title: 'تمثيل البيانات بالنقاط', sourceUrl: `${MINHAJI}/23888` },
+        { title: 'تمثيل البيانات بالأعمدة', sourceUrl: `${MINHAJI}/23891` },
+        { title: 'تمثيل البيانات بأشكال فن', sourceUrl: `${MINHAJI}/23894` },
+        { title: 'التجربة العشوائية وأنواع الحوادث', sourceUrl: `${MINHAJI}/23897` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G2_MATH,
+  G3_MATH,
+  G4_MATH,
   G5_MATH_S1,
   G5_MATH_S2,
   G6_MATH,
