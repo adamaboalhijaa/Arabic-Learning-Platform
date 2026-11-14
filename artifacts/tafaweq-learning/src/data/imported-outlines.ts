@@ -287,7 +287,229 @@ const G6_MATH: ImportedBookOutline = {
   ],
 };
 
-export const IMPORTED_OUTLINES: ImportedBookOutline[] = [G5_MATH_S1, G5_MATH_S2, G6_MATH];
+/**
+ * رياضيات الصف السابع — وحدات ودروس المادة كما وردت في صفحة المادة بالمصدر.
+ * تقسيم الفصل الدراسي غير مثبَت، فلا يُنسب أي درس إلى فصل معيّن.
+ */
+const G7_MATH: ImportedBookOutline = {
+  key: 'g7-math',
+  gradeNumber: 7,
+  subjectTitle: 'الرياضيات',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الرياضيات',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1071`,
+  verifiedBy: 'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة الرياضيات للصف السابع في المصدر.',
+  units: [
+    {
+      number: 1,
+      title: 'الأعداد النسبية',
+      lessons: [
+        { title: 'العدد النسبي', sourceUrl: `${MINHAJI}/22109` },
+        { title: 'كتابة العدد النسبي بالصورة العشرية', sourceUrl: `${MINHAJI}/22413` },
+        { title: 'مقارنة الأعداد النسبية وترتيبها', sourceUrl: `${MINHAJI}/22416` },
+        { title: 'جمع الأعداد النسبية وطرحها', sourceUrl: `${MINHAJI}/22418` },
+        { title: 'ضرب الأعداد النسبية وقسمتها', sourceUrl: `${MINHAJI}/22420` },
+        { title: 'الحل العكسي', sourceUrl: `${MINHAJI}/22499` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الأسس الصحيحة والمقادير الجبرية',
+      lessons: [
+        { title: 'قوانين الأسس الصحيحة', sourceUrl: `${MINHAJI}/22375` },
+        { title: 'أولويات العمليات الحسابية', sourceUrl: `${MINHAJI}/22377` },
+        { title: 'الحدود والمقادير الجبرية', sourceUrl: `${MINHAJI}/16858` },
+        { title: 'جمع المقادير الجبرية وطرحها', sourceUrl: `${MINHAJI}/17428` },
+        { title: 'ضرب المقادير الجبرية', sourceUrl: `${MINHAJI}/17431` },
+        { title: 'حالات خاصة من ضرب المقادير الجبرية', sourceUrl: `${MINHAJI}/22379` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'المعادلات الخطية',
+      lessons: [
+        { title: 'حل المعادلات', sourceUrl: `${MINHAJI}/15222` },
+        { title: 'الكسور العشرية الدورية', sourceUrl: `${MINHAJI}/15275` },
+        { title: 'المتتاليات', sourceUrl: `${MINHAJI}/15277` },
+        { title: 'الاقترانات', sourceUrl: `${MINHAJI}/15280` },
+        { title: 'تمثيل الاقتران الخطي بيانياً', sourceUrl: `${MINHAJI}/15295` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'الزوايا والمضلعات والتحويلات الهندسية',
+      lessons: [
+        { title: 'العلاقات بين الزوايا', sourceUrl: `${MINHAJI}/14046` },
+        { title: 'المستقيمات المتوازية والقاطع', sourceUrl: `${MINHAJI}/17426` },
+        { title: 'زوايا المثلث', sourceUrl: `${MINHAJI}/22673` },
+        { title: 'زوايا المضلع', sourceUrl: `${MINHAJI}/22739` },
+        { title: 'الدوران', sourceUrl: `${MINHAJI}/22743` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'التناسب وتطبيقاته',
+      lessons: [
+        { title: 'معدل الوحدة', sourceUrl: `${MINHAJI}/15557` },
+        { title: 'التناسب', sourceUrl: `${MINHAJI}/23537` },
+        { title: 'العلاقات التناسبية', sourceUrl: `${MINHAJI}/23540` },
+        { title: 'التناسب الطردي', sourceUrl: `${MINHAJI}/23543` },
+        { title: 'التناسب العكسي', sourceUrl: `${MINHAJI}/23589` },
+        { title: 'التقسيم التناسبي', sourceUrl: `${MINHAJI}/23593` },
+        { title: 'تطبيقات مالية', sourceUrl: `${MINHAJI}/23596` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'التطابق والتشابه',
+      lessons: [
+        { title: 'التطابق', sourceUrl: `${MINHAJI}/17382` },
+        { title: 'مقياس الرسم', sourceUrl: `${MINHAJI}/17385` },
+        { title: 'التشابه', sourceUrl: `${MINHAJI}/17388` },
+        { title: 'التكبير', sourceUrl: `${MINHAJI}/17391` },
+        { title: 'خطة حل المسألة: الرسم', sourceUrl: `${MINHAJI}/17394` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'المساحات والحجوم',
+      lessons: [
+        { title: 'محيط الدائرة', sourceUrl: `${MINHAJI}/15570` },
+        { title: 'مساحة الدائرة', sourceUrl: `${MINHAJI}/29109` },
+        { title: 'حجم المنشور والأسطوانة', sourceUrl: `${MINHAJI}/29115` },
+        { title: 'حجم الهرم والمخروط', sourceUrl: `${MINHAJI}/35624` },
+        { title: 'مساحة سطح المنشور والأسطوانة', sourceUrl: `${MINHAJI}/35631` },
+        { title: 'مساحة سطح الهرم والمخروط', sourceUrl: `${MINHAJI}/35642` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الإحصاء والاحتمالات',
+      lessons: [
+        { title: 'الوسط الحسابي', sourceUrl: `${MINHAJI}/17317` },
+        { title: 'الوسيط والمنوال', sourceUrl: `${MINHAJI}/17323` },
+        { title: 'التمثيل بالساق والورقة', sourceUrl: `${MINHAJI}/17562` },
+      ],
+    },
+  ],
+};
+
+/**
+ * رياضيات الصف الثامن — وحدات ودروس المادة كما وردت في صفحة المادة بالمصدر.
+ * تقسيم الفصل الدراسي غير مثبَت، فلا يُنسب أي درس إلى فصل معيّن.
+ */
+const G8_MATH: ImportedBookOutline = {
+  key: 'g8-math',
+  gradeNumber: 8,
+  subjectTitle: 'الرياضيات',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الرياضيات',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1081`,
+  verifiedBy: 'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة الرياضيات للصف الثامن في المصدر.',
+  units: [
+    {
+      number: 1,
+      title: 'الأعداد الحقيقية',
+      lessons: [
+        { title: 'الجذور التربيعية', sourceUrl: `${MINHAJI}/14867` },
+        { title: 'الجذور الصماء', sourceUrl: `${MINHAJI}/14945` },
+        { title: 'نظرية فيثاغورس', sourceUrl: `${MINHAJI}/15018` },
+        { title: 'الأعداد الحقيقية', sourceUrl: `${MINHAJI}/15089` },
+        { title: 'النسبة المئوية', sourceUrl: `${MINHAJI}/24893` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'تحليل المقادير الجبرية',
+      lessons: [
+        { title: 'التحليل بإخراج العامل المشترك الأكبر', sourceUrl: `${MINHAJI}/15248` },
+        { title: 'تحليل ثلاثيات الحدود - 1', sourceUrl: `${MINHAJI}/15231` },
+        { title: 'تحليل ثلاثيات الحدود - 2', sourceUrl: `${MINHAJI}/15243` },
+        { title: 'حالات خاصة من التحليل', sourceUrl: `${MINHAJI}/15232` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'المعادلات الخطية بمتغيرين',
+      lessons: [
+        { title: 'المعادلة الخطية بالصورة القياسية', sourceUrl: `${MINHAJI}/15241` },
+        { title: 'ميل المستقيم', sourceUrl: `${MINHAJI}/17577` },
+        { title: 'معادلة المستقيم بصيغة الميل والمقطع', sourceUrl: `${MINHAJI}/34762` },
+        { title: 'معادلة المستقيم بصيغة الميل ونقطة', sourceUrl: `${MINHAJI}/34767` },
+        { title: 'المستقيمات المتوازية والمتعامدة', sourceUrl: `${MINHAJI}/34773` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'المثلثات المتطابقة',
+      lessons: [
+        { title: 'تطابق المثلثات (SSS,SAS,HL)', sourceUrl: `${MINHAJI}/13949` },
+        { title: 'تطابق المثلثات (ASA,AAS)', sourceUrl: `${MINHAJI}/13992` },
+        { title: 'المثلثات المتطابقة الضلعين', sourceUrl: `${MINHAJI}/13858` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'المتباينات الخطية',
+      lessons: [
+        { title: 'كتابة المتباينات وتمثيلها', sourceUrl: `${MINHAJI}/16852` },
+        { title: 'حل المتباينات بالجمع والطرح', sourceUrl: `${MINHAJI}/16907` },
+        { title: 'حل المتباينات بالضرب والقسمة', sourceUrl: `${MINHAJI}/17402` },
+        { title: 'حل المتباينات متعددة الخطوات', sourceUrl: `${MINHAJI}/17572` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'أنظمة المعادلات الخطية',
+      lessons: [
+        { title: 'حل نظام معادلتين خطيتين بيانياً', sourceUrl: `${MINHAJI}/13994` },
+        { title: 'حل نظام معادلتين خطيتين بالتعويض', sourceUrl: `${MINHAJI}/14030` },
+        { title: 'حل نظام معادلتين خطيتين بالحذف', sourceUrl: `${MINHAJI}/17617` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الأشكال ثنائية الأبعاد',
+      lessons: [
+        { title: 'إثبات توازي المستقيمات وتعامدها', sourceUrl: `${MINHAJI}/17625` },
+        { title: 'متوازي الأضلاع', sourceUrl: `${MINHAJI}/17639` },
+        { title: 'تمييز متوازي الأضلاع', sourceUrl: `${MINHAJI}/17650` },
+        { title: 'حالات خاصة من متوازي الأضلاع', sourceUrl: `${MINHAJI}/17673` },
+        { title: 'تشابه المثلثات', sourceUrl: `${MINHAJI}/26730` },
+        { title: 'التمدد', sourceUrl: `${MINHAJI}/26652` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الأشكال ثلاثية الأبعاد',
+      lessons: [
+        { title: 'رسم الأشكال ثلاثية الأبعاد', sourceUrl: `${MINHAJI}/26657` },
+        { title: 'المقاطع والمجسمات الدورانية', sourceUrl: `${MINHAJI}/26721` },
+        { title: 'حجم الكرة ومساحة سطحها', sourceUrl: `${MINHAJI}/26725` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'الإحصاء والاحتمالات',
+      lessons: [
+        { title: 'الربيعيات', sourceUrl: `${MINHAJI}/19502` },
+        { title: 'اختيار التمثيل الأنسب', sourceUrl: `${MINHAJI}/19505` },
+      ],
+    },
+  ],
+};
+
+export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G5_MATH_S1,
+  G5_MATH_S2,
+  G6_MATH,
+  G7_MATH,
+  G8_MATH,
+];
 
 /** إحصاءات كتاب مستورد واحد. */
 export function outlineStats(outline: ImportedBookOutline) {
