@@ -198,9 +198,14 @@ export function duplicateIssues(): DuplicateIssue[] {
   for (const gradeNumber of new Set(ALL_SUBJECTS.map((subject) => subject.gradeNumber))) {
     const seen = new Set<string>();
     for (const subject of ALL_SUBJECTS.filter((s) => s.gradeNumber === gradeNumber)) {
-      const key = subject.title.trim();
+      // العنوان وحده لا يكفي: الصفان 11 و12 لهما مسارات مختلفة (علمي/أدبي/مهني)
+      // تظهر فيها المادة نفسها بعنوان واحد، وهي مواد مستقلة لا تكرار.
+      const key = `${subject.stream.trim()}-${subject.title.trim()}`;
       if (seen.has(key)) {
-        issues.push({ kind: 'subject', detail: `مادة مكرّرة في الصف ${gradeNumber}: ${key}` });
+        issues.push({
+          kind: 'subject',
+          detail: `مادة مكرّرة في الصف ${gradeNumber} (${subject.stream}): ${subject.title}`,
+        });
       }
       seen.add(key);
     }
