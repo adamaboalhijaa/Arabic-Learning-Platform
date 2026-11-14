@@ -191,7 +191,6 @@ export const MATH1_SEMESTER1: MathUnit[] = [
             kind: 'truefalse',
             level: 'medium',
             prompt: 'العدد 6 يساوي العدد 6.',
-            explanation: 'العدد نفسه يساوي نفسه دائمًا، فـ 6 = 6، لذلك العبارة صحيحة.',
             options: ['صح', 'خطأ'],
             correctOption: 0,
             explanation: 'العدد نفسه يساوي نفسه دائمًا، فالعددان متساويان.',

@@ -39,6 +39,7 @@ export function useMathBundle() {
     findUnit: content.findUnit,
     findLesson: content.findLesson,
     findUnitOfLesson: content.findUnitOfLesson,
+    findSemesterOfUnit: content.findSemesterOfUnit,
     lessonQuestionCount: () => content.questionTotal,
     unitQuestionCount: content.unitQuestionCount,
     lessonLevelCounts: content.lessonLevelCounts,
