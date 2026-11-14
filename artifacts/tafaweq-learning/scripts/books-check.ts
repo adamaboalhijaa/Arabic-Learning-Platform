@@ -75,21 +75,45 @@ for (const book of OFFICIAL_BOOKS) {
 
 // 3ب) الكتب المستوردة: مطابقة مادة موجودة، وسلامة التعداد والعناوين وروابط المصدر.
 for (const outline of IMPORTED_OUTLINES) {
-  const book = OFFICIAL_BOOKS.find(
+  const stats = outlineStats(outline);
+  const matches = OFFICIAL_BOOKS.filter(
     (item) =>
       item.gradeNumber === outline.gradeNumber &&
-      item.semester === outline.semester &&
       item.subjectTitle.trim() === outline.subjectTitle.trim(),
   );
-  check(!!book, `لا كتاب في السجل يطابق المستورد ${outline.key}`);
-  if (!book) continue;
-  const stats = outlineStats(outline);
-  check(book.units === stats.units, `الكتاب ${book.key}: عدد الوحدات لا يطابق المستورد`);
-  check(book.lessons === stats.lessons, `الكتاب ${book.key}: عدد الدروس لا يطابق المستورد`);
-  check(
-    outlineFor(outline.gradeNumber, outline.subjectTitle, outline.semester) === outline,
-    `البحث عن المستورد ${outline.key} لا يعيده`,
-  );
+  check(matches.length > 0, `لا كتاب في السجل يطابق المستورد ${outline.key}`);
+  if (outline.semesterVerified) {
+    const book = matches.find((item) => item.semester === outline.semester);
+    check(!!book, `لا كتاب في السجل يطابق المستورد ${outline.key}`);
+    if (book) {
+      check(book.units === stats.units, `الكتاب ${book.key}: عدد الوحدات لا يطابق المستورد`);
+      check(book.lessons === stats.lessons, `الكتاب ${book.key}: عدد الدروس لا يطابق المستورد`);
+    }
+    const semester = outline.semester === 2 ? 2 : 1;
+    check(
+      outlineFor(outline.gradeNumber, outline.subjectTitle, semester) === outline,
+      `البحث عن المستورد ${outline.key} لا يعيده`,
+    );
+  } else {
+    // كتاب لم يثبت المصدر تقسيمه: لا يُنسب إلى فصل، ولا تُنسخ أعداده على كتابي الفصلين.
+    check(
+      outline.semester === null,
+      `المستورد ${outline.key} غير موثق لكنه منسوب إلى فصل دراسي`,
+    );
+    check(
+      matches.length === 2 && matches.every((book) => book.status === 'outline-unverified'),
+      `المستورد ${outline.key} غير موثق لكن حالة كتابيه لا تعكس ذلك`,
+    );
+    check(
+      matches.every((book) => book.units === 0 && book.lessons === 0),
+      `المستورد ${outline.key} غير موثق لكن أعداده نُسبت إلى كتاب فصل`,
+    );
+    check(
+      outlineFor(outline.gradeNumber, outline.subjectTitle, 1) === outline &&
+        outlineFor(outline.gradeNumber, outline.subjectTitle, 2) === outline,
+      `البحث عن المستورد غير الموثق ${outline.key} لا يعيده في الفصلين`,
+    );
+  }
   for (const unit of outline.units) {
     check(unit.title.trim().length > 0, `وحدة بلا عنوان في ${outline.key}`);
     check(unit.lessons.length > 0, `الوحدة «${unit.title}» في ${outline.key} بلا دروس`);
