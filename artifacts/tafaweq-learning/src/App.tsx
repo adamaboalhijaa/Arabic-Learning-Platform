@@ -362,7 +362,8 @@ function SubjectUnits() {
   if (q.isLoading) return <PageLoading />;
   if (q.isError) return <AppShell><ErrorState retry={() => q.refetch()} /></AppShell>;
   // رقم الفصل الدراسي يأتي من البيانات؛ أي قيمة غير معروفة تُعامل كالفصل الأول.
-  const semesterOf = (unit: { semester?: number | null }) => (unit.semester === 2 ? 2 : 1);
+  const semesterOf = (unit: unknown) =>
+    (unit as { semester?: number | null } | null)?.semester === 2 ? 2 : 1;
   const units = q.data ?? [];
   const visible = units.filter(unit => semesterOf(unit) === semester);
   const countOf = (value: 1 | 2) => units.filter(unit => semesterOf(unit) === value).length;
