@@ -8,6 +8,12 @@ import {
   ALL_SUBJECTS,
   ALL_UNITS,
 } from '../src/lib/curriculum-books';
+import {
+  OFFICIAL_BOOKS,
+  curriculumCompletion,
+  duplicateIssues,
+  gradeSourcePage,
+} from '../src/lib/official-books';
 import { IMPORTED_OUTLINES, outlineFor, outlineStats } from '../src/data/imported-outlines';
 
 const problems: string[] = [];
