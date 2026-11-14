@@ -30,7 +30,10 @@ export type ImportedBookOutline = {
   gradeNumber: number;
   /** عنوان المادة كما في سجل المناهج. */
   subjectTitle: string;
-  semester: 1 | 2;
+  /** الفصل الدراسي المثبَت، أو null إذا لم يثبته المصدر. */
+  semester: 1 | 2 | null;
+  /** هل يثبت المصدر تقسيم الوحدات على الفصلين الدراسيين؟ */
+  semesterVerified: boolean;
   bookTitle: string;
   sourceName: string;
   sourceUrl: string;
@@ -47,6 +50,7 @@ const G5_MATH_S1: ImportedBookOutline = {
   gradeNumber: 5,
   subjectTitle: 'الرياضيات',
   semester: 1,
+  semesterVerified: true,
   bookTitle: 'كتاب الطالب — الرياضيات — الفصل الأول',
   sourceName: 'شبكة منهاجي الأردنية + فهرس كتاب الطالب PDF',
   sourceUrl: `${MINHAJI}/960`,
@@ -108,6 +112,7 @@ const G5_MATH_S2: ImportedBookOutline = {
   gradeNumber: 5,
   subjectTitle: 'الرياضيات',
   semester: 2,
+  semesterVerified: true,
   bookTitle: 'كتاب الطالب — الرياضيات — الفصل الثاني',
   sourceName: 'شبكة منهاجي الأردنية + فهرس كتاب الطالب PDF',
   sourceUrl: `${MINHAJI}/960`,
@@ -174,7 +179,115 @@ const G5_MATH_S2: ImportedBookOutline = {
   ],
 };
 
-export const IMPORTED_OUTLINES: ImportedBookOutline[] = [G5_MATH_S1, G5_MATH_S2];
+/**
+ * رياضيات الصف السادس — وحدات ودروس المادة كما وردت في المصدر.
+ * تقسيم الفصل الدراسي غير مثبَت: صفحة تنزيل كتاب الطالب تعيد HTML لا PDF،
+ * لذلك لا يُنسب أي درس إلى فصل دراسي معيّن هنا.
+ */
+const G6_MATH: ImportedBookOutline = {
+  key: 'g6-math',
+  gradeNumber: 6,
+  subjectTitle: 'الرياضيات',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الرياضيات',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1058`,
+  verifiedBy:
+    'عنوان كل وحدة ودرس وترتيبها مأخوذة من صفحة مادة الرياضيات للصف السادس في المصدر؛ تقسيم الفصل الدراسي غير مثبت لأن صفحة تنزيل كتاب الطالب تعيد HTML لا ملف PDF.',
+  units: [
+    {
+      number: 1,
+      title: 'الأعداد الصحيحة والعمليات عليها',
+      lessons: [
+        { title: 'الأعداد الصحيحة والقيمة المطلقة', sourceUrl: `${MINHAJI}/3960` },
+        { title: 'مقارنة الأعداد الصحيحة وترتيبها', sourceUrl: `${MINHAJI}/3963` },
+        { title: 'جمع الأعداد الصحيحة', sourceUrl: `${MINHAJI}/15169` },
+        { title: 'طرح الأعداد الصحيحة', sourceUrl: `${MINHAJI}/15156` },
+        { title: 'ضرب الأعداد الصحيحة وقسمتها', sourceUrl: `${MINHAJI}/15154` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الكسور والعمليات عليها',
+      lessons: [
+        { title: 'جمع الكسور وطرحها', sourceUrl: `${MINHAJI}/15219` },
+        { title: 'جمع الأعداد الكسرية وطرحها', sourceUrl: `${MINHAJI}/22584` },
+        { title: 'ضرب الأعداد الكسرية', sourceUrl: `${MINHAJI}/22581` },
+        { title: 'قسمة الأعداد الكسرية', sourceUrl: `${MINHAJI}/24948` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'العمليات على الأعداد العشرية',
+      lessons: [
+        { title: 'ضرب الأعداد العشرية', sourceUrl: `${MINHAJI}/17468` },
+        { title: 'قسمة الأعداد العشرية', sourceUrl: `${MINHAJI}/17471` },
+        { title: 'تطبيقات العمليات على الكسور العشرية', sourceUrl: `${MINHAJI}/24950` },
+        { title: 'حل مسألة أبسط', sourceUrl: `${MINHAJI}/28044` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'التحويلات والإنشاءات الهندسية',
+      lessons: [
+        { title: 'المستوى الإحداثي', sourceUrl: `${MINHAJI}/20434` },
+        { title: 'الانسحاب في المستوى الإحداثي', sourceUrl: `${MINHAJI}/20436` },
+        { title: 'الانعكاس في المستوى الإحداثي', sourceUrl: `${MINHAJI}/20440` },
+        { title: 'الدائرة وأجزاؤها', sourceUrl: `${MINHAJI}/20603` },
+        { title: 'إنشاءات هندسية', sourceUrl: `${MINHAJI}/20608` },
+        { title: 'رسم المثلث', sourceUrl: `${MINHAJI}/20605` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'المقادير الجبرية والمعادلات',
+      lessons: [
+        { title: 'القوى والأسس', sourceUrl: `${MINHAJI}/26023` },
+        { title: 'الجذر التربيعي والجذر التكعيبي', sourceUrl: `${MINHAJI}/26027` },
+        { title: 'أولويات العمليات', sourceUrl: `${MINHAJI}/26190` },
+        { title: 'الخصائص الجبرية', sourceUrl: `${MINHAJI}/26193` },
+        { title: 'المعادلات', sourceUrl: `${MINHAJI}/26197` },
+        { title: 'المتتاليات', sourceUrl: `${MINHAJI}/26200` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'النسبة والنسبة المئوية',
+      lessons: [
+        { title: 'النسبة', sourceUrl: `${MINHAJI}/26255` },
+        { title: 'النسب المتكافئة', sourceUrl: `${MINHAJI}/26258` },
+        { title: 'النسبة المئوية والكسور العادية', sourceUrl: `${MINHAJI}/26261` },
+        { title: 'النسبة المئوية والكسور العشرية', sourceUrl: `${MINHAJI}/26378` },
+        { title: 'النسبة المئوية من عدد', sourceUrl: `${MINHAJI}/26380` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الهندسة والقياس',
+      lessons: [
+        { title: 'الأشكال الرباعية', sourceUrl: `${MINHAJI}/26382` },
+        { title: 'مساحة متوازي الأضلاع', sourceUrl: `${MINHAJI}/17474` },
+        { title: 'مساحة المثلث', sourceUrl: `${MINHAJI}/26457` },
+        { title: 'مساحة شبه المنحرف', sourceUrl: `${MINHAJI}/26717` },
+        { title: 'حجم المنشور الرباعي ومساحة سطحه', sourceUrl: `${MINHAJI}/26758` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الإحصاء والاحتمالات',
+      lessons: [
+        { title: 'جمع البيانات', sourceUrl: `${MINHAJI}/26461` },
+        { title: 'الجداول التكرارية', sourceUrl: `${MINHAJI}/35720` },
+        { title: 'الجداول والمخططات التكرارية', sourceUrl: `${MINHAJI}/35732` },
+        { title: 'القطاعات الدائرية', sourceUrl: `${MINHAJI}/35735` },
+        { title: 'الاحتمالات', sourceUrl: `${MINHAJI}/35739` },
+      ],
+    },
+  ],
+};
+
+export const IMPORTED_OUTLINES: ImportedBookOutline[] = [G5_MATH_S1, G5_MATH_S2, G6_MATH];
 
 /** إحصاءات كتاب مستورد واحد. */
 export function outlineStats(outline: ImportedBookOutline) {
@@ -185,10 +298,13 @@ export function outlineStats(outline: ImportedBookOutline) {
 /** الكتاب المستورد المطابق لصف/مادة/فصل، أو undefined. */
 export function outlineFor(gradeNumber: number, subjectTitle: string, semester: 1 | 2) {
   const title = subjectTitle.trim();
-  return IMPORTED_OUTLINES.find(
-    (outline) =>
-      outline.gradeNumber === gradeNumber &&
-      outline.semester === semester &&
-      outline.subjectTitle.trim() === title,
+  const candidates = IMPORTED_OUTLINES.filter(
+    (outline) => outline.gradeNumber === gradeNumber && outline.subjectTitle.trim() === title,
   );
+  const verified = candidates.find(
+    (outline) => outline.semesterVerified && outline.semester === semester,
+  );
+  if (verified) return verified;
+  // كتاب لم يُثبت المصدر تقسيمه: يُعرض كما ورد بدل نسبته إلى فصل غير مؤكد.
+  return candidates.find((outline) => !outline.semesterVerified);
 }

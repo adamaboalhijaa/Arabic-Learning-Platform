@@ -37,11 +37,12 @@ export function gradeSourcePage(gradeNumber: number): string {
   return OBSERVED_GRADE_PAGES[gradeNumber] ?? OFFICIAL_TEXTBOOK_INDEX;
 }
 
-export type BookStatus = 'linked' | 'outline-imported' | 'awaiting-import';
+export type BookStatus = 'linked' | 'outline-imported' | 'outline-unverified' | 'awaiting-import';
 
 export const BOOK_STATUS_LABEL: Record<BookStatus, string> = {
   linked: 'مربوط',
   'outline-imported': 'وحدات ودروس مستوردة',
+  'outline-unverified': 'وحدات مستوردة (الفصل غير موثق)',
   'awaiting-import': 'بانتظار الاستيراد',
 };
 
@@ -94,13 +95,16 @@ function buildBooks(): OfficialBook[] {
       );
       // وحدات ودروس الكتاب المستوردة من مصدر أردني فعلي (بلا أسئلة بعد).
       const outline = outlineFor(subject.gradeNumber, subject.title, semester);
-      const outlineCounts = outline ? outlineStats(outline) : null;
+      // إحصاءات الوحدات تُنسب إلى كتاب الفصل فقط إذا أثبت المصدر تقسيم الفصل الدراسي.
+      const outlineCounts = outline && outline.semesterVerified ? outlineStats(outline) : null;
       const hasContent = semesterUnits.length > 0;
       const status: BookStatus = hasContent
         ? 'linked'
         : outlineCounts
           ? 'outline-imported'
-          : 'awaiting-import';
+          : outline
+            ? 'outline-unverified'
+            : 'awaiting-import';
       books.push({
         key: `${subject.id}-${semester}`,
         gradeNumber: subject.gradeNumber,
