@@ -1,10 +1,11 @@
 import { Link } from 'wouter';
 import { CheckCircle2, RotateCcw, Trophy, Zap } from 'lucide-react';
-import { MATH10_LESSONS, MATH10_UNITS, findLesson, lessonQuestionCount } from '../data/math10';
 import { levelInfo, lessonScore, resetProgress, useMathProgress } from '../lib/math-progress';
+import { useMathBundle } from './math-context';
 import { StudyShell } from './StudyShell';
 
 export function MathProgressPage() {
+  const { base, meta, MATH10_LESSONS, MATH10_UNITS, findLesson, lessonQuestionCount } = useMathBundle();
   const progress = useMathProgress();
   const level = levelInfo(progress.xp);
   const mastered = MATH10_LESSONS.filter((lesson) => progress.lessons[lesson.id]?.mastered).length;
@@ -20,7 +21,7 @@ export function MathProgressPage() {
     <StudyShell>
       <section className="study-hero">
         <p className="study-eyebrow">تقدّمي ونتائجي</p>
-        <h1 className="study-title">تقدّمك في الرياضيات — الصف العاشر</h1>
+        <h1 className="study-title">تقدّمك في الرياضيات — {meta.grade}</h1>
         <p className="study-sub">يُحفظ تقدمك تلقائيًا على هذا الجهاز، مع أفضل نتيجة لكل درس وعدد المحاولات ونقاط الخبرة.</p>
 
         <div className="study-level">
@@ -43,7 +44,7 @@ export function MathProgressPage() {
         <section className="study-card" key={unit.id} style={{ marginTop: 18 }}>
           <div className="study-unit-head">
             <h2 className="study-card-title" style={{ margin: 0 }}>الوحدة {unitIndex + 1}: {unit.title}</h2>
-            <Link href={`/math/unit/${unit.id}`} className="study-link">دروس الوحدة</Link>
+            <Link href={`${base}/unit/${unit.id}`} className="study-link">دروس الوحدة</Link>
           </div>
           <div className="table-wrap" style={{ marginTop: 12 }}>
             <table className="study-table">
@@ -62,7 +63,7 @@ export function MathProgressPage() {
                   const score = lessonScore(progress, lesson.id, lesson.questions.length);
                   return (
                     <tr key={lesson.id}>
-                      <td><Link href={`/math/lesson/${lesson.id}`} className="study-link">{lesson.title}</Link></td>
+                      <td><Link href={`${base}/lesson/${lesson.id}`} className="study-link">{lesson.title}</Link></td>
                       <td>{record ? `${record.bestCorrect}/${lesson.questions.length} (${score}%)` : '—'}</td>
                       <td>{record?.attempts ?? 0}</td>
                       <td>
@@ -87,7 +88,7 @@ export function MathProgressPage() {
       <section className="study-card" style={{ marginTop: 18 }}>
         <h2 className="study-card-title">آخر النتائج</h2>
         {progress.results.length === 0 ? (
-          <p className="study-sub" style={{ marginBottom: 0 }}>لا توجد نتائج بعد. ابدأ بأي درس من <Link href="/math" className="study-link">قائمة الوحدات</Link>.</p>
+          <p className="study-sub" style={{ marginBottom: 0 }}>لا توجد نتائج بعد. ابدأ بأي درس من <Link href={base} className="study-link">قائمة الوحدات</Link>.</p>
         ) : (
           <ul className="study-results-list">
             {[...progress.results].reverse().slice(0, 12).map((result) => {

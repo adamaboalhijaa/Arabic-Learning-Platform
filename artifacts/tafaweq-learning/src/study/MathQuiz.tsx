@@ -1,20 +1,14 @@
 import { useState } from 'react';
-import { Link, useLocation, useRoute } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { ArrowLeft, CheckCircle2, RotateCcw, Trophy, XCircle, Zap } from 'lucide-react';
 import { MathText } from '../MathText';
-import {
-  findLesson,
-  findUnitOfLesson,
-  lessonPosition,
-  nextLesson,
-  QUESTION_LEVEL_LABELS,
-} from '../data/math10';
 import { completeLesson, levelInfo, recordAnswer, useMathProgress } from '../lib/math-progress';
+import { useMathBundle } from './math-context';
 import { StudyShell } from './StudyShell';
 
-export function MathQuiz() {
-  const [, params] = useRoute('/math/lesson/:lessonId/quiz');
-  const lesson = findLesson(params?.lessonId ?? '');
+export function MathQuiz({ lessonId }: { lessonId?: string }) {
+  const { base, meta, findLesson, findUnitOfLesson, lessonPosition, nextLesson, QUESTION_LEVEL_LABELS } = useMathBundle();
+  const lesson = findLesson(lessonId ?? '');
   const unit = lesson ? findUnitOfLesson(lesson.id) : undefined;
   const progress = useMathProgress();
   const [, navigate] = useLocation();
@@ -32,7 +26,7 @@ export function MathQuiz() {
       <StudyShell>
         <div className="study-card">
           <h1 className="study-title" style={{ fontSize: 22 }}>الدرس غير موجود</h1>
-          <p className="study-sub">قد يكون الرابط غير صحيح. <Link href="/math" className="study-link">عُد إلى قائمة الوحدات</Link>.</p>
+          <p className="study-sub">قد يكون الرابط غير صحيح. <Link href={base} className="study-link">عُد إلى قائمة الوحدات</Link>.</p>
         </div>
       </StudyShell>
     );
@@ -100,11 +94,11 @@ export function MathQuiz() {
             <button type="button" className="btn btn-primary" onClick={restart} data-testid="btn-quiz-retry">
               <RotateCcw size={16} /> إعادة المحاولة
             </button>
-            <Link href={`/math/lesson/${lesson.id}`} className="btn btn-quiet" data-testid="btn-back-lesson">
+            <Link href={`${base}/lesson/${lesson.id}`} className="btn btn-quiet" data-testid="btn-back-lesson">
               العودة للدرس
             </Link>
             {following && (
-              <button type="button" className="btn btn-quiet" onClick={() => navigate(`/math/lesson/${following.id}/quiz`)}>
+              <button type="button" className="btn btn-quiet" onClick={() => navigate(`${base}/lesson/${following.id}/quiz`)}>
                 الدرس التالي <ArrowLeft size={16} />
               </button>
             )}
@@ -117,11 +111,11 @@ export function MathQuiz() {
   return (
     <StudyShell>
       <nav className="study-crumbs">
-        <Link href="/math">الرياضيات — الصف العاشر</Link>
+        <Link href={base}>الرياضيات — {meta.grade}</Link>
         <span>/</span>
-        <Link href={`/math/unit/${unit.id}`}>{unit.title}</Link>
+        <Link href={`${base}/unit/${unit.id}`}>{unit.title}</Link>
         <span>/</span>
-        <Link href={`/math/lesson/${lesson.id}`}>{lesson.title}</Link>
+        <Link href={`${base}/lesson/${lesson.id}`}>{lesson.title}</Link>
         <span>/</span>
         <span>الأسئلة</span>
       </nav>
@@ -191,7 +185,7 @@ export function MathQuiz() {
           >
             {index + 1 >= total ? 'إظهار النتيجة' : 'السؤال التالي'} <ArrowLeft size={16} />
           </button>
-          <Link href={`/math/lesson/${lesson.id}`} className="btn btn-quiet">مراجعة الشرح</Link>
+          <Link href={`${base}/lesson/${lesson.id}`} className="btn btn-quiet">مراجعة الشرح</Link>
           <span className="study-meta" style={{ marginInlineStart: 'auto' }}>
             صحيح: {correctCount} · XP: +{gained}
           </span>

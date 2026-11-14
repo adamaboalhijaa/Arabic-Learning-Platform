@@ -1,8 +1,8 @@
-import { Link, useRoute } from 'wouter';
+import { Link } from 'wouter';
 import { ArrowLeft, BookOpen, CheckCircle2, Clock3, ListChecks, Target } from 'lucide-react';
 import { MathText } from '../MathText';
-import { QUESTION_LEVEL_LABELS, findLesson, findUnitOfLesson, lessonPosition, questionLevel } from '../data/math10';
 import { lessonScore, useMathProgress } from '../lib/math-progress';
+import { useMathBundle } from './math-context';
 import { StudyShell } from './StudyShell';
 
 function Paragraphs({ text }: { text: string }) {
@@ -15,9 +15,9 @@ function Paragraphs({ text }: { text: string }) {
   );
 }
 
-export function MathLessonPage() {
-  const [, params] = useRoute('/math/lesson/:lessonId');
-  const lesson = findLesson(params?.lessonId ?? '');
+export function MathLessonPage({ lessonId }: { lessonId?: string }) {
+  const { base, meta, findLesson, findUnitOfLesson, lessonPosition, QUESTION_LEVEL_LABELS, questionLevel } = useMathBundle();
+  const lesson = findLesson(lessonId ?? '');
   const unit = lesson ? findUnitOfLesson(lesson.id) : undefined;
   const progress = useMathProgress();
 
@@ -26,7 +26,7 @@ export function MathLessonPage() {
       <StudyShell>
         <div className="study-card">
           <h1 className="study-title" style={{ fontSize: 22 }}>الدرس غير موجود</h1>
-          <p className="study-sub">قد يكون الرابط غير صحيح. <Link href="/math" className="study-link">عُد إلى قائمة الوحدات</Link>.</p>
+          <p className="study-sub">قد يكون الرابط غير صحيح. <Link href={base} className="study-link">عُد إلى قائمة الوحدات</Link>.</p>
         </div>
       </StudyShell>
     );
@@ -39,9 +39,9 @@ export function MathLessonPage() {
   return (
     <StudyShell>
       <nav className="study-crumbs">
-        <Link href="/math">الرياضيات — الصف العاشر</Link>
+        <Link href={base}>الرياضيات — {meta.grade}</Link>
         <span>/</span>
-        <Link href={`/math/unit/${unit.id}`}>{unit.title}</Link>
+        <Link href={`${base}/unit/${unit.id}`}>{unit.title}</Link>
         <span>/</span>
         <span>{lesson.title}</span>
       </nav>
@@ -57,7 +57,7 @@ export function MathLessonPage() {
           <div className="study-stat"><CheckCircle2 size={18} /><div><strong>{score}%</strong><span>أفضل نتيجة</span></div></div>
         </div>
         <div className="study-actions">
-          <Link href={`/math/lesson/${lesson.id}/quiz`} className="btn btn-primary" data-testid="link-start-quiz">
+          <Link href={`${base}/lesson/${lesson.id}/quiz`} className="btn btn-primary" data-testid="link-start-quiz">
             ابدأ أسئلة الدرس ({lesson.questions.length} أسئلة) <ArrowLeft size={16} />
           </Link>
           {record && <span className={`study-badge ${record.mastered ? 'good' : 'warn'}`}>محاولاتك: {record.attempts} · {record.mastered ? 'أتقنت الدرس' : 'تحتاج مراجعة'}</span>}
