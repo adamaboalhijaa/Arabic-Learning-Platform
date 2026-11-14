@@ -16,6 +16,7 @@ import {
   ALL_UNITS,
   CURRICULUM_GRADES,
   gradeById,
+  gradeHasContent,
   lessonById,
   lessonsOfUnit,
   subjectById,
@@ -214,11 +215,7 @@ function handle(pathname: string, method: string, body: unknown): Response | nul
           gradeNumber: grade.gradeNumber,
           title: grade.title,
           stage: grade.stage,
-          contentStatus: grade.subjects.some((subject) =>
-            subjectsOfGrade(grade.gradeNumber).some((item) => item.title === subject.title && item.book),
-          )
-            ? ('verified' as const)
-            : ('draft' as const),
+          contentStatus: gradeHasContent(grade.gradeNumber) ? ('verified' as const) : ('draft' as const),
           subjectCount: grade.subjects.length,
         })),
       );

@@ -350,7 +350,7 @@ function GradeSubjects() {
   if (q.isError) return <AppShell><ErrorState retry={() => q.refetch()} /></AppShell>;
   const grade = gradesQ.data?.find(g=>g.id===id);
   return <AppShell><Breadcrumb href="/curriculum" label="الصفوف" /><PageIntro eyebrow={grade?.stage ?? 'المنهاج'} title={grade?.title ?? 'مواد الصف'} subtitle="اختر مادة لعرض وحداتها ودروسها." />
-    {(q.data ?? []).length ? <div className="tile-grid" style={{ marginTop: 26 }}>{q.data?.map(s=><Link key={s.id} href={`/curriculum/subject/${s.id}`} className="card tile" data-testid={`card-subject-${s.id}`}><div className="tile-icon"><BookOpen size={22} /></div><div className="tile-copy"><h3>{s.title}</h3><p>{s.description || 'وحدات ودروس المنهاج'}</p><p style={{ marginTop: 8 }}>{s.unitCount} وحدات</p></div><ChevronLeft size={18} /></Link>)}</div> : <EmptyState title="لا توجد مواد متاحة بعد" body="لم تتم إضافة مواد لهذا الصف حتى الآن." />}
+    {(q.data ?? []).length ? <div className="tile-grid" style={{ marginTop: 26 }}>{q.data?.map(s=><Link key={s.id} href={`/curriculum/subject/${s.id}`} className="card tile" data-testid={`card-subject-${s.id}`}><div className="tile-icon"><BookOpen size={22} /></div><div className="tile-copy"><h3>{s.title}</h3><p>{s.description || 'وحدات ودروس المنهاج'}</p><p style={{ marginTop: 8 }} data-testid={`subject-units-${s.id}`}>{s.unitCount ? `${s.unitCount} وحدات` : 'لم يُضف الكتاب بعد'}</p></div><ChevronLeft size={18} /></Link>)}</div> : <EmptyState title="لا توجد مواد متاحة بعد" body="لم تتم إضافة مواد لهذا الصف حتى الآن." />}
   </AppShell>;
 }
 
@@ -358,10 +358,19 @@ function SubjectUnits() {
   const [, params] = useRoute('/curriculum/subject/:subjectId');
   const id = Number(params?.subjectId || 0);
   const q = useListSubjectUnits(id, { query: { queryKey: getListSubjectUnitsQueryKey(id), enabled: !!id } });
+  const [semester, setSemester] = useState<1 | 2>(1);
   if (q.isLoading) return <PageLoading />;
   if (q.isError) return <AppShell><ErrorState retry={() => q.refetch()} /></AppShell>;
-  return <AppShell><Breadcrumb href="/curriculum" label="المنهاج" /><PageIntro eyebrow="المواد" title="وحدات المادة" subtitle="اختر وحدة للانتقال إلى دروسها." />
-    {(q.data ?? []).length ? <div className="list-stack" style={{ marginTop: 25 }}>{q.data?.map(unit=><Link key={unit.id} href={`/curriculum/unit/${unit.id}`} className="card row-card" style={{ textDecoration:'none', color:'inherit' }} data-testid={`row-unit-${unit.id}`}><div className="row-main"><div className="row-title">{unit.position + 1}. {unit.title}</div><div className="row-meta">{unit.lessonCount} دروس</div></div><Status value={unit.contentStatus} /><ChevronLeft size={18} /></Link>)}</div> : <EmptyState title="لا توجد وحدات بعد" body="ستظهر وحدات هذه المادة عند توفرها." />}
+  // رقم الفصل الدراسي يأتي من البيانات؛ أي قيمة غير معروفة تُعامل كالفصل الأول.
+  const semesterOf = (unit: { semester?: number | null }) => (unit.semester === 2 ? 2 : 1);
+  const units = q.data ?? [];
+  const visible = units.filter(unit => semesterOf(unit) === semester);
+  const countOf = (value: 1 | 2) => units.filter(unit => semesterOf(unit) === value).length;
+  return <AppShell><Breadcrumb href="/curriculum" label="المنهاج" /><PageIntro eyebrow="المواد" title="وحدات المادة" subtitle="اختر الفصل الدراسي، ثم الوحدة للانتقال إلى دروسها." />
+    <div className="toolbar" style={{ marginTop: 22 }} role="tablist" aria-label="الفصل الدراسي">
+      {([1, 2] as const).map(value => <button key={value} type="button" role="tab" aria-selected={semester === value} onClick={() => setSemester(value)} className={`btn ${semester === value ? 'btn-primary' : 'btn-quiet'}`} data-testid={`tab-semester-${value}`}>الفصل الدراسي {value === 1 ? 'الأول' : 'الثاني'} ({countOf(value)})</button>)}
+    </div>
+    {visible.length ? <div className="list-stack" style={{ marginTop: 25 }}>{visible.map(unit=><Link key={unit.id} href={`/curriculum/unit/${unit.id}`} className="card row-card" style={{ textDecoration:'none', color:'inherit' }} data-testid={`row-unit-${unit.id}`}><div className="row-main"><div className="row-title">{unit.position + 1}. {unit.title}</div><div className="row-meta">{unit.lessonCount} دروس · الفصل {semester === 1 ? 'الأول' : 'الثاني'}</div></div><Status value={unit.contentStatus} /><ChevronLeft size={18} /></Link>)}</div> : <EmptyState title="لا توجد وحدات في هذا الفصل" body={units.length ? 'اختر الفصل الدراسي الآخر لعرض وحداته.' : 'لم يُضف كتاب هذه المادة بعد؛ ستظهر وحداتها عند ربط الكتاب الرسمي.'} />}
   </AppShell>;
 }
 
@@ -385,9 +394,11 @@ function LessonPage() {
   const [, params] = useRoute('/lessons/:lessonId');
   const id = Number(params?.lessonId || 0);
   const q = useGetLesson(id, { query: { queryKey: getGetLessonQueryKey(id), enabled: !!id } });
-  if (q.isLoading) return <PageLoading />;
+  const quizQ = useGetLessonQuiz(id, { query: { queryKey: getGetLessonQuizQueryKey(id), enabled: !!id } });
+  if (q.isLoading || quizQ.isLoading) return <PageLoading />;
   if (q.isError || !q.data) return <AppShell><ErrorState retry={() => q.refetch()} /></AppShell>;
   const lesson = q.data;
+  const questions = quizQ.data ?? [];
   return <AppShell><Breadcrumb href={`/curriculum/unit/${lesson.unitId}`} label={lesson.unitTitle} />
     <div className="card" style={{ padding: 'clamp(22px,4vw,42px)' }} data-testid={`lesson-detail-${lesson.id}`}>
       <div style={{ display:'flex', justifyContent:'space-between', gap:12, alignItems:'center', flexWrap:'wrap' }}><span className="eyebrow">{lesson.subjectTitle} · الصف {lesson.gradeNumber}</span><Status value={lesson.contentStatus} /></div>
@@ -396,6 +407,7 @@ function LessonPage() {
       <section style={{ marginTop:30 }}><span className="eyebrow">هدف الدرس</span><h2 style={{ fontSize:20 }}>{lesson.objective}</h2></section>
       <section style={{ marginTop:24 }}><div className="section-heading" style={{ marginTop:0 }}><h2>ماذا ستتعلّم؟</h2><span className="row-meta"><Clock3 size={14} style={{ verticalAlign:'middle' }} /> {lesson.durationMinutes} دقيقة</span></div><ul style={{ lineHeight:2.2 }}>{lesson.objectives.map((obj,i)=><li key={`${i}-${obj}`} data-testid={`objective-${i}`}>{obj}</li>)}</ul></section>
       <section style={{ marginTop:24 }}><h2 style={{ fontSize:19 }}>الشرح</h2><div className="prose" style={{ lineHeight:2, whiteSpace:'pre-line' }} data-testid="lesson-explanation">{lesson.explanation}</div></section>
+      <section style={{ marginTop:24 }} data-testid="lesson-questions"><div className="section-heading" style={{ marginTop:0 }}><h2>أسئلة الدرس</h2><span className="row-meta">{questions.length} أسئلة</span></div>{questions.length ? <div className="list-stack">{questions.map((question, index)=><div key={question.id} className="card row-card" data-testid={`lesson-question-${index}`}><div className="row-main"><div className="row-title">{index + 1}. {question.prompt}</div><div className="row-meta">{question.kind === 'true_false' ? 'صح وخطأ' : 'اختيار من متعدد'} · {question.options.length} خيارات</div></div></div>)}</div> : <p className="row-meta">لم تُضف أسئلة لهذا الدرس بعد.</p>}</section>
       <div style={{ display:'flex', gap:10, marginTop:30, flexWrap:'wrap' }}><Link href={`/lessons/${lesson.id}/quiz`} className="btn btn-primary" data-testid={`link-lesson-quiz-${lesson.id}`}>ابدأ اختبار الدرس <ArrowLeft size={16} /></Link><Link href={`/curriculum/unit/${lesson.unitId}`} className="btn btn-quiet" data-testid="link-back-to-lessons">العودة للدروس</Link></div>
     </div>
   </AppShell>;
