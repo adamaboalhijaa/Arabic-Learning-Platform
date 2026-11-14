@@ -78,7 +78,7 @@ function lessonPayload(entry: BookLesson) {
     questionCount: total,
     isCompleted: bestScore >= Math.round(MASTERY_RATIO * 100),
     bestScore: bestScore > 0 ? bestScore : null,
-    unitTitle: entry.content.units.find((unit) => unit.id === entry.lesson.id.split(':')[1])?.title ?? '',
+    unitTitle: unitTitleOf(entry),
     subjectTitle: subjectById(entry.subjectId)?.title ?? '',
     gradeNumber: entry.gradeNumber,
   };
