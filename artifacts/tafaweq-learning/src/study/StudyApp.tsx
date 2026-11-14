@@ -27,16 +27,20 @@ export function StudyApp() {
       </Route>
 
       {/* أي صف آخر (مثل الصف الأول) */}
-      <Route path="/math/grade/:grade">{() => <MathHub />}</Route>
-      <Route path="/math/grade/:grade/progress">{() => <MathProgressPage />}</Route>
+      <Route path="/math/grade/:grade">
+        {(params) => <MathProvider grade={Number(params.grade)}><MathHub /></MathProvider>}
+      </Route>
+      <Route path="/math/grade/:grade/progress">
+        {(params) => <MathProvider grade={Number(params.grade)}><MathProgressPage /></MathProvider>}
+      </Route>
       <Route path="/math/grade/:grade/unit/:unitId">
-        {(params) => <MathUnitPage unitId={params.unitId} />}
+        {(params) => <MathProvider grade={Number(params.grade)}><MathUnitPage unitId={params.unitId} /></MathProvider>}
       </Route>
       <Route path="/math/grade/:grade/lesson/:lessonId/quiz">
-        {(params) => <MathQuiz lessonId={params.lessonId} />}
+        {(params) => <MathProvider grade={Number(params.grade)}><MathQuiz lessonId={params.lessonId} /></MathProvider>}
       </Route>
       <Route path="/math/grade/:grade/lesson/:lessonId">
-        {(params) => <MathLessonPage lessonId={params.lessonId} />}
+        {(params) => <MathProvider grade={Number(params.grade)}><MathLessonPage lessonId={params.lessonId} /></MathProvider>}
       </Route>
 
       <Route path="/">

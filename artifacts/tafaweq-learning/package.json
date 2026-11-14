@@ -9,8 +9,9 @@
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "check:math": "tsx scripts/math10-check.ts",
+    "check:math1": "tsx scripts/math1-check.ts",
     "check:curriculum": "tsx scripts/curriculum-check.ts",
-    "check": "npm run typecheck && npm run check:curriculum && npm run check:math"
+    "check": "npm run typecheck && npm run check:curriculum && npm run check:math && npm run check:math1"
   },
   "devDependencies": {
     "@clerk/localizations": "^3.37.10",
