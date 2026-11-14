@@ -1,19 +1,23 @@
 import { Link } from 'wouter';
 import { ArrowLeft, BookOpen, BookOpenCheck, CheckCircle2, Clock3, Target, Zap } from 'lucide-react';
 import { MathText } from '../MathText';
-import {
-  MATH10_LESSONS,
-  MATH10_META,
-  MATH10_SEMESTERS,
-  MATH10_UNITS,
-  lessonLevelCounts,
-  lessonQuestionCount,
-  math10LevelTotals,
-} from '../data/math10';
 import { levelInfo, lessonScore, useMathProgress } from '../lib/math-progress';
+import { useMathBundle } from './math-context';
 import { StudyShell } from './StudyShell';
 
 export function MathHub() {
+  const {
+    base,
+    grade,
+    gradeOptions,
+    MATH10_LESSONS,
+    MATH10_META,
+    MATH10_SEMESTERS,
+    MATH10_UNITS,
+    lessonLevelCounts,
+    lessonQuestionCount,
+    math10LevelTotals,
+  } = useMathBundle();
   const progress = useMathProgress();
   const level = levelInfo(progress.xp);
   const totalQuestions = lessonQuestionCount();
@@ -25,7 +29,7 @@ export function MathHub() {
     <StudyShell>
       <section className="study-hero">
         <p className="study-eyebrow">{MATH10_META.country} · {MATH10_META.semester}</p>
-        <h1 className="study-title">الرياضيات — الصف العاشر</h1>
+        <h1 className="study-title">الرياضيات — {MATH10_META.grade}</h1>
         <p className="study-sub">
           {MATH10_UNITS.length} وحدات و{MATH10_LESSONS.length} درسًا موزّعة على الفصلين الدراسيين، وكل درس مرتبط بأسئلته
           الخاصة: اختيار من متعدد وصح وخطأ، سؤال واحد في كل شاشة، مع تصحيح فوري وشرح مبسّط ومرجع صفحة الكتاب.
@@ -53,6 +57,20 @@ export function MathHub() {
           </p>
         </div>
       </section>
+
+      <nav className="study-actions" style={{ marginTop: 18 }} aria-label="اختيار الصف" data-testid="math-grade-switcher">
+        <span className="study-meta" style={{ marginInlineEnd: 4 }}>الصف:</span>
+        {gradeOptions.map((option) => (
+          <Link
+            key={option.grade}
+            href={option.hubPath}
+            className={`btn ${option.grade === grade ? 'btn-primary' : 'btn-quiet'}`}
+            data-testid={`link-grade-${option.grade}`}
+          >
+            {option.label}
+          </Link>
+        ))}
+      </nav>
 
       {MATH10_SEMESTERS.map((semester) => (
         <section key={semester.number} style={{ marginTop: 26 }} data-testid={`semester-${semester.number}`}>
@@ -88,7 +106,7 @@ export function MathHub() {
                   return (
                     <Link
                       key={lesson.id}
-                      href={`/math/lesson/${lesson.id}`}
+                      href={`${base}/lesson/${lesson.id}`}
                       className="study-lesson-row"
                       data-testid={`link-lesson-${lesson.id}`}
                     >
@@ -117,7 +135,7 @@ export function MathHub() {
               </div>
 
               <div className="study-actions">
-                <Link href={`/math/unit/${unit.id}`} className="btn btn-quiet" data-testid={`link-unit-${unit.id}`}>
+                <Link href={`${base}/unit/${unit.id}`} className="btn btn-quiet" data-testid={`link-unit-${unit.id}`}>
                   نظرة على الوحدة ({unitMastered}/{unit.lessons.length} مُتقن)
                 </Link>
               </div>

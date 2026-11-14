@@ -1,12 +1,13 @@
-import { Link, useRoute } from 'wouter';
+import { Link } from 'wouter';
 import { ArrowLeft, ArrowRight, BookOpen, Clock3 } from 'lucide-react';
-import { findUnit, MATH10_UNITS } from '../data/math10';
 import { lessonScore, useMathProgress } from '../lib/math-progress';
+import { useMathBundle } from './math-context';
 import { StudyShell } from './StudyShell';
 
-export function MathUnitPage() {
-  const [, params] = useRoute('/math/unit/:unitId');
-  const unit = findUnit(params?.unitId ?? '');
+export function MathUnitPage({ unitId }: { unitId?: string }) {
+  const { base, meta, MATH10_UNITS, findUnit, findSemesterOfUnit } = useMathBundle();
+  const unit = findUnit(unitId ?? '');
+  const semester = unit ? findSemesterOfUnit(unit.id) : undefined;
   const progress = useMathProgress();
 
   if (!unit) {
@@ -14,7 +15,7 @@ export function MathUnitPage() {
       <StudyShell>
         <div className="study-card">
           <h1 className="study-title" style={{ fontSize: 22 }}>الوحدة غير موجودة</h1>
-          <p className="study-sub">قد يكون الرابط غير صحيح. <Link href="/math" className="study-link">عُد إلى قائمة الوحدات</Link>.</p>
+          <p className="study-sub">قد يكون الرابط غير صحيح. <Link href={base} className="study-link">عُد إلى قائمة الوحدات</Link>.</p>
         </div>
       </StudyShell>
     );
@@ -28,13 +29,13 @@ export function MathUnitPage() {
   return (
     <StudyShell>
       <nav className="study-crumbs">
-        <Link href="/math">الرياضيات — الصف العاشر</Link>
+        <Link href={base}>الرياضيات — {meta.grade}</Link>
         <span>/</span>
         <span>الوحدة {index + 1}</span>
       </nav>
 
       <section className="study-hero">
-        <p className="study-eyebrow">الوحدة {index + 1} · {index < 4 ? 'الفصل الأول' : 'الفصل الثاني'}</p>
+        <p className="study-eyebrow">الوحدة {index + 1} · {semester?.title ?? 'الفصل الدراسي الأول'}</p>
         <h1 className="study-title">{unit.title}</h1>
         <p className="study-sub">{unit.description}</p>
         <div className="study-stats">
@@ -56,10 +57,10 @@ export function MathUnitPage() {
               <h2 className="study-card-title">{lesson.title}</h2>
               <p className="study-sub" style={{ fontSize: 14, margin: '4px 0 0' }}>{lesson.objective}</p>
               <div className="study-actions">
-                <Link href={`/math/lesson/${lesson.id}`} className="btn btn-primary" data-testid={`link-study-${lesson.id}`}>
+                <Link href={`${base}/lesson/${lesson.id}`} className="btn btn-primary" data-testid={`link-study-${lesson.id}`}>
                   ابدأ الدرس <ArrowLeft size={16} />
                 </Link>
-                <Link href={`/math/lesson/${lesson.id}/quiz`} className="btn btn-quiet" data-testid={`link-quiz-${lesson.id}`}>
+                <Link href={`${base}/lesson/${lesson.id}/quiz`} className="btn btn-quiet" data-testid={`link-quiz-${lesson.id}`}>
                   الأسئلة مباشرة
                 </Link>
                 {record ? (
@@ -76,8 +77,8 @@ export function MathUnitPage() {
       </div>
 
       <div className="study-actions">
-        {previous && <Link href={`/math/unit/${previous.id}`} className="btn btn-quiet"><ArrowRight size={16} /> الوحدة السابقة</Link>}
-        {next && <Link href={`/math/unit/${next.id}`} className="btn btn-quiet">الوحدة التالية <ArrowLeft size={16} /></Link>}
+        {previous && <Link href={`${base}/unit/${previous.id}`} className="btn btn-quiet"><ArrowRight size={16} /> الوحدة السابقة</Link>}
+        {next && <Link href={`${base}/unit/${next.id}`} className="btn btn-quiet">الوحدة التالية <ArrowLeft size={16} /></Link>}
       </div>
     </StudyShell>
   );
