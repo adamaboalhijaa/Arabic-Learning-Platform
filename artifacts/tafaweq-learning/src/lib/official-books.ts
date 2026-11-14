@@ -94,7 +94,7 @@ function buildBooks(): OfficialBook[] {
         0,
       );
       // وحدات ودروس الكتاب المستوردة من مصدر أردني فعلي (بلا أسئلة بعد).
-      const outline = outlineFor(subject.gradeNumber, subject.title, semester);
+      const outline = outlineFor(subject.gradeNumber, subject.title, semester, subject.id);
       // إحصاءات الوحدات تُنسب إلى كتاب الفصل فقط إذا أثبت المصدر تقسيم الفصل الدراسي.
       const outlineCounts = outline && outline.semesterVerified ? outlineStats(outline) : null;
       const hasContent = semesterUnits.length > 0;

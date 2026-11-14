@@ -505,12 +505,172 @@ const G8_MATH: ImportedBookOutline = {
   ],
 };
 
+/**
+ * رياضيات الصف التاسع — الوحدات والدروس كما وردت في صفحة المادة بالمصدر.
+ * المصدر يعرض الوحدات بأرقامها (1، 2، 3، 6، 7، 8) دون الوحدتين 4 و5،
+ * لذا سُجّلت الأرقام كما وردت ولم تُخترع وحدتان ناقصتان.
+ */
+const G9_MATH: ImportedBookOutline = {
+  key: 'g9-math',
+  gradeNumber: 9,
+  subjectTitle: 'الرياضيات',
+  subjectId: 1181,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الرياضيات',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1095`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وأرقامها مأخوذة حرفيًا من صفحة مادة الرياضيات للصف التاسع في المصدر؛ تقسيم الفصل الدراسي غير مثبت لأن صفحات تنزيل الكتاب تعيد HTML لا PDF.',
+  units: [
+    {
+      number: 1,
+      title: 'المتباينات الخطية',
+      lessons: [
+        { title: 'المجموعات والفترات', sourceUrl: `${MINHAJI}/33639` },
+        { title: 'حل المتباينات المركبة', sourceUrl: `${MINHAJI}/33899` },
+        {
+          title: 'حل معادلات القيمة المطلقة ومتبايناتها',
+          sourceUrl: `${MINHAJI}/33908`,
+        },
+        {
+          title: 'تمثيل المتباينات الخطية بمتغيرين بيانياً',
+          sourceUrl: `${MINHAJI}/129590`,
+        },
+      ],
+    },
+    {
+      number: 2,
+      title: 'العلاقات والاقترانات',
+      lessons: [
+        { title: 'الاقترانات', sourceUrl: `${MINHAJI}/34037` },
+        { title: 'تفسير التمثيلات البيانية', sourceUrl: `${MINHAJI}/34195` },
+        { title: 'الاقتران التربيعي', sourceUrl: `${MINHAJI}/34332` },
+        {
+          title: 'التحويلات الهندسية للاقترانات التربيعية',
+          sourceUrl: `${MINHAJI}/130010`,
+        },
+      ],
+    },
+    {
+      number: 3,
+      title: 'حل المعادلات',
+      lessons: [
+        {
+          title: 'حل المعادلات التربيعية بيانياً',
+          sourceUrl: `${MINHAJI}/34383`,
+        },
+        { title: 'حل المعادلات التربيعية بالتحليل', sourceUrl: `${MINHAJI}/34387` },
+        {
+          title: 'حل المعادلات التربيعية بإكمال المربع',
+          sourceUrl: `${MINHAJI}/34691`,
+        },
+        {
+          title: 'حل المعادلات التربيعية باستخدام القانون العام',
+          sourceUrl: `${MINHAJI}/34700`,
+        },
+      ],
+    },
+    {
+      number: 6,
+      title: 'المقادير الأسية والمقادير الجذرية',
+      lessons: [
+        { title: 'تبسيط المقادير الأسية', sourceUrl: `${MINHAJI}/35759` },
+        { title: 'العمليات على المقادير الجذرية', sourceUrl: `${MINHAJI}/35764` },
+        { title: 'حل المعادلات الجذرية', sourceUrl: `${MINHAJI}/35769` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'المقادير الجبرية النسبية',
+      lessons: [
+        {
+          title: 'ضرب المقادير الجبرية النسبية وقسمتها',
+          sourceUrl: `${MINHAJI}/35774`,
+        },
+        {
+          title: 'جمع المقادير الجبرية النسبية وطرحها',
+          sourceUrl: `${MINHAJI}/35778`,
+        },
+        { title: 'حل المعادلات النسبية', sourceUrl: `${MINHAJI}/35781` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الإحصاء والاحتمالات',
+      lessons: [{ title: 'مقاييس التشتت', sourceUrl: `${MINHAJI}/35786` }],
+    },
+  ],
+};
+
+/**
+ * رياضيات الصف الحادي عشر (المسار العلمي) — كما وردت في صفحة المادة بالمصدر.
+ * الصفحة تعرض وحدتين فقط، فلم تُستكمل وحدات أخرى من خارج المصدر.
+ */
+const G11_MATH: ImportedBookOutline = {
+  key: 'g11-math',
+  gradeNumber: 11,
+  subjectTitle: 'الرياضيات',
+  subjectId: 1224,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الرياضيات (المسار العلمي)',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/8834`,
+  verifiedBy:
+    'أسماء الوحدتين ودروسهما مأخوذة حرفيًا من صفحة مادة الرياضيات للصف الحادي عشر (علمي) في المصدر؛ الصفحة تعرض وحدتين فقط، وتقسيم الفصل الدراسي غير مثبت.',
+  units: [
+    {
+      number: 1,
+      title: 'الاقترانات والمتتاليات والمتسلسلات',
+      lessons: [
+        { title: 'الاقترانات المتشعبة', sourceUrl: `${MINHAJI}/33852` },
+        { title: 'التحويلات الهندسية للاقترانات', sourceUrl: `${MINHAJI}/33942` },
+        { title: 'المتتاليات والمتسلسلات', sourceUrl: `${MINHAJI}/33988` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'النهايات والمشتقات',
+      lessons: [{ title: 'النهايات والاتصال', sourceUrl: `${MINHAJI}/34012` }],
+    },
+  ],
+};
+
+/**
+ * رياضيات الصف الثاني عشر (المسار الأكاديمي) — الصفحة تعرض عنوان وحدة واحدة بلا دروس مسماة،
+ * لذا سُجّلت الوحدة بعنوانها فقط دون اختراع دروس.
+ */
+const G12_MATH: ImportedBookOutline = {
+  key: 'g12-math',
+  gradeNumber: 12,
+  subjectTitle: 'الرياضيات',
+  subjectId: 1244,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الرياضيات (المسار الأكاديمي)',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/55558`,
+  verifiedBy:
+    'عنوان الوحدة مأخوذ حرفيًا من صفحة مادة الرياضيات للصف الثاني عشر (المسار الأكاديمي) في المصدر؛ الصفحة تعرض الوحدة الأولى «المصفوفات» دون روابط دروس، فلم تُضف دروس من خارج المصدر.',
+  units: [
+    {
+      number: 1,
+      title: 'المصفوفات',
+      lessons: [],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G5_MATH_S1,
   G5_MATH_S2,
   G6_MATH,
   G7_MATH,
   G8_MATH,
+  G9_MATH,
+  G11_MATH,
+  G12_MATH,
 ];
 
 /** إحصاءات كتاب مستورد واحد. */
@@ -520,10 +680,20 @@ export function outlineStats(outline: ImportedBookOutline) {
 }
 
 /** الكتاب المستورد المطابق لصف/مادة/فصل، أو undefined. */
-export function outlineFor(gradeNumber: number, subjectTitle: string, semester: 1 | 2) {
+export function outlineFor(
+  gradeNumber: number,
+  subjectTitle: string,
+  semester: 1 | 2,
+  subjectId?: number,
+) {
   const title = subjectTitle.trim();
   const candidates = IMPORTED_OUTLINES.filter(
-    (outline) => outline.gradeNumber === gradeNumber && outline.subjectTitle.trim() === title,
+    (outline) =>
+      outline.gradeNumber === gradeNumber &&
+      outline.subjectTitle.trim() === title &&
+      (outline.subjectId === undefined ||
+        subjectId === undefined ||
+        outline.subjectId === subjectId),
   );
   const verified = candidates.find(
     (outline) => outline.semesterVerified && outline.semester === semester,
