@@ -1,4 +1,5 @@
 import { MathText } from "./MathText";
+import { LessonPractice } from './components/LessonPractice';
 import { StudyApp } from "./study/StudyApp";
 import { clearLocalStudent, readLocalStudent, saveLocalStudent, type LocalStudent } from './lib/local-session';
 import { installLocalBackend } from './lib/local-backend';
@@ -408,8 +409,8 @@ function LessonPage() {
       <section style={{ marginTop:30 }}><span className="eyebrow">هدف الدرس</span><h2 style={{ fontSize:20 }}>{lesson.objective}</h2></section>
       <section style={{ marginTop:24 }}><div className="section-heading" style={{ marginTop:0 }}><h2>ماذا ستتعلّم؟</h2><span className="row-meta"><Clock3 size={14} style={{ verticalAlign:'middle' }} /> {lesson.durationMinutes} دقيقة</span></div><ul style={{ lineHeight:2.2 }}>{lesson.objectives.map((obj,i)=><li key={`${i}-${obj}`} data-testid={`objective-${i}`}>{obj}</li>)}</ul></section>
       <section style={{ marginTop:24 }}><h2 style={{ fontSize:19 }}>الشرح</h2><div className="prose" style={{ lineHeight:2, whiteSpace:'pre-line' }} data-testid="lesson-explanation">{lesson.explanation}</div></section>
-      <section style={{ marginTop:24 }} data-testid="lesson-questions"><div className="section-heading" style={{ marginTop:0 }}><h2>أسئلة الدرس</h2><span className="row-meta">{questions.length} أسئلة</span></div>{questions.length ? <div className="list-stack">{questions.map((question, index)=><div key={question.id} className="card row-card" data-testid={`lesson-question-${index}`}><div className="row-main"><div className="row-title">{index + 1}. {question.prompt}</div><div className="row-meta">{question.kind === 'true_false' ? 'صح وخطأ' : 'اختيار من متعدد'} · {question.options.length} خيارات</div></div></div>)}</div> : <p className="row-meta">لم تُضف أسئلة لهذا الدرس بعد.</p>}</section>
-      <div style={{ display:'flex', gap:10, marginTop:30, flexWrap:'wrap' }}><Link href={`/lessons/${lesson.id}/quiz`} className="btn btn-primary" data-testid={`link-lesson-quiz-${lesson.id}`}>ابدأ اختبار الدرس <ArrowLeft size={16} /></Link><Link href={`/curriculum/unit/${lesson.unitId}`} className="btn btn-quiet" data-testid="link-back-to-lessons">العودة للدروس</Link></div>
+      <section style={{ marginTop:24 }} data-testid="lesson-questions"><div className="section-heading" style={{ marginTop:0 }}><h2>أسئلة الدرس التفاعلية</h2><span className="row-meta">{questions.length} أسئلة · تصحيح فوري</span></div>{questions.length ? <LessonPractice lessonId={lesson.id} questions={questions} /> : <p className="row-meta">لم تُضف أسئلة لهذا الدرس بعد.</p>}</section>
+      <div style={{ display:'flex', gap:10, marginTop:30, flexWrap:'wrap' }}><Link href={`/lessons/${lesson.id}/quiz`} className="btn btn-primary" data-testid={`link-lesson-quiz-${lesson.id}`}>اختبار شامل للدرس <ArrowLeft size={16} /></Link><Link href={`/curriculum/unit/${lesson.unitId}`} className="btn btn-quiet" data-testid="link-back-to-lessons">العودة للدروس</Link></div>
     </div>
   </AppShell>;
 }

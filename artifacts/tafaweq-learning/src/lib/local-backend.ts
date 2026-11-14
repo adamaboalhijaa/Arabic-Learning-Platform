@@ -249,6 +249,27 @@ function handle(pathname: string, method: string, body: unknown): Response | nul
     return null;
   }
 
+  // تصحيح فوري لسؤال واحد داخل صفحة الدرس: XP لأول إجابة صحيحة فقط.
+  if (rest[0] === 'questions' && method === 'POST' && rest[2] === 'answer') {
+    const record = ALL_QUESTIONS.find((item) => item.id === Number(rest[1]));
+    if (!record) return json({ message: 'السؤال غير موجود' }, 404);
+    const selectedOption = selectedOptionOf(body);
+    const isCorrect = selectedOption === record.question.correctOption;
+    const earnedXp = recordAnswer(String(record.id), isCorrect);
+    const progress = getProgress();
+    return json({
+      questionId: record.id,
+      lessonId: record.lessonId,
+      selectedOption,
+      correctOption: record.question.correctOption,
+      isCorrect,
+      explanation: record.question.explanation,
+      earnedXp,
+      totalXp: progress.xp,
+      level: levelInfo(progress.xp).level,
+    });
+  }
+
   if (rest[0] === 'quiz-attempts' && method === 'POST') return submitAttempt(body);
 
   if (rest[0] === 'me') {
