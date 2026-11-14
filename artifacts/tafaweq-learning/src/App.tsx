@@ -407,7 +407,7 @@ function SubjectUnits() {
       {subjectBooks.map(book => <article className="card" key={book.key} data-testid={`book-card-${book.semester}`}>
         <span className="eyebrow">الفصل {book.semester === 1 ? 'الأول' : 'الثاني'}</span>
         <h3 style={{ fontSize: 17, marginTop: 8 }}>{book.title}</h3>
-        <p className="row-meta">{book.status === 'linked' ? `${book.units} وحدات · ${book.lessons} درسًا · ${book.questions} سؤالًا` : book.status === 'outline-imported' ? `${book.units} وحدات · ${book.lessons} درسًا مستوردة · الأسئلة قيد الإعداد` : 'بانتظار استيراد وحدات ودروس الكتاب الرسمي'}</p>
+        <p className="row-meta">{book.status === 'linked' ? `${book.units} وحدات · ${book.lessons} درسًا · ${book.questions} سؤالًا` : book.status === 'outline-imported' ? `${book.units} وحدات · ${book.lessons} درسًا مستوردة · الأسئلة قيد الإعداد` : book.status === 'outline-unverified' ? 'وحدات الكتاب معروضة أدناه · تقسيم الفصل غير موثق في المصدر · الأسئلة قيد الإعداد' : 'بانتظار استيراد وحدات ودروس الكتاب الرسمي'}</p>
         <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap', alignItems: 'center' }}>
           <span className={book.status === 'linked' ? 'status status-reviewed' : 'status status-draft'} data-testid={`book-status-${book.semester}`} data-status={book.status}>{BOOK_STATUS_LABEL[book.status]}</span>
           <a className="btn btn-quiet" href={book.sourcePage} target="_blank" rel="noreferrer noopener" data-testid={`book-source-${book.semester}`}>المصدر الرسمي</a>
@@ -418,7 +418,7 @@ function SubjectUnits() {
       {([1, 2] as const).map(value => <button key={value} type="button" role="tab" aria-selected={semester === value} onClick={() => setSemester(value)} className={`btn ${semester === value ? 'btn-primary' : 'btn-quiet'}`} data-testid={`tab-semester-${value}`}>الفصل الدراسي {value === 1 ? 'الأول' : 'الثاني'} ({countOf(value)})</button>)}
     </div>
     {outline ? <div className="list-stack" style={{ marginTop: 18 }} data-testid="outline-units">
-      <p className="row-meta" data-testid="outline-note">وحدات ودروس كتاب {outline.bookTitle} مستوردة من مصدر أردني ({outline.sourceName}). الأسئلة لم تُكتب لهذا الكتاب بعد.</p>
+      <p className="row-meta" data-testid="outline-note">وحدات ودروس كتاب {outline.bookTitle} مستوردة من مصدر أردني ({outline.sourceName}).{outline.semesterVerified ? '' : ' المصدر لا يحدد تقسيم هذه الوحدات على الفصلين الدراسيين، لذا تُعرض كاملة دون نسبتها إلى فصل معيّن.'} الأسئلة لم تُكتب لهذا الكتاب بعد.</p>
       {outline.units.map(unit => <article className="card" key={unit.number} data-testid={`outline-unit-${unit.number}`}>
         <div className="row-main">
           <div className="row-title">الوحدة {unit.number}: {unit.title}</div>
