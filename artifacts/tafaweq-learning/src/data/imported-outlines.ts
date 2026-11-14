@@ -1659,7 +1659,181 @@ const G8_SCIENCE: ImportedBookOutline = {
   ],
 };
 
+/** فيزياء الصف العاشر — كتاب الطالب (5 وحدات كما وردت في المصدر). */
+const G10_PHYSICS: ImportedBookOutline = {
+  key: 'g10-physics',
+  gradeNumber: 10,
+  subjectTitle: 'الفيزياء',
+  subjectId: 1202,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الفيزياء',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1111`,
+  verifiedBy:
+    'صفحة مادة الفيزياء للصف العاشر في منهاجي: خمس وحدات بترتيبها وبدروسها كما وردت؛ المصدر لا يثبت تقسيمها على الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'المتجهات',
+      lessons: [
+        { title: 'الكميات القياسية والكميات المتجهة', sourceUrl: `${MINHAJI}/22011` },
+        { title: 'جمع المتجهات وطرحها', sourceUrl: `${MINHAJI}/3614` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الحركة',
+      lessons: [
+        { title: 'الحركة في بعد واحد', sourceUrl: `${MINHAJI}/3615` },
+        { title: 'الحركة في بعدين', sourceUrl: `${MINHAJI}/3616` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'القوى',
+      lessons: [
+        { title: 'القانون الأول في الحركة لنيوتن', sourceUrl: `${MINHAJI}/3617` },
+        { title: 'القانون الثاني والثالث في الحركة لنيوتن', sourceUrl: `${MINHAJI}/22012` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'تطبيقات على قوانين نيوتن',
+      lessons: [
+        { title: 'الوزن وقانون الجذب العام', sourceUrl: `${MINHAJI}/3618` },
+        { title: 'تطبيقات على القوى', sourceUrl: `${MINHAJI}/3620` },
+        { title: 'القوة المركزية', sourceUrl: `${MINHAJI}/23677` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'الموائع',
+      lessons: [
+        { title: 'الموائع السكونية', sourceUrl: `${MINHAJI}/23671` },
+        { title: 'الموائع المتحركة', sourceUrl: `${MINHAJI}/23683` },
+      ],
+    },
+  ],
+};
+
+/** كيمياء الصف العاشر — كتاب الطالب (5 وحدات كما وردت في المصدر). */
+const G10_CHEMISTRY: ImportedBookOutline = {
+  key: 'g10-chemistry',
+  gradeNumber: 10,
+  subjectTitle: 'الكيمياء',
+  subjectId: 1203,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الكيمياء',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1109`,
+  verifiedBy:
+    'صفحة مادة الكيمياء للصف العاشر في منهاجي: خمس وحدات بترتيبها وبدروسها كما وردت؛ المصدر لا يثبت تقسيمها على الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'بنية الذرة وتركيبها',
+      lessons: [
+        { title: 'نظرية بور لذرة الهيدروجين', sourceUrl: `${MINHAJI}/21774` },
+        { title: 'النموذج الميكانيكي الموجي', sourceUrl: `${MINHAJI}/21775` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'التوزيع الإلكتروني والدورية',
+      lessons: [
+        { title: 'التوزيع الإلكتروني للذرات', sourceUrl: `${MINHAJI}/22059` },
+        { title: 'الخصائص الدورية للعناصر', sourceUrl: `${MINHAJI}/22060` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'المركبات والروابط الكيميائية',
+      lessons: [
+        { title: 'الروابط الكيميائية وأنواعها', sourceUrl: `${MINHAJI}/22061` },
+        { title: 'الصيغ الكيميائية وخصائص المركبات', sourceUrl: `${MINHAJI}/22062` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'التفاعلات والحسابات الكيميائية',
+      lessons: [
+        { title: 'التفاعلات الكيميائية', sourceUrl: `${MINHAJI}/11550` },
+        { title: 'المول والكتلة المولية', sourceUrl: `${MINHAJI}/11551` },
+        { title: 'الحسابات الكيميائية', sourceUrl: `${MINHAJI}/11552` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'الطاقة الكيميائية',
+      lessons: [
+        { title: 'تغيرات الطاقة في التفاعلات الكيميائية', sourceUrl: `${MINHAJI}/11563` },
+        { title: 'الطاقة الممتصة والطاقة المنبعثة', sourceUrl: `${MINHAJI}/11564` },
+        { title: 'حسابات الطاقة في التفاعلات الكيميائية', sourceUrl: `${MINHAJI}/11566` },
+      ],
+    },
+  ],
+};
+
+/** أحياء الصف العاشر — كتاب الطالب (4 وحدات كما وردت في المصدر). */
+const G10_BIOLOGY: ImportedBookOutline = {
+  key: 'g10-biology',
+  gradeNumber: 10,
+  subjectTitle: 'الأحياء',
+  subjectId: 1204,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الأحياء',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1110`,
+  verifiedBy:
+    'صفحة مادة العلوم الحياتية للصف العاشر في منهاجي: أربع وحدات بترتيبها وبدروسها كما وردت؛ المصدر لا يثبت تقسيمها على الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'نظرية التطور',
+      lessons: [{ title: 'تطور الكائنات الحية', sourceUrl: `${MINHAJI}/7295` }],
+    },
+    {
+      number: 2,
+      title: 'الفيروسات والفيرويدات والبريونات',
+      lessons: [
+        { title: 'الفيروسات', sourceUrl: `${MINHAJI}/7317` },
+        { title: 'الفيرويدات والبريونات', sourceUrl: `${MINHAJI}/22344` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'تصنيف الكائنات الحية',
+      lessons: [
+        { title: 'أسس علم التصنيف', sourceUrl: `${MINHAJI}/7334` },
+        { title: 'البكتيريا والأثريات', sourceUrl: `${MINHAJI}/7343` },
+        { title: 'الطلائعيات', sourceUrl: `${MINHAJI}/22351` },
+        { title: 'الفطريات', sourceUrl: `${MINHAJI}/22353` },
+        { title: 'النباتات اللاوعائية', sourceUrl: `${MINHAJI}/23488` },
+        { title: 'النباتات الوعائية البذرية', sourceUrl: `${MINHAJI}/23503` },
+        { title: 'خصائص الحيوانات وأسس تصنيفها', sourceUrl: `${MINHAJI}/23508` },
+        { title: 'اللافقاريات', sourceUrl: `${MINHAJI}/23519` },
+        { title: 'الفقاريات', sourceUrl: `${MINHAJI}/23525` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'البيئة',
+      lessons: [
+        { title: 'الكائنات الحية في بيئاتها', sourceUrl: `${MINHAJI}/7268` },
+        { title: 'الجماعات الحيوية', sourceUrl: `${MINHAJI}/7277` },
+        { title: 'التعاقب البيئي', sourceUrl: `${MINHAJI}/7286` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G10_PHYSICS,
+  G10_CHEMISTRY,
+  G10_BIOLOGY,
   G1_SCIENCE,
   G2_SCIENCE,
   G3_SCIENCE,
