@@ -176,7 +176,9 @@ export function LessonPractice({ lessonId, questions }: { lessonId: number; ques
                 <Zap size={14} style={{ verticalAlign: 'middle' }} />{' '}
                 {currentFeedback.earnedXp > 0
                   ? `+${currentFeedback.earnedXp} نقطة خبرة`
-                  : 'لا نقاط إضافية — احتُسبت هذه الإجابة سابقًا.'}
+                  : currentFeedback.isCorrect
+                    ? 'إجابة صحيحة سابقة — لا نقاط إضافية.'
+                    : 'لا نقاط لهذه المحاولة — راجع الشرح ثم تابع.'}
               </span>
             </div>
           </div>
