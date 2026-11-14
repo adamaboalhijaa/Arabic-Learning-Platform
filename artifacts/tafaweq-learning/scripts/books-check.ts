@@ -8,12 +8,7 @@ import {
   ALL_SUBJECTS,
   ALL_UNITS,
 } from '../src/lib/curriculum-books';
-import {
-  OFFICIAL_BOOKS,
-  curriculumCompletion,
-  duplicateIssues,
-  gradeSourcePage,
-} from '../src/lib/official-books';
+import { IMPORTED_OUTLINES, outlineFor, outlineStats } from '../src/data/imported-outlines';
 
 const problems: string[] = [];
 const check = (condition: boolean, message: string) => {
@@ -54,11 +49,51 @@ for (const question of ALL_QUESTIONS) {
 for (const book of OFFICIAL_BOOKS) {
   if (book.status === 'linked') {
     check(book.units > 0, `الكتاب ${book.key} مربوط بلا وحدات`);
+  } else if (book.status === 'outline-imported') {
+    check(book.units > 0 && book.lessons > 0, `الكتاب ${book.key} مستورد بلا وحدات أو دروس`);
+    check(
+      typeof book.outlineSourceUrl === 'string' && book.outlineSourceUrl.startsWith('https://'),
+      `الكتاب ${book.key} بلا رابط مصدر للوحدات المستوردة`,
+    );
+    check(
+      typeof book.outlineVerifiedBy === 'string' && book.outlineVerifiedBy.length > 0,
+      `الكتاب ${book.key} بلا دليل على ترتيب وحداته وتقسيم فصله`,
+    );
   } else {
     check(
       book.units === 0 && book.lessons === 0,
       `الكتاب ${book.key} بانتظار الاستيراد لكن فيه محتوى غير منسوب`,
     );
+  }
+}
+
+// 3ب) الكتب المستوردة: مطابقة مادة موجودة، وسلامة التعداد والعناوين وروابط المصدر.
+for (const outline of IMPORTED_OUTLINES) {
+  const book = OFFICIAL_BOOKS.find(
+    (item) =>
+      item.gradeNumber === outline.gradeNumber &&
+      item.semester === outline.semester &&
+      item.subjectTitle.trim() === outline.subjectTitle.trim(),
+  );
+  check(!!book, `لا كتاب في السجل يطابق المستورد ${outline.key}`);
+  if (!book) continue;
+  const stats = outlineStats(outline);
+  check(book.units === stats.units, `الكتاب ${book.key}: عدد الوحدات لا يطابق المستورد`);
+  check(book.lessons === stats.lessons, `الكتاب ${book.key}: عدد الدروس لا يطابق المستورد`);
+  check(
+    outlineFor(outline.gradeNumber, outline.subjectTitle, outline.semester) === outline,
+    `البحث عن المستورد ${outline.key} لا يعيده`,
+  );
+  for (const unit of outline.units) {
+    check(unit.title.trim().length > 0, `وحدة بلا عنوان في ${outline.key}`);
+    check(unit.lessons.length > 0, `الوحدة «${unit.title}» في ${outline.key} بلا دروس`);
+    for (const lesson of unit.lessons) {
+      check(lesson.title.trim().length > 0, `درس بلا عنوان في ${outline.key}`);
+      check(
+        !lesson.sourceUrl || lesson.sourceUrl.startsWith('https://'),
+        `درس «${lesson.title}» في ${outline.key} برابط مصدر غير صالح`,
+      );
+    }
   }
 }
 
@@ -76,7 +111,7 @@ console.log(
   `الكتب: ${completion.totals.books} (مربوطة ${completion.totals.booksLinked} · بانتظار الاستيراد ${completion.totals.booksPending})`,
 );
 console.log(
-  `المواد: ${completion.totals.subjects} · الوحدات: ${completion.totals.units} · الدروس: ${completion.totals.lessons} · الأسئلة: ${completion.totals.questions}`,
+  `الكتب المستوردة: ${IMPORTED_OUTLINES.length} · الوحدات: ${IMPORTED_OUTLINES.reduce((sum, outline) => sum + outlineStats(outline).units, 0)} · الدروس: ${IMPORTED_OUTLINES.reduce((sum, outline) => sum + outlineStats(outline).lessons, 0)}`,
 );
 for (const grade of completion.grades) {
   console.log(

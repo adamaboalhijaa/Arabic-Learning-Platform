@@ -330,7 +330,8 @@ function LessonRow({ lesson }: { lesson: Lesson }) {
   return <article className="card row-card" data-testid={`lesson-row-${lesson.id}`}><div className="row-main"><div style={{ display: 'flex', alignItems: 'center', gap: 9, flexWrap: 'wrap' }}><span className="row-title">{lesson.title}</span><Status value={lesson.contentStatus} /></div><div className="row-meta">{lesson.subjectTitle} · الوحدة: {lesson.unitTitle} · {lesson.durationMinutes} دقيقة{lesson.bestScore !== null ? ` · أفضل نتيجة ${lesson.bestScore}%` : ''}</div></div><Link href={`/lessons/${lesson.id}`} className="btn btn-primary" data-testid={`link-open-lesson-${lesson.id}`}>افتح الدرس <ArrowLeft size={15} /></Link></article>;
 }
 
-import { booksOfSubject, curriculumCompletion } from './lib/official-books';
+import { BOOK_STATUS_LABEL, booksOfSubject, curriculumCompletion } from './lib/official-books';
+import { outlineFor } from './data/imported-outlines';
 
 function BooksInventory() {
   const completion = curriculumCompletion();
@@ -388,6 +389,8 @@ function SubjectUnits() {
   const q = useListSubjectUnits(id, { query: { queryKey: getListSubjectUnitsQueryKey(id), enabled: !!id } });
   const [semester, setSemester] = useState<1 | 2>(1);
   const subjectBooks = booksOfSubject(id);
+  const subjectInfo = subjectBooks[0];
+  const outline = subjectInfo ? outlineFor(subjectInfo.gradeNumber, subjectInfo.subjectTitle, semester) : undefined;
   if (q.isLoading) return <PageLoading />;
   if (q.isError) return <AppShell><ErrorState retry={() => q.refetch()} /></AppShell>;
   // رقم الفصل الدراسي يأتي من البيانات؛ أي قيمة غير معروفة تُعامل كالفصل الأول.
@@ -401,9 +404,9 @@ function SubjectUnits() {
       {subjectBooks.map(book => <article className="card" key={book.key} data-testid={`book-card-${book.semester}`}>
         <span className="eyebrow">الفصل {book.semester === 1 ? 'الأول' : 'الثاني'}</span>
         <h3 style={{ fontSize: 17, marginTop: 8 }}>{book.title}</h3>
-        <p className="row-meta">{book.status === 'linked' ? `${book.units} وحدات · ${book.lessons} درسًا · ${book.questions} سؤالًا` : 'بانتظار استيراد وحدات ودروس الكتاب الرسمي'}</p>
+        <p className="row-meta">{book.status === 'linked' ? `${book.units} وحدات · ${book.lessons} درسًا · ${book.questions} سؤالًا` : book.status === 'outline-imported' ? `${book.units} وحدات · ${book.lessons} درسًا مستوردة · الأسئلة قيد الإعداد` : 'بانتظار استيراد وحدات ودروس الكتاب الرسمي'}</p>
         <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-          <span className={book.status === 'linked' ? 'status status-reviewed' : 'status status-draft'} data-testid={`book-status-${book.semester}`}>{book.status === 'linked' ? 'مربوط' : 'بانتظار الاستيراد'}</span>
+          <span className={book.status === 'linked' ? 'status status-reviewed' : 'status status-draft'} data-testid={`book-status-${book.semester}`} data-status={book.status}>{BOOK_STATUS_LABEL[book.status]}</span>
           <a className="btn btn-quiet" href={book.sourcePage} target="_blank" rel="noreferrer noopener" data-testid={`book-source-${book.semester}`}>المصدر الرسمي</a>
         </div>
       </article>)}
@@ -411,7 +414,21 @@ function SubjectUnits() {
     <div className="toolbar" style={{ marginTop: 22 }} role="tablist" aria-label="الفصل الدراسي">
       {([1, 2] as const).map(value => <button key={value} type="button" role="tab" aria-selected={semester === value} onClick={() => setSemester(value)} className={`btn ${semester === value ? 'btn-primary' : 'btn-quiet'}`} data-testid={`tab-semester-${value}`}>الفصل الدراسي {value === 1 ? 'الأول' : 'الثاني'} ({countOf(value)})</button>)}
     </div>
-    {visible.length ? <div className="list-stack" style={{ marginTop: 25 }}>{visible.map(unit=><Link key={unit.id} href={`/curriculum/unit/${unit.id}`} className="card row-card" style={{ textDecoration:'none', color:'inherit' }} data-testid={`row-unit-${unit.id}`}><div className="row-main"><div className="row-title">{unit.position + 1}. {unit.title}</div><div className="row-meta">{unit.lessonCount} دروس · الفصل {semester === 1 ? 'الأول' : 'الثاني'}</div></div><Status value={unit.contentStatus} /><ChevronLeft size={18} /></Link>)}</div> : <EmptyState title="لا توجد وحدات في هذا الفصل" body={units.length ? 'اختر الفصل الدراسي الآخر لعرض وحداته.' : 'لم يُضف كتاب هذه المادة بعد؛ ستظهر وحداتها عند ربط الكتاب الرسمي.'} />}
+    {outline ? <div className="list-stack" style={{ marginTop: 18 }} data-testid="outline-units">
+      <p className="row-meta" data-testid="outline-note">وحدات ودروس كتاب {outline.bookTitle} مستوردة من مصدر أردني ({outline.sourceName}). الأسئلة لم تُكتب لهذا الكتاب بعد.</p>
+      {outline.units.map(unit => <article className="card" key={unit.number} data-testid={`outline-unit-${unit.number}`}>
+        <div className="row-main">
+          <div className="row-title">الوحدة {unit.number}: {unit.title}</div>
+          <div className="row-meta">{unit.lessons.length} دروس</div>
+        </div>
+        <ul style={{ marginTop: 10, paddingInlineStart: 18 }}>
+          {unit.lessons.map(lesson => <li key={lesson.title} style={{ marginTop: 6 }}>
+            {lesson.sourceUrl ? <a href={lesson.sourceUrl} target="_blank" rel="noreferrer noopener">{lesson.title}</a> : lesson.title}
+          </li>)}
+        </ul>
+      </article>)}
+    </div> : null}
+    {visible.length ? <div className="list-stack" style={{ marginTop: 25 }}>{visible.map(unit=><Link key={unit.id} href={`/curriculum/unit/${unit.id}`} className="card row-card" style={{ textDecoration:'none', color:'inherit' }} data-testid={`row-unit-${unit.id}`}><div className="row-main"><div className="row-title">{unit.position + 1}. {unit.title}</div><div className="row-meta">{unit.lessonCount} دروس · الفصل {semester === 1 ? 'الأول' : 'الثاني'}</div></div><Status value={unit.contentStatus} /><ChevronLeft size={18} /></Link>)}</div> : <EmptyState title="لا توجد وحدات في هذا الفصل" body={units.length ? 'اختر الفصل الدراسي الآخر لعرض وحداته.' : outline ? 'وحدات الكتاب المستوردة معروضة أعلاه، وأسئلتها قيد الإعداد.' : 'لم يُضف كتاب هذه المادة بعد؛ ستظهر وحداتها عند ربط الكتاب الرسمي.'} />}
   </AppShell>;
 }
 
