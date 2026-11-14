@@ -220,9 +220,12 @@ function AppShell({ children }: { children: ReactNode }) {
   const { isSignedIn, isLoaded } = useAuth();
   const localStudent = useLocalStudent();
   const clerkReady = useClerkReady(isLoaded);
-  const [, navigate] = useLocation();
+  const [location, navigate] = useLocation();
   if (CLERK_ENABLED && !clerkReady) return <PageLoading />;
-  if (!isSignedIn && !localStudent) return <Unauthorized />;
+  // تصفّح المنهاج (صفوف ← مواد ← فصل ← وحدات ← دروس) متاح للزائر بلا حساب،
+  // بينما تبقى مساحات التقدّم والاختبارات والإدارة للمسجلين.
+  const guestBrowse = /^\/(curriculum|math)(\/|$)/.test(location);
+  if (!isSignedIn && !localStudent && !guestBrowse) return <Unauthorized />;
   const handleSignOut = () => {
     if (localStudent) {
       clearLocalStudent();
@@ -236,7 +239,7 @@ function AppShell({ children }: { children: ReactNode }) {
       <Brand />
       <div><div className="nav-caption">مساحة التعلّم</div><NavLinks /></div>
       <div className="sidebar-foot">
-        <button type="button" className="nav-link" onClick={handleSignOut} data-testid="button-sign-out"><LogOut size={18} /><span>تسجيل الخروج</span></button>
+        {isSignedIn || localStudent ? <button type="button" className="nav-link" onClick={handleSignOut} data-testid="button-sign-out"><LogOut size={18} /><span>تسجيل الخروج</span></button> : <Link className="nav-link" href="/sign-in" data-testid="button-guest-sign-in"><span>تسجيل الدخول للتدرب</span></Link>}
         <p style={{ fontSize: 10, opacity: .55, padding: '0 13px', lineHeight: 1.8 }}>المحتوى غير المتحقق يظهر بوضوح قبل البدء.</p>
       </div>
     </aside>
