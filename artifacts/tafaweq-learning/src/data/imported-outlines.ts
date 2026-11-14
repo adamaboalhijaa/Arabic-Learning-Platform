@@ -2063,7 +2063,215 @@ const G12_CHEMISTRY: ImportedBookOutline = {
   ],
 };
 
+/** فيزياء الصف الثاني عشر (المسار الأكاديمي) — وحدتان كما وردتا في المصدر. */
+const G12_PHYSICS: ImportedBookOutline = {
+  key: 'g12-physics',
+  gradeNumber: 12,
+  subjectTitle: 'الفيزياء',
+  subjectId: 1245,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الفيزياء',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/55556`,
+  verifiedBy:
+    'صفحة مادة الفيزياء للصف الثاني عشر (المسار الأكاديمي) في منهاجي: وحدتان بترتيبهما وبدروسهما كما وردت؛ المصدر لا يثبت تقسيمهما على الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'الزخم الخطي والتصادمات',
+      lessons: [
+        { title: 'الزخم الخطي والدفع', sourceUrl: `${MINHAJI}/57612` },
+        { title: 'التصادمات', sourceUrl: `${MINHAJI}/57618` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الحركة الدورانية',
+      lessons: [
+        { title: 'العزم والاتزان السكوني', sourceUrl: `${MINHAJI}/57627` },
+        { title: 'ديناميكا الحركة الدورانية', sourceUrl: `${MINHAJI}/57632` },
+        { title: 'الزخم الزاوي', sourceUrl: `${MINHAJI}/57637` },
+      ],
+    },
+  ],
+};
+
+/** أحياء الصف الثاني عشر (المسار الأكاديمي) — 9 وحدات كما وردت في المصدر. */
+const G12_BIOLOGY: ImportedBookOutline = {
+  key: 'g12-biology',
+  gradeNumber: 12,
+  subjectTitle: 'الأحياء',
+  subjectId: 1247,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الأحياء',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/55557`,
+  verifiedBy:
+    'صفحة مادة العلوم الحياتية للصف الثاني عشر (المسار الأكاديمي) في منهاجي: تسع وحدات بترتيبها وبدروسها كما وردت؛ المصدر لا يثبت تقسيمها على الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'كيمياء الحياة',
+      lessons: [
+        { title: 'المركبات العضوية الحيوية', sourceUrl: `${MINHAJI}/57583` },
+        { title: 'الإنزيمات وجزيء حفظ الطاقة', sourceUrl: `${MINHAJI}/57592` },
+        { title: 'التفاعلات الكيميائية في الخلية', sourceUrl: `${MINHAJI}/57598` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'دورة الخلية وتصنيع البروتينات',
+      lessons: [
+        { title: 'دورة الخلية', sourceUrl: `${MINHAJI}/129988` },
+        { title: 'الانقسام الخلوي وأهميته', sourceUrl: `${MINHAJI}/129992` },
+        { title: 'تضاعف DNA والتعبير الجيني', sourceUrl: `${MINHAJI}/129996` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الوراثة',
+      lessons: [
+        { title: 'وراثة الصفات المندلية', sourceUrl: `${MINHAJI}/130002` },
+        { title: 'الوراثة بعد مندل', sourceUrl: `${MINHAJI}/130005` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'التكنولوجيا الحيوية',
+      lessons: [{ title: 'أدوات التكنولوجيا الحيوية', sourceUrl: `${MINHAJI}/131068` }],
+    },
+    {
+      number: 5,
+      title: 'التنظيم والاتزان',
+      lessons: [
+        { title: 'الجهاز العصبي: التركيب والوظيفة', sourceUrl: `${MINHAJI}/131056` },
+        { title: 'الإحساس والاستجابة في جسم الإنسان', sourceUrl: `${MINHAJI}/131061` },
+        { title: 'الغدد الصم والاتزان وبعض مشكلاتهما', sourceUrl: `${MINHAJI}/131072` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الدعامة والحركة',
+      lessons: [
+        { title: 'الجهاز الهيكلي', sourceUrl: `${MINHAJI}/131924` },
+        { title: 'العضلات وبعض مشكلاتها', sourceUrl: `${MINHAJI}/131929` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الهضم والنقل وتبادل الغازات',
+      lessons: [
+        { title: 'الجهاز الهضمي', sourceUrl: `${MINHAJI}/131936` },
+        { title: 'جهاز الدوران', sourceUrl: `${MINHAJI}/131941` },
+        { title: 'الجهاز التنفسي', sourceUrl: `${MINHAJI}/131946` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الإخراج والتكاثر',
+      lessons: [
+        { title: 'جهاز الإخراج', sourceUrl: `${MINHAJI}/131953` },
+        { title: 'الأجهزة التناسلية', sourceUrl: `${MINHAJI}/131958` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'المناعة والمضادات الحيوية',
+      lessons: [
+        { title: 'جهاز المناعة وبعض مشكلاته', sourceUrl: `${MINHAJI}/131964` },
+        { title: 'المضادات الحيوية', sourceUrl: `${MINHAJI}/131968` },
+      ],
+    },
+  ],
+};
+
+/** علوم الأرض والبيئة — الصف الثاني عشر (7 وحدات كما وردت في المصدر). */
+const G12_EARTH: ImportedBookOutline = {
+  key: 'g12-earth',
+  gradeNumber: 12,
+  subjectTitle: 'علوم الأرض والبيئة',
+  subjectId: 1248,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — علوم الأرض والبيئة',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/8751`,
+  verifiedBy:
+    'صفحة مادة علوم الأرض والبيئة للصف الثاني عشر (المسار الأكاديمي) في منهاجي: سبع وحدات بترتيبها وبدروسها كما وردت؛ المصدر لا يثبت تقسيمها على الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'الوقود الأحفوري والبيئة',
+      lessons: [
+        { title: 'الوقود الأحفوري وغازات الدفيئة', sourceUrl: `${MINHAJI}/57606` },
+        { title: 'الوقود الأحفوري والتغير المناخي', sourceUrl: `${MINHAJI}/129544` },
+        { title: 'الحد من التغير المناخي', sourceUrl: `${MINHAJI}/129549` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الاستكشاف الجيولوجي',
+      lessons: [
+        { title: 'الخرائط الجيولوجية', sourceUrl: `${MINHAJI}/133046` },
+        { title: 'طرائق الاستكشاف الجيولوجي', sourceUrl: `${MINHAJI}/133049` },
+        { title: 'تعدين الخامات المعدنية', sourceUrl: `${MINHAJI}/133052` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'التراكيب الجيولوجية',
+      lessons: [
+        { title: 'تشوه الصخور', sourceUrl: `${MINHAJI}/129634` },
+        { title: 'الصدوع', sourceUrl: `${MINHAJI}/129639` },
+        { title: 'الطيات', sourceUrl: `${MINHAJI}/129644` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'الصفائح التكتونية',
+      lessons: [
+        { title: 'انجراف القارات', sourceUrl: `${MINHAJI}/129650` },
+        { title: 'توسع قاع المحيط', sourceUrl: `${MINHAJI}/130468` },
+        { title: 'حدود الصفائح', sourceUrl: `${MINHAJI}/133055` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'المجرات ونشأة الكون',
+      lessons: [
+        { title: 'المجرات وأنواعها', sourceUrl: `${MINHAJI}/131046` },
+        { title: 'توسع الكون', sourceUrl: `${MINHAJI}/131051` },
+        { title: 'تسارع توسع الكون', sourceUrl: `${MINHAJI}/131042` },
+        { title: 'نظريات نشأة الكون', sourceUrl: `${MINHAJI}/131037` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'أحوال الطقس القاسية',
+      lessons: [
+        { title: 'قياس عناصر الطقس', sourceUrl: `${MINHAJI}/131898` },
+        { title: 'الأعاصير القمعية والأعاصير المدارية', sourceUrl: `${MINHAJI}/131902` },
+        { title: 'التغير المناخي وأنماط الطقس القاسية', sourceUrl: `${MINHAJI}/131907` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'تاريخ الأرض',
+      lessons: [
+        { title: 'التأريخ النسبي للصخور', sourceUrl: `${MINHAJI}/131913` },
+        { title: 'التأريخ المطلق للصخور', sourceUrl: `${MINHAJI}/131917` },
+        { title: 'جيولوجية الأردن', sourceUrl: `${MINHAJI}/131920` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G12_PHYSICS,
+  G12_BIOLOGY,
+  G12_EARTH,
   G11_CHEMISTRY,
   G11_BIOLOGY,
   G11_EARTH,
