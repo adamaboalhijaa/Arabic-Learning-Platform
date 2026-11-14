@@ -1008,7 +1008,273 @@ const G4_MATH: ImportedBookOutline = {
   ],
 };
 
+/**
+ * علوم الصف الأول — الوحدات والدروس كما وردت في صفحة المادة بالمصدر.
+ * المصدر يعرض الوحدات 1، 2، 4 دون الثالثة، والأعداد سُجلت كما وردت.
+ */
+const G1_SCIENCE: ImportedBookOutline = {
+  key: 'g1-science',
+  gradeNumber: 1,
+  subjectTitle: 'العلوم',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العلوم',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/20744`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة العلوم للصف الأول في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'الإنسان والصحة',
+      lessons: [
+        { title: 'حاجات الإنسان الأساسية', sourceUrl: `${MINHAJI}/27334` },
+        { title: 'صحة جسم الإنسان', sourceUrl: `${MINHAJI}/27342` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'النباتات والحيوانات',
+      lessons: [{ title: 'النباتات وأجزاؤها', sourceUrl: `${MINHAJI}/132879` }],
+    },
+    {
+      number: 4,
+      title: 'الحركة والقوة',
+      lessons: [{ title: 'الموقع والحركة', sourceUrl: `${MINHAJI}/32119` }],
+    },
+  ],
+};
+
+/**
+ * علوم الصف الثاني — الوحدات والدروس كما وردت في صفحة المادة بالمصدر.
+ * تقسيم الفصل الدراسي غير مثبَت، فلا يُنسب أي درس إلى فصل معيّن.
+ */
+const G2_SCIENCE: ImportedBookOutline = {
+  key: 'g2-science',
+  gradeNumber: 2,
+  subjectTitle: 'العلوم',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العلوم',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/65`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة العلوم للصف الثاني في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'خصائص الكائنات الحية وصفاتها',
+      lessons: [
+        { title: 'خصائص الكائنات الحية', sourceUrl: `${MINHAJI}/24180` },
+        { title: 'الكائنات الحية تورث صفاتها', sourceUrl: `${MINHAJI}/24187` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'تفاعل الكائنات الحية في البيئة',
+      lessons: [
+        { title: 'حاجات الكائنات الحية', sourceUrl: `${MINHAJI}/24196` },
+        { title: 'تكيف الكائنات الحية', sourceUrl: `${MINHAJI}/25544` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الأرض والشمس',
+      lessons: [
+        { title: 'كيف يتغير سطح الأرض؟', sourceUrl: `${MINHAJI}/25561` },
+        { title: 'الشمس نجم قريب', sourceUrl: `${MINHAJI}/25568` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'جسم الإنسان وصحته',
+      lessons: [
+        { title: 'أعضاء جسم الإنسان', sourceUrl: `${MINHAJI}/24122` },
+        { title: 'العادات الصحية', sourceUrl: `${MINHAJI}/24129` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'الصوت والضوء',
+      lessons: [
+        { title: 'الصوت وخصائصه', sourceUrl: `${MINHAJI}/24139` },
+        { title: 'الضوء ومصادره', sourceUrl: `${MINHAJI}/24146` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'المادة',
+      lessons: [
+        { title: 'المادة وخصائصها', sourceUrl: `${MINHAJI}/24157` },
+        { title: 'حالات المادة وتحولاتها', sourceUrl: `${MINHAJI}/24164` },
+        { title: 'المادة والطاقة', sourceUrl: `${MINHAJI}/24169` },
+      ],
+    },
+  ],
+};
+
+/**
+ * علوم الصف الثالث — الوحدات والدروس كما وردت في صفحة المادة بالمصدر.
+ * الوحدة الرابعة تظهر في المصدر بالدرس الثاني فقط، وسُجّلت كما وردت.
+ */
+const G3_SCIENCE: ImportedBookOutline = {
+  key: 'g3-science',
+  gradeNumber: 3,
+  subjectTitle: 'العلوم',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العلوم',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/89`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة العلوم للصف الثالث في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'الكائنات الحية',
+      lessons: [
+        { title: 'تكاثر الكائنات الحية ودورات حياتها', sourceUrl: `${MINHAJI}/24698` },
+        { title: 'سلوك الكائنات الحية', sourceUrl: `${MINHAJI}/24758` },
+        { title: 'الكائنات الحية في بيئاتها', sourceUrl: `${MINHAJI}/24765` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'المادة',
+      lessons: [
+        { title: 'المادة وحالاتها', sourceUrl: `${MINHAJI}/25485` },
+        { title: 'المادة النقية والمخلوط', sourceUrl: `${MINHAJI}/25496` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'القوى والآلات البسيطة',
+      lessons: [
+        { title: 'قوة الجاذبية الأرضية', sourceUrl: `${MINHAJI}/24897` },
+        { title: 'الآلات البسيطة', sourceUrl: `${MINHAJI}/24898` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'البيئة',
+      lessons: [{ title: 'الأخطار الطبيعية', sourceUrl: `${MINHAJI}/24772` }],
+    },
+    {
+      number: 5,
+      title: 'الأرض ومكوناتها',
+      lessons: [
+        { title: 'الأرض', sourceUrl: `${MINHAJI}/25502` },
+        { title: 'الأحافير', sourceUrl: `${MINHAJI}/25506` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'سلامة الإنسان وصحته',
+      lessons: [
+        { title: 'الأخطار من حولنا', sourceUrl: `${MINHAJI}/25995` },
+        { title: 'كيف أتجنب الأخطار', sourceUrl: `${MINHAJI}/26000` },
+      ],
+    },
+  ],
+};
+
+/**
+ * علوم الصف الرابع — الوحدات والدروس كما وردت في صفحة المادة بالمصدر.
+ * المصدر يعرض الوحدات 1، 2، 3، 4، 6، 7، 8، 9، 10 دون الخامسة، وسُجلت كما وردت.
+ */
+const G4_SCIENCE: ImportedBookOutline = {
+  key: 'g4-science',
+  gradeNumber: 4,
+  subjectTitle: 'العلوم',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العلوم',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/145`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة العلوم للصف الرابع في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'تصنيف الكائنات الحية',
+      lessons: [
+        { title: 'التصنيف', sourceUrl: `${MINHAJI}/160` },
+        { title: 'ممالك الكائنات الحية', sourceUrl: `${MINHAJI}/164` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'دورات حياة الكائنات الحية والعلاقات بينها',
+      lessons: [
+        { title: 'تكاثر النباتات ودورات حياتها', sourceUrl: `${MINHAJI}/323` },
+        { title: 'تكاثر الحيوانات ودورات حياتها', sourceUrl: `${MINHAJI}/324` },
+        { title: 'العلاقات بين الكائنات الحية', sourceUrl: `${MINHAJI}/22913` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'جسم الإنسان وصحته',
+      lessons: [
+        { title: 'الحواس الخمس', sourceUrl: `${MINHAJI}/231` },
+        { title: 'الصحة الجسمية والصحة النفسية والعاطفية', sourceUrl: `${MINHAJI}/232` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'المادة',
+      lessons: [
+        { title: 'خصائص المادة', sourceUrl: `${MINHAJI}/255` },
+        { title: 'تغيرات المادة', sourceUrl: `${MINHAJI}/276` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الضوء',
+      lessons: [
+        { title: 'خصائص الضوء', sourceUrl: `${MINHAJI}/20572` },
+        { title: 'تكون الظلال', sourceUrl: `${MINHAJI}/20607` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'حركة الأرض',
+      lessons: [
+        { title: 'الليل والنهار', sourceUrl: `${MINHAJI}/341` },
+        { title: 'الفصول الأربعة', sourceUrl: `${MINHAJI}/342` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'القوة والطاقة',
+      lessons: [
+        { title: 'القوة', sourceUrl: `${MINHAJI}/20847` },
+        { title: 'الطاقة', sourceUrl: `${MINHAJI}/20848` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'الكهرباء',
+      lessons: [
+        { title: 'الدارات الكهربائية البسيطة', sourceUrl: `${MINHAJI}/292` },
+        { title: 'المواد الموصلة والمواد العازلة', sourceUrl: `${MINHAJI}/293` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'الموارد الطبيعية في البيئة',
+      lessons: [
+        { title: 'الموارد الحيوية', sourceUrl: `${MINHAJI}/20837` },
+        { title: 'الموارد غير الحيوية', sourceUrl: `${MINHAJI}/20839` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G1_SCIENCE,
+  G2_SCIENCE,
+  G3_SCIENCE,
+  G4_SCIENCE,
   G2_MATH,
   G3_MATH,
   G4_MATH,
