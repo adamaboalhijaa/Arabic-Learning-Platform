@@ -1830,7 +1830,244 @@ const G10_BIOLOGY: ImportedBookOutline = {
   ],
 };
 
+/** كيمياء الصف الحادي عشر — كتاب الطالب (4 وحدات كما وردت في المصدر). */
+const G11_CHEMISTRY: ImportedBookOutline = {
+  key: 'g11-chemistry',
+  gradeNumber: 11,
+  subjectTitle: 'الكيمياء',
+  subjectId: 1226,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الكيمياء',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/8830`,
+  verifiedBy:
+    'صفحة مادة الكيمياء للصف الحادي عشر (المسار الأكاديمي) في منهاجي: أربع وحدات بترتيبها وبدروسها كما وردت؛ المصدر لا يثبت تقسيمها على الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'أشكال الجزيئات وقوى التجاذب بينها',
+      lessons: [
+        { title: 'نظرية تنافر أزواج إلكترونات مستوى التكافؤ', sourceUrl: `${MINHAJI}/8919` },
+        { title: 'الروابط والأفلاك المتداخلة', sourceUrl: `${MINHAJI}/8917` },
+        { title: 'القوى بين الجزيئات', sourceUrl: `${MINHAJI}/8918` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'التفاعلات والحسابات الكيميائية',
+      lessons: [
+        { title: 'التفاعلات الكيميائية', sourceUrl: `${MINHAJI}/33350` },
+        { title: 'تركيز المحلول', sourceUrl: `${MINHAJI}/33364` },
+        { title: 'الحسابات الكيميائية', sourceUrl: `${MINHAJI}/33379` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'المركبات الهيدروكربونية',
+      lessons: [
+        { title: 'المركبات الهيدروكربونية المشبعة', sourceUrl: `${MINHAJI}/34929` },
+        { title: 'المركبات الهيدروكربونية غير المشبعة', sourceUrl: `${MINHAJI}/34944` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'مشتقات المركبات الهيدروكربونية',
+      lessons: [
+        { title: 'هاليدات الألكيل، الكحولات، الإيثرات والأمينات', sourceUrl: `${MINHAJI}/34959` },
+        { title: 'مركبات الكربونيل والحموض الكربوكسيلية', sourceUrl: `${MINHAJI}/34971` },
+        { title: 'المبلمرات', sourceUrl: `${MINHAJI}/34984` },
+      ],
+    },
+  ],
+};
+
+/** أحياء الصف الحادي عشر — كتاب الطالب (4 وحدات كما وردت في المصدر). */
+const G11_BIOLOGY: ImportedBookOutline = {
+  key: 'g11-biology',
+  gradeNumber: 11,
+  subjectTitle: 'الأحياء',
+  subjectId: 1227,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الأحياء',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/8832`,
+  verifiedBy:
+    'صفحة مادة العلوم الحياتية للصف الحادي عشر (علمي) في منهاجي: أربع وحدات بترتيبها وبدروسها كما وردت؛ المصدر لا يثبت تقسيمها على الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'عمليات حيوية في النبات',
+      lessons: [
+        { title: 'النقل في النبات', sourceUrl: `${MINHAJI}/33467` },
+        { title: 'الاستجابة في النبات', sourceUrl: `${MINHAJI}/33474` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'النباتات البذرية وتكاثرها',
+      lessons: [
+        { title: 'النباتات البذرية', sourceUrl: `${MINHAJI}/33847` },
+        { title: 'التكاثر اللاجنسي في النباتات البذرية', sourceUrl: `${MINHAJI}/33484` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الأنظمة البيئية',
+      lessons: [
+        { title: 'البيئة والغلاف الحيوي', sourceUrl: `${MINHAJI}/34995` },
+        { title: 'الأنظمة البيئية المائية', sourceUrl: `${MINHAJI}/55736` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'التنوع الحيوي والمحافظة عليه',
+      lessons: [
+        { title: 'المخاطر التي تهدد التنوع الحيوي', sourceUrl: `${MINHAJI}/55739` },
+        { title: 'أثر التغير المناخي في التنوع الحيوي', sourceUrl: `${MINHAJI}/131199` },
+        { title: 'المحافظة على التنوع الحيوى واستدامته', sourceUrl: `${MINHAJI}/132119` },
+      ],
+    },
+  ],
+};
+
+/** علوم الأرض والبيئة — الصف الحادي عشر (4 وحدات كما وردت في المصدر). */
+const G11_EARTH: ImportedBookOutline = {
+  key: 'g11-earth',
+  gradeNumber: 11,
+  subjectTitle: 'علوم الأرض والبيئة',
+  subjectId: 1228,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — علوم الأرض والبيئة',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/8833`,
+  verifiedBy:
+    'صفحة مادة علوم الأرض والبيئة للصف الحادي عشر (علمي) في منهاجي: أربع وحدات بترتيبها وبدروسها كما وردت؛ المصدر لا يثبت تقسيمها على الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'الطقس والتغير المناخي',
+      lessons: [
+        { title: 'الجبهات الهوائية وأنظمة الضغط الجوي', sourceUrl: `${MINHAJI}/33449` },
+        { title: 'التنبؤات الجوية وخرائط الطقس', sourceUrl: `${MINHAJI}/33457` },
+        { title: 'التنبؤ بالتغير المناخي', sourceUrl: `${MINHAJI}/33842` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الإنسان والموارد البيئية',
+      lessons: [
+        { title: 'الانفجار السكاني', sourceUrl: `${MINHAJI}/33836` },
+        { title: 'الانفجار السكاني واستنزاف الموارد الطبيعية', sourceUrl: `${MINHAJI}/33839` },
+        { title: 'استنزاف الموارد الطبيعية والتغير المناخي', sourceUrl: `${MINHAJI}/33844` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الوقود الأحفوري',
+      lessons: [
+        { title: 'نشأة الوقود الأحفوري', sourceUrl: `${MINHAJI}/55725` },
+        { title: 'أنواع الوقود الأحفوري', sourceUrl: `${MINHAJI}/129833` },
+        { title: 'الوقود الأحفوري في الأردن', sourceUrl: `${MINHAJI}/130773` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'الزلازل والبراكين',
+      lessons: [
+        { title: 'الزلازل', sourceUrl: `${MINHAJI}/55730` },
+        { title: 'البراكين', sourceUrl: `${MINHAJI}/130779` },
+      ],
+    },
+  ],
+};
+
+/** كيمياء الصف الثاني عشر (المسار الأكاديمي) — 7 وحدات كما وردت في المصدر. */
+const G12_CHEMISTRY: ImportedBookOutline = {
+  key: 'g12-chemistry',
+  gradeNumber: 12,
+  subjectTitle: 'الكيمياء',
+  subjectId: 1246,
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الكيمياء',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/55555`,
+  verifiedBy:
+    'صفحة مادة الكيمياء للصف الثاني عشر (المسار الأكاديمي) في منهاجي: سبع وحدات بترتيبها وبدروسها كما وردت؛ المصدر لا يثبت تقسيمها على الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'حالات المادة',
+      lessons: [
+        { title: 'الحالة الغازية', sourceUrl: `${MINHAJI}/35259` },
+        { title: 'الحالة السائلة', sourceUrl: `${MINHAJI}/35277` },
+        { title: 'الحالة الصلبة', sourceUrl: `${MINHAJI}/35301` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'المحاليل',
+      lessons: [
+        { title: 'تصنيف المحاليل', sourceUrl: `${MINHAJI}/35351` },
+        { title: 'خصائص المحاليل', sourceUrl: `${MINHAJI}/35366` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الاتزان الكيميائي',
+      lessons: [
+        { title: 'الاتزان الكيميائي والعوامل المؤثرة فيه', sourceUrl: `${MINHAJI}/35381` },
+        { title: 'تعبيرات ثابت الاتزان', sourceUrl: `${MINHAJI}/35390` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'الحموض والقواعد وتطبيقاتها',
+      lessons: [
+        { title: 'الحموض والقواعد', sourceUrl: `${MINHAJI}/35939` },
+        { title: 'الرقم الهيدروجيني ومحاليل الحموض والقواعد القوية', sourceUrl: `${MINHAJI}/35954` },
+        { title: 'محاليل الحموض والقواعد الضعيفة', sourceUrl: `${MINHAJI}/35967` },
+        { title: 'الأملاح والمحاليل المنظمة', sourceUrl: `${MINHAJI}/35976` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'الكيمياء الحركية',
+      lessons: [
+        { title: 'سرعة التفاعلات الكيميائية', sourceUrl: `${MINHAJI}/129876` },
+        { title: 'قوانين سرعة التفاعلات', sourceUrl: `${MINHAJI}/129886` },
+        { title: 'نظرية التصادم والعوامل المؤثرة في سرعة التفاعل', sourceUrl: `${MINHAJI}/129894` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الكيمياء الكهربائية',
+      lessons: [
+        { title: 'التأكسد والاختزال', sourceUrl: `${MINHAJI}/129909` },
+        { title: 'الخلايا الجلفانية', sourceUrl: `${MINHAJI}/129923` },
+        { title: 'خلايا التحليل الكهربائي', sourceUrl: `${MINHAJI}/129937` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الكيمياء العضوية',
+      lessons: [
+        { title: 'تفاعلات الإضافة والحذف', sourceUrl: `${MINHAJI}/35403` },
+        { title: 'تفاعلات الاستبدال والتأكسد والاختزال', sourceUrl: `${MINHAJI}/35413` },
+        { title: 'تحضير المركبات العضوية', sourceUrl: `${MINHAJI}/35425` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G11_CHEMISTRY,
+  G11_BIOLOGY,
+  G11_EARTH,
+  G12_CHEMISTRY,
   G10_PHYSICS,
   G10_CHEMISTRY,
   G10_BIOLOGY,
