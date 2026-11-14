@@ -1270,11 +1270,404 @@ const G4_SCIENCE: ImportedBookOutline = {
   ],
 };
 
+/**
+ * علوم الصف الخامس — الوحدات والدروس كما وردت في صفحة المادة بالمصدر.
+ * تقسيم الفصل الدراسي غير مثبَت، فلا يُنسب أي درس إلى فصل معيّن.
+ */
+const G5_SCIENCE: ImportedBookOutline = {
+  key: 'g5-science',
+  gradeNumber: 5,
+  subjectTitle: 'العلوم',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العلوم',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/956`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة العلوم للصف الخامس في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'البيئة',
+      lessons: [
+        { title: 'مفاهيم النظام البيئي', sourceUrl: `${MINHAJI}/1171` },
+        { title: 'أثر تغيرات البيئة في الأنظمة البيئية', sourceUrl: `${MINHAJI}/1206` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'تصنيف الكائنات الحية',
+      lessons: [
+        { title: 'مملكة النباتات', sourceUrl: `${MINHAJI}/996` },
+        { title: 'مملكة الحيوانات', sourceUrl: `${MINHAJI}/1006` },
+        { title: 'مملكة الفطريات', sourceUrl: `${MINHAJI}/22203` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الموارد الطبيعية ومصادر الطاقة',
+      lessons: [
+        { title: 'الموارد الطبيعية', sourceUrl: `${MINHAJI}/1042` },
+        { title: 'مصادر الطاقة', sourceUrl: `${MINHAJI}/1052` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'العناصر والمركبات الكيميائية',
+      lessons: [
+        { title: 'العناصر الكيميائية', sourceUrl: `${MINHAJI}/1019` },
+        { title: 'المركبات الكيميائية', sourceUrl: `${MINHAJI}/1028` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'الضوء والصوت',
+      lessons: [
+        { title: 'الضوء وخصائصه', sourceUrl: `${MINHAJI}/1128` },
+        { title: 'الصوت وخصائصه', sourceUrl: `${MINHAJI}/1141` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الغذاء والصحة',
+      lessons: [
+        { title: 'مجموعات الغذاء', sourceUrl: `${MINHAJI}/23328` },
+        { title: 'الغذاء المتوازن', sourceUrl: `${MINHAJI}/23333` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'أجهزة جسم الإنسان',
+      lessons: [
+        { title: 'الجهاز الهضمي والجهاز البولي', sourceUrl: `${MINHAJI}/964` },
+        { title: 'الجهاز التنفسي وجهاز الدوران', sourceUrl: `${MINHAJI}/23339` },
+        { title: 'الجهاز الهيكلي والجهاز العضلي', sourceUrl: `${MINHAJI}/981` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'المادة',
+      lessons: [
+        { title: 'الخصائص الفيزيائية للمواد', sourceUrl: `${MINHAJI}/23345` },
+        { title: 'تحولات المادة', sourceUrl: `${MINHAJI}/23700` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'الحركة والطاقة',
+      lessons: [
+        { title: 'السرعة', sourceUrl: `${MINHAJI}/23709` },
+        { title: 'الطاقة الميكانيكية', sourceUrl: `${MINHAJI}/23714` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'الأرض',
+      lessons: [
+        { title: 'مكونات الأرض', sourceUrl: `${MINHAJI}/23983` },
+        { title: 'الأرصاد الجوية', sourceUrl: `${MINHAJI}/23988` },
+      ],
+    },
+  ],
+};
+
+/**
+ * علوم الصف السادس — الوحدات والدروس كما وردت في صفحة المادة بالمصدر.
+ * تقسيم الفصل الدراسي غير مثبَت، فلا يُنسب أي درس إلى فصل معيّن.
+ */
+const G6_SCIENCE: ImportedBookOutline = {
+  key: 'g6-science',
+  gradeNumber: 6,
+  subjectTitle: 'العلوم',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العلوم',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1053`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة العلوم للصف السادس في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'من الخلية إلى الجسم',
+      lessons: [
+        { title: 'الخلية', sourceUrl: `${MINHAJI}/2355` },
+        { title: 'نقل المواد والعمليات الحيوية في الخلية', sourceUrl: `${MINHAJI}/24685` },
+        { title: 'مستويات التنظيم في الكائنات الحية', sourceUrl: `${MINHAJI}/2372` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'المادة',
+      lessons: [
+        { title: 'الذرات والجزيئات', sourceUrl: `${MINHAJI}/2395` },
+        { title: 'الفلزات واللافلزات', sourceUrl: `${MINHAJI}/2414` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الشغل والطاقة',
+      lessons: [
+        { title: 'الطاقة الميكانيكية', sourceUrl: `${MINHAJI}/2482` },
+        { title: 'الآلات البسيطة', sourceUrl: `${MINHAJI}/2492` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'الإنسان والأرض',
+      lessons: [
+        { title: 'العمليات الجيولوجية المؤثرة في سطح الأرض', sourceUrl: `${MINHAJI}/2507` },
+        { title: 'التلوث', sourceUrl: `${MINHAJI}/2518` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'البيئة',
+      lessons: [
+        { title: 'الأنظمة البيئية', sourceUrl: `${MINHAJI}/25314` },
+        { title: 'الجماعات الحيوية', sourceUrl: `${MINHAJI}/25318` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'المخاليط وطرائق فصلها',
+      lessons: [
+        { title: 'المواد النقية والمخاليط', sourceUrl: `${MINHAJI}/25447` },
+        { title: 'فصل المخاليط', sourceUrl: `${MINHAJI}/25451` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الصوت',
+      lessons: [
+        { title: 'الموجات', sourceUrl: `${MINHAJI}/25460` },
+        { title: 'الصوت والسمع', sourceUrl: `${MINHAJI}/25464` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الحرارة',
+      lessons: [
+        { title: 'الحرارة وطرائق انتقالها', sourceUrl: `${MINHAJI}/2430` },
+        { title: 'الحرارة في حياتنا', sourceUrl: `${MINHAJI}/2443` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'علوم الفضاء',
+      lessons: [
+        { title: 'المجرات', sourceUrl: `${MINHAJI}/2462` },
+        { title: 'الفضاء والكون', sourceUrl: `${MINHAJI}/2472` },
+      ],
+    },
+  ],
+};
+
+/**
+ * علوم الصف السابع — الوحدات والدروس كما وردت في صفحة المادة بالمصدر.
+ * تقسيم الفصل الدراسي غير مثبَت، فلا يُنسب أي درس إلى فصل معيّن.
+ */
+const G7_SCIENCE: ImportedBookOutline = {
+  key: 'g7-science',
+  gradeNumber: 7,
+  subjectTitle: 'العلوم',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العلوم',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1063`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة العلوم للصف السابع في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'الأرض',
+      lessons: [
+        { title: 'المعادن والصخور', sourceUrl: `${MINHAJI}/22091` },
+        { title: 'العمر النسبي للصخور والعمر المطلق', sourceUrl: `${MINHAJI}/4288` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الفلك وعلوم الفضاء',
+      lessons: [
+        { title: 'كواكب النظام الشمسي', sourceUrl: `${MINHAJI}/22169` },
+        { title: 'الدورية في النظام الشمسي', sourceUrl: `${MINHAJI}/22177` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'تصنيف الكائنات الحية',
+      lessons: [
+        { title: 'علم التصنيف', sourceUrl: `${MINHAJI}/4226` },
+        { title: 'مملكتا الحيوانات والنباتات', sourceUrl: `${MINHAJI}/4234` },
+        { title: 'مملكتا الفطريات والطلائعيات', sourceUrl: `${MINHAJI}/22317` },
+        { title: 'نطاقا البكتيريا والأثريات', sourceUrl: `${MINHAJI}/22551` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'المحاليل',
+      lessons: [
+        { title: 'الماء في حياتنا', sourceUrl: `${MINHAJI}/4156` },
+        { title: 'الذائبية', sourceUrl: `${MINHAJI}/4172` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'القوة والحركة',
+      lessons: [
+        { title: 'وصف الحركة', sourceUrl: `${MINHAJI}/4199` },
+        { title: 'القوى وتأثيرها في الأجسام', sourceUrl: `${MINHAJI}/4211` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الحموض والقواعد',
+      lessons: [
+        { title: 'خصائص الحموض والقواعد', sourceUrl: `${MINHAJI}/4181` },
+        { title: 'الكواشف والرقم الهيدروجيني', sourceUrl: `${MINHAJI}/4193` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الضوء',
+      lessons: [
+        { title: 'الضوء مفهومه وخصائصه', sourceUrl: `${MINHAJI}/23316` },
+        { title: 'تطبيقات على انعكاس الضوء', sourceUrl: `${MINHAJI}/23322` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الكهرباء',
+      lessons: [
+        { title: 'الكهرباء الساكنة', sourceUrl: `${MINHAJI}/23349` },
+        { title: 'الكهرباء المتحركة', sourceUrl: `${MINHAJI}/23354` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'السلوك والتكيف',
+      lessons: [
+        { title: 'سلوك الحيوانات', sourceUrl: `${MINHAJI}/4247` },
+        { title: 'التكيف والانقراض', sourceUrl: `${MINHAJI}/4262` },
+        { title: 'الأحافير', sourceUrl: `${MINHAJI}/4269` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'البيئة',
+      lessons: [
+        { title: 'المناطق البيئية', sourceUrl: `${MINHAJI}/23665` },
+        { title: 'انتقال الطاقة ودورات المواد', sourceUrl: `${MINHAJI}/23926` },
+      ],
+    },
+  ],
+};
+
+/**
+ * علوم الصف الثامن — الوحدات والدروس كما وردت في صفحة المادة بالمصدر.
+ * تقسيم الفصل الدراسي غير مثبَت، فلا يُنسب أي درس إلى فصل معيّن.
+ */
+const G8_SCIENCE: ImportedBookOutline = {
+  key: 'g8-science',
+  gradeNumber: 8,
+  subjectTitle: 'العلوم',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العلوم',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1074`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة العلوم للصف الثامن في المصدر؛ صفحة المادة لا تنص على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'الوراثة والتكاثر',
+      lessons: [
+        { title: 'المادة الوراثية', sourceUrl: `${MINHAJI}/7740` },
+        { title: 'التكاثر', sourceUrl: `${MINHAJI}/24692` },
+        { title: 'الوراثة', sourceUrl: `${MINHAJI}/7732` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الذرة والجدول الدوري',
+      lessons: [
+        { title: 'تركيب الذرة والتوزيع الإلكتروني', sourceUrl: `${MINHAJI}/7686` },
+        { title: 'الجدول الدوري وخصائص العناصر', sourceUrl: `${MINHAJI}/7700` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'ميكانيكا الموائع',
+      lessons: [
+        { title: 'الضغط', sourceUrl: `${MINHAJI}/7666` },
+        { title: 'الكثافة والطفو', sourceUrl: `${MINHAJI}/7673` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'علوم الأرض والبيئة',
+      lessons: [
+        { title: 'الصفائح التكتونية وحركتها', sourceUrl: `${MINHAJI}/7767` },
+        { title: 'الموارد الطبيعية', sourceUrl: `${MINHAJI}/24781` },
+        { title: 'استدامة الموارد الطبيعية', sourceUrl: `${MINHAJI}/7778` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'جسم الإنسان وصحته',
+      lessons: [
+        { title: 'الضبط والتنظيم', sourceUrl: `${MINHAJI}/7639` },
+        { title: 'المناعة', sourceUrl: `${MINHAJI}/25388` },
+        { title: 'التكاثر والنمو', sourceUrl: `${MINHAJI}/7651` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الحرارة',
+      lessons: [
+        { title: 'درجة الحرارة وتدريجات قياسها', sourceUrl: `${MINHAJI}/7749` },
+        { title: 'الحرارة والمادة', sourceUrl: `${MINHAJI}/7759` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الروابط والتفاعلات الكيميائية',
+      lessons: [
+        { title: 'الروابط الكيميائية', sourceUrl: `${MINHAJI}/7710` },
+        { title: 'التفاعلات الكيميائية', sourceUrl: `${MINHAJI}/7719` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'المغناطيسية',
+      lessons: [
+        { title: 'المجال المغناطيسي', sourceUrl: `${MINHAJI}/25390` },
+        { title: 'الكهرمغناطيسية', sourceUrl: `${MINHAJI}/25391` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'علوم الطقس والفضاء',
+      lessons: [
+        { title: 'الكتل الهوائية وتأثيرها في الطقس', sourceUrl: `${MINHAJI}/25393` },
+        { title: 'استكشاف الفضاء', sourceUrl: `${MINHAJI}/25394` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G1_SCIENCE,
   G2_SCIENCE,
   G3_SCIENCE,
   G4_SCIENCE,
+  G5_SCIENCE,
+  G6_SCIENCE,
+  G7_SCIENCE,
+  G8_SCIENCE,
   G2_MATH,
   G3_MATH,
   G4_MATH,
