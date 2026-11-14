@@ -330,13 +330,40 @@ function LessonRow({ lesson }: { lesson: Lesson }) {
   return <article className="card row-card" data-testid={`lesson-row-${lesson.id}`}><div className="row-main"><div style={{ display: 'flex', alignItems: 'center', gap: 9, flexWrap: 'wrap' }}><span className="row-title">{lesson.title}</span><Status value={lesson.contentStatus} /></div><div className="row-meta">{lesson.subjectTitle} · الوحدة: {lesson.unitTitle} · {lesson.durationMinutes} دقيقة{lesson.bestScore !== null ? ` · أفضل نتيجة ${lesson.bestScore}%` : ''}</div></div><Link href={`/lessons/${lesson.id}`} className="btn btn-primary" data-testid={`link-open-lesson-${lesson.id}`}>افتح الدرس <ArrowLeft size={15} /></Link></article>;
 }
 
+import { booksOfSubject, curriculumCompletion } from './lib/official-books';
+
+function BooksInventory() {
+  const completion = curriculumCompletion();
+  return <AppShell><Breadcrumb href="/curriculum" label="المنهاج" /><PageIntro eyebrow="سجل الكتب" title="كتب المناهج الأردنية" subtitle="حالة كل كتاب رسمي لكل صف ومادة وفصل: مربوط بمحتواه، أو بانتظار الاستيراد من المصدر الرسمي." />
+    <div className="card" style={{ marginTop: 22 }} data-testid="panel-books-totals">
+      <p className="row-meta">الصفوف {completion.totals.subjects ? completion.grades.length : 0} · المواد {completion.totals.subjects} · كتب الفصلين {completion.totals.books} · مربوطة {completion.totals.booksLinked} · بانتظار الاستيراد {completion.totals.booksPending}</p>
+      <p className="row-meta">الوحدات {completion.totals.units} · الدروس {completion.totals.lessons} · الأسئلة {completion.totals.questions}</p>
+      <p className="row-meta" data-testid="text-books-rule">لا يُعرض أي درس أو سؤال غير مستورد من كتاب رسمي؛ الكتب غير المتاحة تظهر بحالة «بانتظار الاستيراد» مع رابط صفحة الكتب الرسمية.</p>
+    </div>
+    <div className="list-stack" style={{ marginTop: 22 }}>
+      {completion.grades.map(row => <article className="card row-card" key={row.gradeNumber} data-testid={`book-row-grade-${row.gradeNumber}`}>
+        <div className="row-main">
+          <div className="row-title">الصف {row.gradeNumber} — {row.stage}</div>
+          <div className="row-meta">{row.subjects} مواد · {row.booksLinked} كتاب مربوط من {row.books} · {row.units} وحدة · {row.lessons} درسًا · {row.questions} سؤالًا</div>
+        </div>
+        <a className="btn btn-quiet" href={row.sourcePage} target="_blank" rel="noreferrer noopener" data-testid={`link-grade-source-${row.gradeNumber}`}>صفحة الكتب الرسمية</a>
+      </article>)}
+    </div>
+  </AppShell>;
+}
+
 function Curriculum() {
   const q = useListGrades({ query: { queryKey: getListGradesQueryKey() } });
   const [search, setSearch] = useState('');
   if (q.isLoading) return <PageLoading />;
   if (q.isError) return <AppShell><ErrorState retry={() => q.refetch()} /></AppShell>;
   const grades = (q.data ?? []).filter(g => `${g.title} ${g.stage} ${g.gradeNumber}`.includes(search));
+  const books = curriculumCompletion();
   return <AppShell><PageIntro eyebrow="المنهاج" title="اختر صفك الدراسي" subtitle="استكشف المواد والوحدات والدروس، مع حالة المحتوى موضحة بوضوح." />
+    <div className="card" style={{ marginTop: 22 }} data-testid="panel-books-summary">
+      <div className="section-heading" style={{ marginTop: 0 }}><h2>حالة الكتب المدرسية</h2><Link href="/curriculum/books" className="btn btn-quiet" data-testid="link-books-inventory">سجل الكتب <ArrowLeft size={15} /></Link></div>
+      <p className="row-meta">الصفوف {books.grades.length} · المواد {books.totals.subjects} · كتب الفصلين {books.totals.books} · مربوطة {books.totals.booksLinked} · بانتظار الاستيراد {books.totals.booksPending}</p>
+    </div>
     <div className="toolbar"><label className="field" style={{ margin: 0, minWidth: 250 }}><span className="sr-only">ابحث عن صف</span><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="ابحث عن الصف..." data-testid="input-search-grades" /></label></div>
     {grades.length ? <div className="tile-grid">{grades.map(g=><Link href={`/curriculum/grade/${g.id}`} key={g.id} className="card tile" data-testid={`card-grade-${g.id}`}><div className="tile-icon"><GraduationCap size={22} /></div><div className="tile-copy"><h3>{g.title}</h3><p>{g.stage} · {g.subjectCount} مواد</p><div style={{ marginTop: 12 }}><Status value={g.contentStatus} /></div></div><ChevronLeft size={18} /></Link>)}</div> : <EmptyState title="لا توجد صفوف مطابقة" body="جرّب كلمة بحث أخرى أو عد إلى قائمة الصفوف." />}
   </AppShell>;
@@ -360,6 +387,7 @@ function SubjectUnits() {
   const id = Number(params?.subjectId || 0);
   const q = useListSubjectUnits(id, { query: { queryKey: getListSubjectUnitsQueryKey(id), enabled: !!id } });
   const [semester, setSemester] = useState<1 | 2>(1);
+  const subjectBooks = booksOfSubject(id);
   if (q.isLoading) return <PageLoading />;
   if (q.isError) return <AppShell><ErrorState retry={() => q.refetch()} /></AppShell>;
   // رقم الفصل الدراسي يأتي من البيانات؛ أي قيمة غير معروفة تُعامل كالفصل الأول.
@@ -369,6 +397,17 @@ function SubjectUnits() {
   const visible = units.filter(unit => semesterOf(unit) === semester);
   const countOf = (value: 1 | 2) => units.filter(unit => semesterOf(unit) === value).length;
   return <AppShell><Breadcrumb href="/curriculum" label="المنهاج" /><PageIntro eyebrow="المواد" title="وحدات المادة" subtitle="اختر الفصل الدراسي، ثم الوحدة للانتقال إلى دروسها." />
+    <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 14, marginTop: 22 }} data-testid="panel-subject-books">
+      {subjectBooks.map(book => <article className="card" key={book.key} data-testid={`book-card-${book.semester}`}>
+        <span className="eyebrow">الفصل {book.semester === 1 ? 'الأول' : 'الثاني'}</span>
+        <h3 style={{ fontSize: 17, marginTop: 8 }}>{book.title}</h3>
+        <p className="row-meta">{book.status === 'linked' ? `${book.units} وحدات · ${book.lessons} درسًا · ${book.questions} سؤالًا` : 'بانتظار استيراد وحدات ودروس الكتاب الرسمي'}</p>
+        <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+          <span className={book.status === 'linked' ? 'status status-reviewed' : 'status status-draft'} data-testid={`book-status-${book.semester}`}>{book.status === 'linked' ? 'مربوط' : 'بانتظار الاستيراد'}</span>
+          <a className="btn btn-quiet" href={book.sourcePage} target="_blank" rel="noreferrer noopener" data-testid={`book-source-${book.semester}`}>المصدر الرسمي</a>
+        </div>
+      </article>)}
+    </div>
     <div className="toolbar" style={{ marginTop: 22 }} role="tablist" aria-label="الفصل الدراسي">
       {([1, 2] as const).map(value => <button key={value} type="button" role="tab" aria-selected={semester === value} onClick={() => setSemester(value)} className={`btn ${semester === value ? 'btn-primary' : 'btn-quiet'}`} data-testid={`tab-semester-${value}`}>الفصل الدراسي {value === 1 ? 'الأول' : 'الثاني'} ({countOf(value)})</button>)}
     </div>
@@ -635,6 +674,7 @@ function RootRoutes() {
       <Route path="/sign-in/*?" component={AuthPages} />
       <Route path="/sign-up/*?" component={AuthPages} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/curriculum/books" component={BooksInventory} />
       <Route path="/curriculum" component={Curriculum} />
       <Route path="/curriculum/grade/:gradeId" component={GradeSubjects} />
       <Route path="/curriculum/subject/:subjectId" component={SubjectUnits} />
