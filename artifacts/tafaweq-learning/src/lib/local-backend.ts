@@ -4,55 +4,69 @@
  * السبب: النسخة المنشورة تطبيق ثابت (nginx) بلا خادم API، فكل طلب إلى /api
  * يعيد ملف HTML بدل JSON، فتفشل صفحات المنهاج والاختبارات وتبدو الأزرار معطلة.
  * هذه الطبقة تحاول الطلب الحقيقي أولًا، وإذا لم يكن ردًا JSON صالحًا تُجيب من
- * بيانات الرياضيات المحلية (MATH10) وتقدّم الطالب المحفوظ في المتصفح.
+ * سجل المنهاج المحلي (كل الصفوف 1–12 + كتب الرياضيات المربوطة) وتقدّم الطالب
+ * المحفوظ في المتصفح.
  *
  * لا تغيّر أي تصميم: الردود مطابقة لأشكال الـ API نفسها.
  */
-import { MATH10_UNITS } from '../data/math10';
-import type { MathLesson, MathUnit } from '../data/math10';
+import {
+  ALL_LESSONS,
+  ALL_QUESTIONS,
+  ALL_SUBJECTS,
+  ALL_UNITS,
+  CURRICULUM_GRADES,
+  gradeById,
+  lessonById,
+  lessonsOfUnit,
+  subjectById,
+  subjectsOfGrade,
+  unitsOfSubject,
+  type BookLesson,
+  type BookSubject,
+  type BookUnit,
+} from './curriculum-books';
 import { completeLesson, getProgress, lessonScore, levelInfo, recordAnswer } from './math-progress';
 import { readLocalStudent } from './local-session';
 
-const GRADE_ID = 10;
-const SUBJECT_ID = 1001;
-const UNIT_BASE = 2000;
-const LESSON_BASE = 3000;
-const QUESTION_BASE = 40000;
 const MASTERY_RATIO = 0.6;
 
-interface LessonEntry {
-  numericId: number;
-  lesson: MathLesson;
-  unit: MathUnit;
-  unitId: number;
+function subjectPayload(subject: BookSubject) {
+  const units = unitsOfSubject(subject.id);
+  return {
+    id: subject.id,
+    gradeId: subject.gradeNumber,
+    title: subject.title,
+    description: subject.description,
+    stream: subject.stream,
+    unitCount: units.length,
+    contentStatus: subject.book ? ('verified' as const) : ('draft' as const),
+    hasBook: subject.book !== null,
+  };
 }
 
-const lessonEntries: LessonEntry[] = [];
-const unitEntries = MATH10_UNITS.map((unit, unitIndex) => {
-  const unitId = UNIT_BASE + unitIndex;
-  unit.lessons.forEach((lesson) => {
-    lessonEntries.push({ numericId: LESSON_BASE + lessonEntries.length, lesson, unit, unitId });
-  });
-  return { numericId: unitId, unit, position: unitIndex };
-});
-
-function lessonEntry(numericId: number): LessonEntry | undefined {
-  return lessonEntries.find((entry) => entry.numericId === numericId);
+function unitPayload(unit: BookUnit) {
+  return {
+    id: unit.id,
+    subjectId: unit.subjectId,
+    gradeId: unit.gradeNumber,
+    title: unit.unit.title,
+    position: unit.position,
+    semester: unit.semester,
+    contentStatus: 'verified' as const,
+    lessonCount: unit.lessonIds.length,
+  };
 }
 
-function questionIdFor(lessonId: number, questionIndex: number): number {
-  const entry = lessonEntry(lessonId);
-  if (!entry) return QUESTION_BASE + questionIndex;
-  return QUESTION_BASE + lessonEntries.indexOf(entry) * 100 + questionIndex;
-}
-
-function lessonPayload(entry: LessonEntry) {
+function lessonPayload(entry: BookLesson) {
   const progress = getProgress();
   const total = entry.lesson.questions.length;
   const bestScore = lessonScore(progress, entry.lesson.id, total);
   return {
-    id: entry.numericId,
+    id: entry.id,
     unitId: entry.unitId,
+    subjectId: entry.subjectId,
+    gradeId: entry.gradeNumber,
+    semester: entry.semester,
     title: entry.lesson.title,
     description: entry.lesson.objective,
     objective: entry.lesson.objective,
@@ -64,15 +78,17 @@ function lessonPayload(entry: LessonEntry) {
     questionCount: total,
     isCompleted: bestScore >= Math.round(MASTERY_RATIO * 100),
     bestScore: bestScore > 0 ? bestScore : null,
-    unitTitle: entry.unit.title,
-    subjectTitle: 'الرياضيات',
-    gradeNumber: GRADE_ID,
+    unitTitle: entry.content.units.find((unit) => unit.id === entry.lesson.id.split(':')[1])?.title ?? '',
+    subjectTitle: subjectById(entry.subjectId)?.title ?? '',
+    gradeNumber: entry.gradeNumber,
   };
 }
 
-function quizPayload(entry: LessonEntry) {
+function quizPayload(entry: BookLesson) {
   return entry.lesson.questions.map((question, index) => ({
-    id: questionIdFor(entry.numericId, index),
+    id: ALL_QUESTIONS.find(
+      (record) => record.lessonId === entry.id && record.index === index,
+    )?.id ?? index,
     prompt: question.prompt,
     kind: question.kind === 'truefalse' ? ('true_false' as const) : ('multiple_choice' as const),
     options: question.options,
@@ -86,8 +102,8 @@ function profilePayload() {
   return {
     id: 1,
     displayName: student?.name ?? 'طالب',
-    gradeId: GRADE_ID,
-    gradeTitle: 'الصف العاشر',
+    gradeId: 10,
+    gradeTitle: 'المنهاج الأردني',
     totalXp: progress.xp,
     level: levelInfo(progress.xp).level,
     streakDays: 0,
@@ -98,24 +114,27 @@ function profilePayload() {
 
 function progressPayload() {
   const progress = getProgress();
-  return lessonEntries
-    .map((entry) => {
-      const total = entry.lesson.questions.length;
-      const bestScore = lessonScore(progress, entry.lesson.id, total);
-      if (bestScore <= 0) return null;
-      return {
-        lessonId: entry.numericId,
-        lessonTitle: entry.lesson.title,
-        unitTitle: entry.unit.title,
-        subjectTitle: 'الرياضيات',
-        gradeNumber: GRADE_ID,
-        bestScore,
-        attempts: 1,
-        lastAttemptAt: new Date().toISOString(),
-        isCompleted: bestScore >= Math.round(MASTERY_RATIO * 100),
-      };
-    })
-    .filter((row): row is NonNullable<typeof row> => row !== null);
+  return ALL_LESSONS.map((entry) => {
+    const total = entry.lesson.questions.length;
+    const bestScore = lessonScore(progress, entry.lesson.id, total);
+    if (bestScore <= 0) return null;
+    return {
+      lessonId: entry.id,
+      lessonTitle: entry.lesson.title,
+      unitTitle: unitTitleOf(entry),
+      subjectTitle: subjectById(entry.subjectId)?.title ?? '',
+      gradeNumber: entry.gradeNumber,
+      bestScore,
+      attempts: 1,
+      lastAttemptAt: new Date().toISOString(),
+      isCompleted: bestScore >= Math.round(MASTERY_RATIO * 100),
+    };
+  }).filter((row): row is NonNullable<typeof row> => row !== null);
+}
+
+function unitTitleOf(entry: BookLesson): string {
+  const unit = ALL_UNITS.find((record) => record.id === entry.unitId);
+  return unit?.unit.title ?? '';
 }
 
 function json(data: unknown, status = 200): Response {
@@ -135,12 +154,13 @@ function selectedOptionOf(answer: unknown): number {
 function submitAttempt(rawBody: unknown): Response {
   const body = (rawBody ?? {}) as Record<string, unknown>;
   const lessonId = Number(body.lessonId);
-  const entry = lessonEntry(lessonId);
+  const entry = lessonById(lessonId);
   if (!entry) return json({ message: 'الدرس غير موجود' }, 404);
   const answers = Array.isArray(body.answers) ? body.answers : [];
 
   const results = entry.lesson.questions.map((question, index) => {
-    const questionId = questionIdFor(entry.numericId, index);
+    const questionId =
+      ALL_QUESTIONS.find((record) => record.lessonId === entry.id && record.index === index)?.id ?? index;
     const given = answers.find((answer) => Number((answer as Record<string, unknown>)?.questionId) === questionId);
     const selectedOption = selectedOptionOf(given);
     return {
@@ -186,55 +206,46 @@ function handle(pathname: string, method: string, body: unknown): Response | nul
   if (method === 'GET' && rest[0] === 'healthz') return json({ status: 'ok' });
 
   if (rest[0] === 'curriculum') {
+    // قائمة الصفوف: 1–12 مع حالة المحتوى وعدد المواد.
     if (method === 'GET' && rest[1] === 'grades' && rest.length === 2) {
-      return json([
-        {
-          id: GRADE_ID,
-          gradeNumber: GRADE_ID,
-          title: 'الصف العاشر',
-          stage: 'الفصلان الأول والثاني',
-          contentStatus: 'verified',
-          subjectCount: 1,
-        },
-      ]);
-    }
-    if (method === 'GET' && rest[1] === 'grades' && rest[3] === 'subjects') {
-      return json([
-        {
-          id: SUBJECT_ID,
-          gradeId: GRADE_ID,
-          title: 'الرياضيات',
-          description: 'كتاب الطالب — الرياضيات للصف العاشر',
-          unitCount: MATH10_UNITS.length,
-        },
-      ]);
-    }
-    if (method === 'GET' && rest[1] === 'subjects' && rest[3] === 'units') {
       return json(
-        unitEntries.map((entry) => ({
-          id: entry.numericId,
-          subjectId: SUBJECT_ID,
-          title: entry.unit.title,
-          position: entry.position,
-          contentStatus: 'verified',
-          lessonCount: entry.unit.lessons.length,
+        CURRICULUM_GRADES.map((grade) => ({
+          id: grade.gradeNumber,
+          gradeNumber: grade.gradeNumber,
+          title: grade.title,
+          stage: grade.stage,
+          contentStatus: grade.subjects.some((subject) =>
+            subjectsOfGrade(grade.gradeNumber).some((item) => item.title === subject.title && item.book),
+          )
+            ? ('verified' as const)
+            : ('draft' as const),
+          subjectCount: grade.subjects.length,
         })),
       );
     }
+    // مواد صف واحد.
+    if (method === 'GET' && rest[1] === 'grades' && rest[3] === 'subjects') {
+      const grade = gradeById(Number(rest[2]));
+      if (!grade) return json({ message: 'الصف غير موجود' }, 404);
+      return json(subjectsOfGrade(grade.gradeNumber).map(subjectPayload));
+    }
+    // وحدات مادة (مع رقم الفصل الدراسي في كل وحدة).
+    if (method === 'GET' && rest[1] === 'subjects' && rest[3] === 'units') {
+      const subject = subjectById(Number(rest[2]));
+      if (!subject) return json({ message: 'المادة غير موجودة' }, 404);
+      return json(unitsOfSubject(subject.id).map(unitPayload));
+    }
+    // دروس وحدة.
     if (method === 'GET' && rest[1] === 'units' && rest[3] === 'lessons') {
-      const unitId = Number(rest[2]);
-      const entry = unitEntries.find((item) => item.numericId === unitId);
-      if (!entry) return json({ message: 'الوحدة غير موجودة' }, 404);
-      return json(
-        lessonEntries.filter((item) => item.unitId === unitId).map((item) => lessonPayload(item)),
-      );
+      const unit = ALL_UNITS.find((item) => item.id === Number(rest[2]));
+      if (!unit) return json({ message: 'الوحدة غير موجودة' }, 404);
+      return json(lessonsOfUnit(unit.id).map(lessonPayload));
     }
     return null;
   }
 
   if (rest[0] === 'lessons' && method === 'GET') {
-    const lessonId = Number(rest[1]);
-    const entry = lessonEntry(lessonId);
+    const entry = lessonById(Number(rest[1]));
     if (!entry) return json({ message: 'الدرس غير موجود' }, 404);
     if (rest[2] === 'quiz') return json(quizPayload(entry));
     if (rest.length === 2) return json(lessonPayload(entry));
@@ -249,20 +260,19 @@ function handle(pathname: string, method: string, body: unknown): Response | nul
       const completed = progressPayload().filter((row) => row.isCompleted).length;
       return json({
         profile,
-        totalLessons: lessonEntries.length,
+        totalLessons: ALL_LESSONS.length,
         completedLessons: completed,
         dailyGoal: {
           targetXp: 50,
           earnedXp: Math.min(profile.totalXp % 50, 50),
           met: profile.totalXp > 0 && profile.totalXp % 50 === 0,
         },
-        continueLearning: lessonEntries
-          .filter((entry) => lessonPayload(entry).bestScore === null)
+        continueLearning: ALL_LESSONS.filter((entry) => lessonPayload(entry).bestScore === null)
           .slice(0, 3)
           .map((entry) => lessonPayload(entry)),
         recentActivity: [],
         achievements: [],
-        contentNotice: 'المحتوى المعروض من بيانات الرياضيات المحلية للصف العاشر.',
+        contentNotice: 'المحتوى المعروض من سجل المنهاج المحلي: كتب الرياضيات المضافة للصف الأول والصف العاشر.',
       });
     }
     if (method === 'GET' && rest[1] === 'progress') return json(progressPayload());
@@ -288,13 +298,13 @@ function handle(pathname: string, method: string, body: unknown): Response | nul
     if (method === 'GET' && rest[1] === 'overview') {
       return json({
         studentCount: 1,
-        gradeCount: 1,
-        subjectCount: 1,
-        unitCount: MATH10_UNITS.length,
-        lessonCount: lessonEntries.length,
-        questionCount: lessonEntries.reduce((sum, entry) => sum + entry.lesson.questions.length, 0),
+        gradeCount: CURRICULUM_GRADES.length,
+        subjectCount: ALL_SUBJECTS.length,
+        unitCount: ALL_UNITS.length,
+        lessonCount: ALL_LESSONS.length,
+        questionCount: ALL_QUESTIONS.length,
         draftLessonCount: 0,
-        verifiedLessonCount: lessonEntries.length,
+        verifiedLessonCount: ALL_LESSONS.length,
       });
     }
     if (method === 'GET') return json([]);
