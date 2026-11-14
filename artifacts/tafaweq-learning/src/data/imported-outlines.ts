@@ -2268,6 +2268,176 @@ const G12_EARTH: ImportedBookOutline = {
   ],
 };
 
+/**
+ * العلوم — الصف التاسع (18 وحدة كما وردت في صفحات المصادر الأربع).
+ *
+ * سجل المناهج يمثل علوم المرحلة الأساسية العليا بمادة واحدة «العلوم»،
+ * بينما يعرض المصدر للصف التاسع أربع مواد علمية منفصلة. لذلك تُجمع وحداتها
+ * هنا بترتيب المصدر نفسه وبأرقام متسلسلة، ولا يُنشأ عنوان مادة غير موجود في السجل.
+ */
+const G9_SCIENCE: ImportedBookOutline = {
+  key: 'g9-science',
+  gradeNumber: 9,
+  subjectTitle: 'العلوم',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العلوم',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1090`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحات مواد الصف التاسع في المصدر: الكيمياء (1090) والفيزياء (1092) والعلوم الحياتية (1091) وعلوم الأرض والبيئة (1093)، مجموعة بترتيب المصدر؛ ولا تنص صفحات المواد على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'المفاهيم الأساسية في الكيمياء',
+      lessons: [
+        { title: 'تركيب الذرة', sourceUrl: `${MINHAJI}/26966` },
+        { title: 'الجدول الدوري', sourceUrl: `${MINHAJI}/26969` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الروابط الكيميائية',
+      lessons: [
+        { title: 'الرابطة الأيونية', sourceUrl: `${MINHAJI}/26983` },
+        { title: 'الرابطة التساهمية', sourceUrl: `${MINHAJI}/26991` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'التفاعلات الكيميائية',
+      lessons: [
+        { title: 'أنواع التفاعلات الكيميائية', sourceUrl: `${MINHAJI}/26997` },
+        { title: 'حسابات التفاعلات الكيميائية', sourceUrl: `${MINHAJI}/27007` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'الكيمياء العضوية',
+      lessons: [
+        { title: 'الهيدروكربونات', sourceUrl: `${MINHAJI}/33928` },
+        { title: 'مركبات عضوية أخرى', sourceUrl: `${MINHAJI}/33930` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'القياس',
+      lessons: [
+        { title: 'النظام الدولي للوحدات', sourceUrl: `${MINHAJI}/26930` },
+        { title: 'القياس والأرقام المعنوية', sourceUrl: `${MINHAJI}/26942` },
+        { title: 'أخطاء القياس', sourceUrl: `${MINHAJI}/26947` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'القوى والحركة',
+      lessons: [
+        { title: 'قوانين نيوتن في الحركة', sourceUrl: `${MINHAJI}/27187` },
+        { title: 'تطبيقات على القوى', sourceUrl: `${MINHAJI}/33894` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الشغل والآلات البسيطة',
+      lessons: [
+        { title: 'الشغل والقدرة', sourceUrl: `${MINHAJI}/34225` },
+        { title: 'الآلات البسيطة', sourceUrl: `${MINHAJI}/34375` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'ميكانيكا الموائع',
+      lessons: [
+        { title: 'المائع الساكن', sourceUrl: `${MINHAJI}/35449` },
+        { title: 'قياس الضغط', sourceUrl: `${MINHAJI}/35462` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'انكسار الضوء وتطبيقاته',
+      lessons: [
+        { title: 'انكسار الضوء', sourceUrl: `${MINHAJI}/35454` },
+        { title: 'تطبيقات وظواهر بصرية', sourceUrl: `${MINHAJI}/35458` },
+        { title: 'العدسات الرقيقة', sourceUrl: `${MINHAJI}/35486` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'دراسة الحياة',
+      lessons: [
+        { title: 'طبيعة العلم', sourceUrl: `${MINHAJI}/26995` },
+        { title: 'العلوم الحياتية وأهميتها', sourceUrl: `${MINHAJI}/27000` },
+      ],
+    },
+    {
+      number: 11,
+      title: 'الخلية وعملياتها الحيوية',
+      lessons: [
+        { title: 'تركيب الخلية ووظائف مكوناتها', sourceUrl: `${MINHAJI}/27040` },
+        { title: 'عمليات حيوية في الخلية', sourceUrl: `${MINHAJI}/27045` },
+        { title: 'دورة الخلية', sourceUrl: `${MINHAJI}/27181` },
+      ],
+    },
+    {
+      number: 12,
+      title: 'الأنسجة الحيوانية والأنسجة النباتية',
+      lessons: [
+        { title: 'الأنسجة الحيوانية', sourceUrl: `${MINHAJI}/33933` },
+        { title: 'الأنسجة النباتية', sourceUrl: `${MINHAJI}/131572` },
+      ],
+    },
+    {
+      number: 13,
+      title: 'العلاقات البيئية في الأنظمة البيئية',
+      lessons: [
+        { title: 'الأنظمة البيئية', sourceUrl: `${MINHAJI}/131577` },
+        { title: 'دراسة الجماعات الحيوية في الأنظمة البيئية', sourceUrl: `${MINHAJI}/131585` },
+        { title: 'استدامة الطاقة والمواد في الأنظمة البيئية', sourceUrl: `${MINHAJI}/131676` },
+      ],
+    },
+    {
+      number: 14,
+      title: 'المعادن',
+      lessons: [
+        { title: 'المعادن وأنظمتها البلورية', sourceUrl: `${MINHAJI}/26918` },
+        { title: 'مجموعات المعادن', sourceUrl: `${MINHAJI}/26924` },
+      ],
+    },
+    {
+      number: 15,
+      title: 'المياه',
+      lessons: [
+        { title: 'المياه السطحية', sourceUrl: `${MINHAJI}/26935` },
+        { title: 'المياه الجوفية', sourceUrl: `${MINHAJI}/27033` },
+      ],
+    },
+    {
+      number: 16,
+      title: 'النظام الشمسي',
+      lessons: [
+        { title: 'نشأة النظام الشمسي', sourceUrl: `${MINHAJI}/33136` },
+        { title: 'مكونات النظام الشمسي', sourceUrl: `${MINHAJI}/33140` },
+      ],
+    },
+    {
+      number: 17,
+      title: 'النفايات الصلبة',
+      lessons: [
+        { title: 'مصادر النفايات الصلبة', sourceUrl: `${MINHAJI}/35504` },
+        { title: 'التخلص من النفايات الصلبة', sourceUrl: `${MINHAJI}/35507` },
+      ],
+    },
+    {
+      number: 18,
+      title: 'الغلاف الجوي',
+      lessons: [
+        { title: 'خصائص الغلاف الجوي', sourceUrl: `${MINHAJI}/35520` },
+        { title: 'تسخين الغلاف الجوي', sourceUrl: `${MINHAJI}/35529` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -2287,6 +2457,7 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G6_SCIENCE,
   G7_SCIENCE,
   G8_SCIENCE,
+  G9_SCIENCE,
   G2_MATH,
   G3_MATH,
   G4_MATH,
