@@ -637,31 +637,6 @@ const G11_MATH: ImportedBookOutline = {
   ],
 };
 
-/**
- * رياضيات الصف الثاني عشر (المسار الأكاديمي) — الصفحة تعرض عنوان وحدة واحدة بلا دروس مسماة،
- * لذا سُجّلت الوحدة بعنوانها فقط دون اختراع دروس.
- */
-const G12_MATH: ImportedBookOutline = {
-  key: 'g12-math',
-  gradeNumber: 12,
-  subjectTitle: 'الرياضيات',
-  subjectId: 1244,
-  semester: null,
-  semesterVerified: false,
-  bookTitle: 'كتاب الطالب — الرياضيات (المسار الأكاديمي)',
-  sourceName: 'شبكة منهاجي الأردنية',
-  sourceUrl: `${MINHAJI}/55558`,
-  verifiedBy:
-    'عنوان الوحدة مأخوذ حرفيًا من صفحة مادة الرياضيات للصف الثاني عشر (المسار الأكاديمي) في المصدر؛ الصفحة تعرض الوحدة الأولى «المصفوفات» دون روابط دروس، فلم تُضف دروس من خارج المصدر.',
-  units: [
-    {
-      number: 1,
-      title: 'المصفوفات',
-      lessons: [],
-    },
-  ],
-};
-
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G5_MATH_S1,
   G5_MATH_S2,
@@ -670,7 +645,6 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G8_MATH,
   G9_MATH,
   G11_MATH,
-  G12_MATH,
 ];
 
 /** إحصاءات كتاب مستورد واحد. */

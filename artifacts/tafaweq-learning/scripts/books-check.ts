@@ -79,7 +79,8 @@ for (const outline of IMPORTED_OUTLINES) {
   const matches = OFFICIAL_BOOKS.filter(
     (item) =>
       item.gradeNumber === outline.gradeNumber &&
-      item.subjectTitle.trim() === outline.subjectTitle.trim(),
+      item.subjectTitle.trim() === outline.subjectTitle.trim() &&
+      (outline.subjectId === undefined || item.subjectId === outline.subjectId),
   );
   check(matches.length > 0, `لا كتاب في السجل يطابق المستورد ${outline.key}`);
   if (outline.semesterVerified) {
