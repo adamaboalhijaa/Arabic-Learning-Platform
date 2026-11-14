@@ -75,7 +75,9 @@ function lessonPayload(entry: BookLesson) {
     objectives: entry.lesson.objectives,
     durationMinutes: entry.lesson.durationMinutes,
     contentStatus: 'verified' as const,
-    sourceReference: `كتاب الطالب — صفحة ${entry.lesson.page}`,
+    sourceReference: entry.lesson.page
+      ? `كتاب الطالب — صفحة ${entry.lesson.page}`
+      : `كتاب الطالب: ${entry.lesson.title}`,
     questionCount: total,
     isCompleted: bestScore >= Math.round(MASTERY_RATIO * 100),
     bestScore: bestScore > 0 ? bestScore : null,
