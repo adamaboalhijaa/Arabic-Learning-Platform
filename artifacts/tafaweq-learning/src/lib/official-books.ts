@@ -16,6 +16,7 @@ import {
   ALL_UNITS,
   type SemesterNumber,
 } from './curriculum-books';
+import { IMPORTED_OUTLINES, outlineFor, outlineStats } from '../data/imported-outlines';
 
 /** صفحة الكتب المدرسية الرسمية (المركز الوطني لتطوير المناهج). */
 export const OFFICIAL_TEXTBOOK_INDEX = 'https://www.nccd.gov.jo/Ar/Pages/textbooks';
@@ -36,10 +37,11 @@ export function gradeSourcePage(gradeNumber: number): string {
   return OBSERVED_GRADE_PAGES[gradeNumber] ?? OFFICIAL_TEXTBOOK_INDEX;
 }
 
-export type BookStatus = 'linked' | 'awaiting-import';
+export type BookStatus = 'linked' | 'outline-imported' | 'awaiting-import';
 
 export const BOOK_STATUS_LABEL: Record<BookStatus, string> = {
   linked: 'مربوط',
+  'outline-imported': 'وحدات ودروس مستوردة',
   'awaiting-import': 'بانتظار الاستيراد',
 };
 
@@ -58,6 +60,10 @@ export interface OfficialBook {
   questions: number;
   /** صفحة المصدر الرسمي لهذا الصف. */
   sourcePage: string;
+  /** رابط مصدر الوحدات/الدروس المستوردة (إن وُجدت). */
+  outlineSourceUrl?: string;
+  /** الدليل على ترتيب الوحدات وتقسيم الفصل الدراسي. */
+  outlineVerifiedBy?: string;
 }
 
 const unitsBySubject = new Map<number, typeof ALL_UNITS>();
@@ -86,6 +92,15 @@ function buildBooks(): OfficialBook[] {
         (total, lesson) => total + (questionsByLesson.get(lesson.id) ?? 0),
         0,
       );
+      // وحدات ودروس الكتاب المستوردة من مصدر أردني فعلي (بلا أسئلة بعد).
+      const outline = outlineFor(subject.gradeNumber, subject.title, semester);
+      const outlineCounts = outline ? outlineStats(outline) : null;
+      const hasContent = semesterUnits.length > 0;
+      const status: BookStatus = hasContent
+        ? 'linked'
+        : outlineCounts
+          ? 'outline-imported'
+          : 'awaiting-import';
       books.push({
         key: `${subject.id}-${semester}`,
         gradeNumber: subject.gradeNumber,
@@ -94,11 +109,13 @@ function buildBooks(): OfficialBook[] {
         stream: subject.stream,
         semester,
         title: `كتاب الطالب — ${subject.title} — الفصل ${semester === 1 ? 'الأول' : 'الثاني'}`,
-        status: semesterUnits.length > 0 ? 'linked' : 'awaiting-import',
-        units: semesterUnits.length,
-        lessons: semesterLessons.length,
+        status,
+        units: hasContent ? semesterUnits.length : (outlineCounts?.units ?? 0),
+        lessons: hasContent ? semesterLessons.length : (outlineCounts?.lessons ?? 0),
         questions,
         sourcePage: gradeSourcePage(subject.gradeNumber),
+        outlineSourceUrl: outline?.sourceUrl,
+        outlineVerifiedBy: outline?.verifiedBy,
       });
     }
   }
@@ -225,6 +242,36 @@ export function duplicateIssues(): DuplicateIssue[] {
       issues.push({ kind: 'lesson', detail: `درس مكرّر: ${lesson.lesson.title}` });
     }
     seenLessons.add(key);
+  }
+  // فحص الوحدات والدروس المستوردة: لا تكرار داخل الكتاب، ولا كتاب بلا مادة مطابقة.
+  for (const outline of IMPORTED_OUTLINES) {
+    const subject = ALL_SUBJECTS.find(
+      (item) =>
+        item.gradeNumber === outline.gradeNumber &&
+        item.title.trim() === outline.subjectTitle.trim(),
+    );
+    if (!subject) {
+      issues.push({
+        kind: 'book',
+        detail: `كتاب مستورد بلا مادة مطابقة: ${outline.key}`,
+      });
+    }
+    const seenOutlineUnits = new Set<string>();
+    for (const unit of outline.units) {
+      const unitKey = `${outline.key}-${unit.title.trim()}`;
+      if (seenOutlineUnits.has(unitKey)) {
+        issues.push({ kind: 'unit', detail: `وحدة مستوردة مكرّرة: ${unit.title}` });
+      }
+      seenOutlineUnits.add(unitKey);
+      const seenUnitLessons = new Set<string>();
+      for (const lesson of unit.lessons) {
+        const lessonKey = `${outline.key}-${unit.number}-${lesson.title.trim()}`;
+        if (seenUnitLessons.has(lessonKey)) {
+          issues.push({ kind: 'lesson', detail: `درس مستورد مكرّر: ${lesson.title}` });
+        }
+        seenUnitLessons.add(lessonKey);
+      }
+    }
   }
   return issues;
 }
