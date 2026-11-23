@@ -4143,6 +4143,65 @@ const G11_ISLAMIC_S2: ImportedBookOutline = {
   ],
 };
 
+/**
+ * التربية الإسلامية — الصف الثاني عشر (المسار الأكاديمي).
+ *
+ * المصدر يسرد الوحدات الثلاث ودروسها ولا يفصل الفصلين الدراسيين،
+ * لذلك لا يُنسب أي درس إلى فصل، ويُسجّل الفصل كغير مثبَت.
+ */
+const G12_ISLAMIC: ImportedBookOutline = {
+  key: 'g12-islamic',
+  gradeNumber: 12,
+  subjectTitle: 'التربية الإسلامية',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية، المسار الأكاديمي',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/55560`,
+  verifiedBy:
+    'صفحة مادة التربية الإسلامية للصف الثاني عشر/المسار الأكاديمي (55560) تسرد الوحدات الثلاث ودروسها (6+7+7) ولا تفصل الفصلين الدراسيين، لذا لم يُنسب أي درس إلى فصل.',
+  units: [
+    {
+      number: 1,
+      title: 'علاقة الإنسان بربه سبحانه',
+      lessons: [
+        lessonRef('واجب الإنسان تجاه خالقه', 36137),
+        lessonRef('شكر النعم', 129394),
+        lessonRef('مكانة الصلاة وآثارها في حياة المسلم', 129397),
+        lessonRef('الدعوة إلى الله تعالى', 129400),
+        lessonRef('فضل الصيام وآثاره في حياة المسلم', 129403),
+        lessonRef('الحياة الدنيا في التصور الإسلامي', 129406),
+      ],
+    },
+    {
+      number: 2,
+      title: 'علاقة الإنسان بنفسه',
+      lessons: [
+        lessonRef('الشخصية الإسلامية', 129410),
+        lessonRef('الإسلام والتخطيط', 129571),
+        lessonRef('الإسلام والشباب', 129576),
+        lessonRef('التربية الذوقية في الإسلام', 129579),
+        lessonRef('ثقافة الفرح', 129614),
+        lessonRef('موقف الإسلام من التعصب', 129617),
+        lessonRef('إدارة الذات في الإسلام', 133003),
+      ],
+    },
+    {
+      number: 3,
+      title: 'علاقة الإنسان بمن حوله',
+      lessons: [
+        lessonRef('مكانة آل البيت في الإسلام', 129778),
+        lessonRef('كفالة الأيتام في الإسلام', 129782),
+        lessonRef('الصداقة في الإسلام', 129786),
+        lessonRef('عناية الإسلام بالحيوان', 130473),
+        lessonRef('السياحة في الإسلام', 130476),
+        lessonRef('الإسلام والاختلاف في الرأي', 130479),
+        lessonRef('الإسلام والإعلام', 133006),
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -4172,6 +4231,7 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G10_ISLAMIC_S2,
   G11_ISLAMIC_S1,
   G11_ISLAMIC_S2,
+  G12_ISLAMIC,
   G6_SCIENCE,
   G6_SOCIAL,
   G7_SCIENCE,
