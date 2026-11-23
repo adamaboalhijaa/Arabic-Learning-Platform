@@ -2790,99 +2790,6 @@ const G9_DIGITAL: ImportedBookOutline = {
   ],
 };
 
-/** الرياضيات — الصف التاسع. المصدر يعرض الوحدات مرقّمة 1،2،3،6،7،8. */
-const G9_MATH: ImportedBookOutline = {
-  key: 'g9-math',
-  gradeNumber: 9,
-  subjectTitle: 'الرياضيات',
-  semester: null,
-  semesterVerified: false,
-  bookTitle: 'كتاب الطالب — الرياضيات',
-  sourceName: 'شبكة منهاجي الأردنية',
-  sourceUrl: `${MINHAJI}/1095`,
-  verifiedBy:
-    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة الرياضيات للصف التاسع (1095). المصدر يعرض ستّ وحدات مرقّمة 1، 2، 3، 6، 7، 8 (روابط الوحدات: 33638، 34036، 34382، 35758، 35773، 35785) ولا يعرض الوحدتين الرابعة والخامسة؛ سُجّلت هنا بالترتيب 1..6 دون إنشاء وحدات بديلة، ولا تنص الصفحة على تقسيم الفصل الدراسي.',
-  units: [
-    {
-      number: 1,
-      title: 'المتباينات الخطية',
-      lessons: [
-        { title: 'الدرس الأول: المجموعات والفترات', sourceUrl: `${MINHAJI}/33639` },
-        { title: 'الدرس الثاني: حل المتباينات المركبة', sourceUrl: `${MINHAJI}/33899` },
-        {
-          title: 'الدرس الثالث: حل معادلات القيمة المطلقة ومتبايناتها',
-          sourceUrl: `${MINHAJI}/33908`,
-        },
-        {
-          title: 'الدرس الرابع: تمثيل المتباينات الخطية بمتغيرين بيانيًا',
-          sourceUrl: `${MINHAJI}/129590`,
-        },
-      ],
-    },
-    {
-      number: 2,
-      title: 'العلاقات والاقترانات',
-      lessons: [
-        { title: 'الدرس الأول: الاقترانات', sourceUrl: `${MINHAJI}/34037` },
-        { title: 'الدرس الثاني: تفسير التمثيلات البيانية', sourceUrl: `${MINHAJI}/34195` },
-        { title: 'الدرس الثالث: الاقتران التربيعي', sourceUrl: `${MINHAJI}/34332` },
-        {
-          title: 'الدرس الرابع: التحويلات الهندسية للاقترانات التربيعية',
-          sourceUrl: `${MINHAJI}/130010`,
-        },
-      ],
-    },
-    {
-      number: 3,
-      title: 'حل المعادلات',
-      lessons: [
-        {
-          title: 'الدرس الأول: حل المعادلات التربيعية بيانيًا',
-          sourceUrl: `${MINHAJI}/34383`,
-        },
-        { title: 'الدرس الثاني: حل المعادلات التربيعية بالتحليل', sourceUrl: `${MINHAJI}/34387` },
-        {
-          title: 'الدرس الثالث: حل المعادلات التربيعية بإكمال المربع',
-          sourceUrl: `${MINHAJI}/34691`,
-        },
-        {
-          title: 'الدرس الرابع: حل المعادلات التربيعية باستخدام القانون العام',
-          sourceUrl: `${MINHAJI}/34700`,
-        },
-      ],
-    },
-    {
-      number: 4,
-      title: 'المقادير الأسية والمقادير الجذرية',
-      lessons: [
-        { title: 'الدرس الأول: تبسيط المقادير الأسية', sourceUrl: `${MINHAJI}/35759` },
-        { title: 'الدرس الثاني: العمليات على المقادير الجذرية', sourceUrl: `${MINHAJI}/35764` },
-        { title: 'الدرس الثالث: حل المعادلات الجذرية', sourceUrl: `${MINHAJI}/35769` },
-      ],
-    },
-    {
-      number: 5,
-      title: 'المقادير الجبرية النسبية',
-      lessons: [
-        {
-          title: 'الدرس الأول: ضرب المقادير الجبرية النسبية وقسمتها',
-          sourceUrl: `${MINHAJI}/35774`,
-        },
-        {
-          title: 'الدرس الثاني: جمع المقادير الجبرية النسبية وطرحها',
-          sourceUrl: `${MINHAJI}/35778`,
-        },
-        { title: 'الدرس الثالث: حل المعادلات النسبية', sourceUrl: `${MINHAJI}/35781` },
-      ],
-    },
-    {
-      number: 6,
-      title: 'الإحصاء والاحتمالات',
-      lessons: [{ title: 'الدرس الأول: مقاييس التشتت', sourceUrl: `${MINHAJI}/35786` }],
-    },
-  ],
-};
-
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -2907,7 +2814,6 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G9_ISLAMIC_S2,
   G9_SOCIAL,
   G9_DIGITAL,
-  G9_MATH,
   G2_MATH,
   G3_MATH,
   G4_MATH,
