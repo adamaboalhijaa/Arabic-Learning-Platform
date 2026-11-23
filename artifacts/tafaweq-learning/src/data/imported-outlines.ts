@@ -4295,7 +4295,32 @@ const G12_ARABIC: ImportedBookOutline = {
   ],
 };
 
+/** التاريخ — الصف الثاني عشر (المسار الأكاديمي): الوحدة المدرجة في المصدر ودروسها. */
+const G12_HISTORY: ImportedBookOutline = {
+  key: 'g12-history',
+  gradeNumber: 12,
+  subjectTitle: 'التاريخ',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — التاريخ، المسار الأكاديمي',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/55716`,
+  verifiedBy:
+    'صفحة التاريخ للصف الثاني عشر/المسار الأكاديمي (55716) تعرض الوحدة الأولى «حضارات عالمية» ودرسيها؛ لا تفصل الفصلين الدراسيين ولم تُدرج بقية الوحدات في المصدر، فلم تُضف أي وحدة غير واردة.',
+  units: [
+    {
+      number: 1,
+      title: 'حضارات عالمية',
+      lessons: [
+        lessonRef('الحضارة الصينية', 57317),
+        lessonRef('مظاهر الحضارة الصينية', 133019),
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G12_HISTORY,
   G12_ARABIC,
   G12_PHYSICS,
   G12_BIOLOGY,
