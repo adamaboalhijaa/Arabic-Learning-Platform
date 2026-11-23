@@ -4736,8 +4736,64 @@ const G3_ISLAMIC_S1: ImportedBookOutline = {
   ],
 };
 
+const G11_HISTORY: ImportedBookOutline = {
+  key: 'g11-history',
+  gradeNumber: 11,
+  subjectTitle: 'التاريخ',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — تاريخ الأردن، الصف الحادي عشر',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/8841`,
+  verifiedBy:
+    'صفحة تاريخ الأردن للصف الحادي عشر (8841) تعرض 4 وحدات و17 درسًا بعناوينها وروابطها، ولم تُضف أي وحدة أو درس غير وارد فيها.',
+  units: [
+    {
+      number: 1,
+      title: 'الأردن في العصور القديمة',
+      lessons: [
+        lessonRef('الأردن في العصور الحجرية', 33047),
+        lessonRef('الأردن في العصر الحديدي', 33052),
+        lessonRef('مملكة الأنباط', 33055),
+        lessonRef('مظاهر الحضارتين اليونانية والرومانية في الأردن', 33058),
+      ],
+    },
+    {
+      number: 2,
+      title: 'الأردن في العصور الإسلامية',
+      lessons: [
+        lessonRef('الأردن في صدر الإسلام', 33110),
+        lessonRef('الأردن في العصرين الأموي والعباسي', 33123),
+        lessonRef('الأردن خلال حملات الفرنجة', 33147),
+        lessonRef('الأردن في العصر الأيوبي', 33127),
+        lessonRef('الأردن في العصر المملوكي', 133111),
+      ],
+    },
+    {
+      number: 3,
+      title: 'الأردن في العصر الحديث',
+      lessons: [
+        lessonRef('الأوضاع السياسية والإدارية في الأردن', 33242),
+        lessonRef('الأوضاع الاجتماعية والاقتصادية في الأردن', 33669),
+        lessonRef('الثورة العربية الكبرى', 33710),
+        lessonRef('الأردن في عهد المملكة العربية السورية', 133116),
+      ],
+    },
+    {
+      number: 4,
+      title: 'الحياة السياسية في الأردن',
+      lessons: [
+        lessonRef('تأسيس الإمارة الأردنية', 34676),
+        lessonRef('استقلال المملكة الأردنية الهاشمية', 34801),
+        lessonRef('تطور الحياة السياسية في الأردن (1948-1957)', 35048),
+        lessonRef('الحياة السياسية في الأردن منذ عام 1999م', 35989),
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
-  G1_ISLAMIC_S1,
+  G11_HISTORY,
   G2_ISLAMIC_S1,
   G3_ISLAMIC_S1,
   G3_SOCIAL,
