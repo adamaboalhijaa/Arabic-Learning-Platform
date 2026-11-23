@@ -2569,6 +2569,8 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G7_SCIENCE,
   G8_SCIENCE,
   G9_SCIENCE,
+  G9_ISLAMIC_S1,
+  G9_ISLAMIC_S2,
   G2_MATH,
   G3_MATH,
   G4_MATH,
