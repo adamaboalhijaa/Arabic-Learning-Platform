@@ -4550,8 +4550,90 @@ const G4_SOCIAL: ImportedBookOutline = {
   sourceName: 'شبكة منهاجي الأردنية',
   sourceUrl: `${MINHAJI}/31094`,
   verifiedBy:
-    'صفحة الدراسات الاجتماعية للصف الرابع (31094) تعرض 8 وحدات و27 درسًا بعناوينها وروابطها.
-[Older evidence: 1104 more characters of inserted text omitted; the file in the workspace is authoritative.]
+    'صفحة الدراسات الاجتماعية للصف الرابع (31094) تعرض 8 وحدات و27 درسًا بعناوينها وروابطها، ولم تُضف أي وحدة أو درس غير وارد فيها.',
+  units: [
+    {
+      number: 1,
+      title: 'الفرد والمجتمع',
+      lessons: [
+        lessonRef('المجتمع الأردني', 31146),
+        lessonRef('الأخلاق', 31151),
+        lessonRef('العادات والتقاليد', 31156),
+        lessonRef('الأزياء الشعبية', 31160),
+      ],
+    },
+    {
+      number: 2,
+      title: 'الأردن تاريخ وحضارة',
+      lessons: [
+        lessonRef('الحضارات القديمة في الأردن', 32030),
+        lessonRef('ملوك الأردن', 32034),
+        lessonRef('بطولات الجيش العربي', 32038),
+      ],
+    },
+    {
+      number: 3,
+      title: 'السلطة والحكم في الأردن',
+      lessons: [
+        lessonRef('الدستور', 32043),
+        lessonRef('نظام الحكم', 32047),
+        lessonRef('القوانين والأنظمة', 32051),
+      ],
+    },
+    {
+      number: 4,
+      title: 'البيئة والموارد والسكان',
+      lessons: [
+        lessonRef('الزراعة', 32056),
+        lessonRef('الصناعة', 32061),
+        lessonRef('الطاقة', 32066),
+        lessonRef('الأنشطة البشرية وأثرها في البيئة', 32080),
+        lessonRef('الحياة البرية في الأردن', 133130),
+      ],
+    },
+    {
+      number: 5,
+      title: 'نحيا معاً',
+      lessons: [
+        lessonRef('بناء الشخصية', 32102),
+        lessonRef('الحوار', 32106),
+        lessonRef('الاحترام', 32110),
+        lessonRef('الحقيقة والرأي', 32334),
+      ],
+    },
+    {
+      number: 6,
+      title: 'مشاركتي في مجتمعي',
+      lessons: [
+        lessonRef('الحقوق والواجبات والمسؤوليات', 32115),
+        lessonRef('المشاركة المجتمعية والعمل التطوعي', 32430),
+      ],
+    },
+    {
+      number: 7,
+      title: 'العالم من حولي',
+      lessons: [
+        lessonRef('المجموعة الشمسية', 32774),
+        lessonRef('حركة الأرض', 32779),
+        lessonRef('المناطق الحرارية في العالم', 32784),
+      ],
+    },
+    {
+      number: 8,
+      title: 'الخرائط الجغرافية',
+      lessons: [
+        lessonRef('الخريطة وعناصرها', 32789),
+        lessonRef('أنواع الخرائط', 32888),
+        lessonRef('بلاد الشام والعراق', 32893),
+        lessonRef('شبه الجزيرة العربية', 33082),
+      ],
+    },
+  ],
+};
+
+export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G4_SOCIAL,
+  G7_DIGITAL,
   G8_DIGITAL,
   G10_VOCATIONAL,
   G11_ARABIC,
