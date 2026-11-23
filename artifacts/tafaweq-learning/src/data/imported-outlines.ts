@@ -4415,7 +4415,72 @@ const G11_DIGITAL: ImportedBookOutline = {
   ],
 };
 
+const G10_VOCATIONAL: ImportedBookOutline = {
+  key: 'g10-vocational',
+  gradeNumber: 10,
+  subjectTitle: 'التربية المهنية',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — التربية المهنية، الصف العاشر',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1118`,
+  verifiedBy:
+    'صفحة التربية المهنية للصف العاشر (1118) تعرض 7 وحدات و13 فصلًا بعناوينها وروابطها كما هي في الكتاب.',
+  units: [
+    {
+      number: 1,
+      title: 'حالات مرضية',
+      lessons: [
+        lessonRef('مرض السكري', 7159),
+        lessonRef('ضغط الدم', 7166),
+        lessonRef('الاضطراب التشنجي', 7172),
+      ],
+    },
+    {
+      number: 2,
+      title: 'مشروعات اقتصادية',
+      lessons: [
+        lessonRef('المشروعات الاقتصادية الصغيرة', 7179),
+        lessonRef('مشروعات إنتاجية زراعية صغيرة', 9855),
+        lessonRef('تصنيع منتجات الألبان', 9859),
+      ],
+    },
+    {
+      number: 3,
+      title: 'الأعمال التطوعية في خدمة المجتمع',
+      lessons: [lessonRef('العمل التطوعي', 9861)],
+    },
+    {
+      number: 4,
+      title: 'المهن',
+      lessons: [
+        lessonRef('خياطة الملابس', 9863),
+        lessonRef('أعمال الدهان', 9864),
+      ],
+    },
+    {
+      number: 5,
+      title: 'إدارة الموارد المالية للأسرة',
+      lessons: [lessonRef('الميزانية المالية للأسرة', 9866)],
+    },
+    {
+      number: 6,
+      title: 'أشغال المعادن',
+      lessons: [
+        lessonRef('أعمال اللحام', 13734),
+        lessonRef('أشغال الصفائح المعدنية', 13741),
+      ],
+    },
+    {
+      number: 7,
+      title: 'إعداد الطعام',
+      lessons: [lessonRef('اللحوم', 13750)],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G10_VOCATIONAL,
   G11_ARABIC,
   G11_PHYSICS,
   G11_DIGITAL,
