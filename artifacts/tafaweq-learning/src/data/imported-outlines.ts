@@ -2790,6 +2790,158 @@ const G9_DIGITAL: ImportedBookOutline = {
   ],
 };
 
+/**
+ * الدراسات الاجتماعية — الصف الثامن.
+ * المصدر يسمّيها «الدراسات الاجتماعية»؛ تُربط بمادة «الاجتماعيات» في السجل.
+ */
+const G8_SOCIAL: ImportedBookOutline = {
+  key: 'g8-social',
+  gradeNumber: 8,
+  subjectTitle: 'الاجتماعيات',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الدراسات الاجتماعية',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/33861`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة الدراسات الاجتماعية للصف الثامن في المصدر (33861)؛ ولا تنص الصفحة على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'حقوق الإنسان',
+      lessons: [
+        { title: 'الدرس الأول: الأمم المتحدة وأجهزتها', sourceUrl: `${MINHAJI}/33879` },
+        {
+          title: 'الدرس الثاني: الشرعة الدولية لحقوق الإنسان',
+          sourceUrl: `${MINHAJI}/33885`,
+        },
+        {
+          title: 'الدرس الثالث: حقوق الإنسان في التشريعات الأردنية',
+          sourceUrl: `${MINHAJI}/33983`,
+        },
+      ],
+    },
+    {
+      number: 2,
+      title: 'البيئة',
+      lessons: [
+        { title: 'الدرس الأول: عناصر المناخ', sourceUrl: `${MINHAJI}/33963` },
+        { title: 'الدرس الثاني: البيئات الطبيعية', sourceUrl: `${MINHAJI}/33971` },
+        { title: 'الدرس الثالث: الأخطار والكوارث الطبيعية', sourceUrl: `${MINHAJI}/33975` },
+        { title: 'الدرس الرابع: إدارة الكوارث الطبيعية', sourceUrl: `${MINHAJI}/33979` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'حضارات بلاد الرافدين',
+      lessons: [
+        { title: 'الدرس الأول: الحضارة السومرية', sourceUrl: `${MINHAJI}/33967` },
+        { title: 'الدرس الثاني: الحضارة الأكادية', sourceUrl: `${MINHAJI}/34157` },
+        { title: 'الدرس الثالث: الحضارة البابلية', sourceUrl: `${MINHAJI}/34161` },
+        { title: 'الدرس الرابع: الحضارة الآشورية', sourceUrl: `${MINHAJI}/34165` },
+        { title: 'الدرس الخامس: الحضارة الكلدانية', sourceUrl: `${MINHAJI}/34169` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'السكان والتنمية',
+      lessons: [
+        { title: 'الدرس الأول: الخصائص العامة للسكان', sourceUrl: `${MINHAJI}/34337` },
+        { title: 'الدرس الثاني: السكان والتنمية', sourceUrl: `${MINHAJI}/34338` },
+        { title: 'الدرس الثالث: التنمية المستدامة', sourceUrl: `${MINHAJI}/130030` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'الإعلام والرأي العام',
+      lessons: [
+        { title: 'الدرس الأول: الإعلام', sourceUrl: `${MINHAJI}/34441` },
+        { title: 'الدرس الثاني: الرأي العام والسياسات العامة', sourceUrl: `${MINHAJI}/34445` },
+        { title: 'الدرس الثالث: قياس الرأي العام', sourceUrl: `${MINHAJI}/130350` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الفلسفة',
+      lessons: [
+        { title: 'الدرس الأول: مفهوم الفلسفة وأهميتها', sourceUrl: `${MINHAJI}/34515` },
+        { title: 'الدرس الثاني: الفلسفة اليونانية', sourceUrl: `${MINHAJI}/34519` },
+        { title: 'الدرس الثالث: الفلسفة العربية الإسلامية', sourceUrl: `${MINHAJI}/130576` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'العيش المشترك',
+      lessons: [
+        { title: 'الدرس الأول: التنوع الثقافي', sourceUrl: `${MINHAJI}/35009` },
+        { title: 'الدرس الثاني: العدالة وتكافؤ الفرص', sourceUrl: `${MINHAJI}/35019` },
+        { title: 'الدرس الثالث: النزاهة', sourceUrl: `${MINHAJI}/35028` },
+        { title: 'الدرس الرابع: مواجهة التطرف', sourceUrl: `${MINHAJI}/131001` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الحضارة المصرية القديمة',
+      lessons: [
+        { title: 'الدرس الأول: الموقع والنشأة', sourceUrl: `${MINHAJI}/35033` },
+        { title: 'الدرس الثاني: مظاهر الحياة العامة', sourceUrl: `${MINHAJI}/35044` },
+        {
+          title: 'الدرس الثالث: إنجازات الحضارة المصرية القديمة',
+          sourceUrl: `${MINHAJI}/35091`,
+        },
+        {
+          title: 'الدرس الرابع: العلاقات الخارجية في الحضارات المصرية القديمة',
+          sourceUrl: `${MINHAJI}/35099`,
+        },
+      ],
+    },
+    {
+      number: 9,
+      title: 'الخرائط والتقنيات الجغرافية',
+      lessons: [
+        { title: 'الدرس الأول: الخرائط أنواعها وأهميتها', sourceUrl: `${MINHAJI}/35182` },
+        { title: 'الدرس الثاني: الصور الجوية والفضائية', sourceUrl: `${MINHAJI}/35330` },
+        { title: 'الدرس الثالث: نظم المعلومات الجغرافية', sourceUrl: `${MINHAJI}/35335` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'أنا والمجتمع',
+      lessons: [
+        { title: 'الدرس الأول: الشباب والمجتمع', sourceUrl: `${MINHAJI}/35468` },
+        { title: 'الدرس الثاني: الشباب والحياة العامة', sourceUrl: `${MINHAJI}/35476` },
+        { title: 'الدرس الثالث: تحديات اجتماعية', sourceUrl: `${MINHAJI}/131603` },
+        { title: 'الدرس الرابع: السلوك الاجتماعي الإيجابي', sourceUrl: `${MINHAJI}/131607` },
+      ],
+    },
+    {
+      number: 11,
+      title: 'الحضارة العربية الإسلامية',
+      lessons: [
+        {
+          title: 'الدرس الأول: الدولة العباسية: النشأة والتطور',
+          sourceUrl: `${MINHAJI}/35543`,
+        },
+        {
+          title: 'الدرس الثاني: المظاهر الحضارية في الدولة العباسية',
+          sourceUrl: `${MINHAJI}/35547`,
+        },
+        { title: 'الدرس الثالث: ضعف الدولة العباسية', sourceUrl: `${MINHAJI}/35551` },
+        { title: 'الدرس الرابع: الدولة الأموية في الأندلس', sourceUrl: `${MINHAJI}/35556` },
+      ],
+    },
+    {
+      number: 12,
+      title: 'رحلة في وطني',
+      lessons: [
+        { title: 'الدرس الأول: رحلة في محافظة مأدبا', sourceUrl: `${MINHAJI}/35563` },
+        { title: 'الدرس الثاني: رحلة في محافظة الطفيلة', sourceUrl: `${MINHAJI}/35567` },
+        { title: 'الدرس الثالث: رحلة في محافظة عجلون', sourceUrl: `${MINHAJI}/35691` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -2809,6 +2961,7 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G6_SCIENCE,
   G7_SCIENCE,
   G8_SCIENCE,
+  G8_SOCIAL,
   G9_SCIENCE,
   G9_ISLAMIC_S1,
   G9_ISLAMIC_S2,
