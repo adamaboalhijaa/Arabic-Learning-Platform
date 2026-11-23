@@ -4479,7 +4479,33 @@ const G10_VOCATIONAL: ImportedBookOutline = {
   ],
 };
 
+const G8_DIGITAL: ImportedBookOutline = {
+  key: 'g8-digital',
+  gradeNumber: 8,
+  subjectTitle: 'الحاسوب وتكنولوجيا المعلومات',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — المهارات الرقمية، الصف الثامن',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1080`,
+  verifiedBy:
+    'صفحة المهارات الرقمية للصف الثامن (1080) تعرض الوحدة الأولى «أنظمة الحوسبة» بأربعة دروس؛ لم تُدرج بقية الوحدات في المصدر فلم تُضف.',
+  units: [
+    {
+      number: 1,
+      title: 'أنظمة الحوسبة',
+      lessons: [
+        lessonRef('إصلاح الأعطال', 129057),
+        lessonRef('صيانة الأعطال المادية', 129071),
+        lessonRef('صيانة الأعطال البرمجية', 129352),
+        lessonRef('إصلاح الأعطال باستخدام أدوات نظام التشغيل', 132975),
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G8_DIGITAL,
   G10_VOCATIONAL,
   G11_ARABIC,
   G11_PHYSICS,
