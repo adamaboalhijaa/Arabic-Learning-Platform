@@ -2549,6 +2549,247 @@ const G9_ISLAMIC_S2: ImportedBookOutline = {
   ],
 };
 
+/**
+ * الاجتماعيات — الصف التاسع: تُجمَع كتب التاريخ (1087) والجغرافيا (1089)
+ * والتربية الوطنية والمدنية (1088) في مادة «الاجتماعيات» الواحدة في السجل،
+ * مع الحفاظ على عناوين الوحدات والدروس وترتيبها كما وردت في المصدر.
+ */
+const G9_SOCIAL: ImportedBookOutline = {
+  key: 'g9-social',
+  gradeNumber: 9,
+  subjectTitle: 'الاجتماعيات',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتب الطالب — التاريخ والجغرافيا والتربية الوطنية والمدنية',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1087`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحات مواد الصف التاسع في المصدر: التاريخ (1087) 5 وحدات، ثم الجغرافيا (1089) 6 وحدات، ثم التربية الوطنية والمدنية (1088) 8 وحدات؛ مجموعة في مادة الاجتماعيات بترتيب المصدر، ولا تنص هذه الصفحات على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'الحضارتان اليونانية والرومانية',
+      lessons: [
+        { title: 'الحضارة اليونانية', sourceUrl: `${MINHAJI}/55712` },
+        { title: 'الحياة العامة في الحضارة اليونانية', sourceUrl: `${MINHAJI}/55733` },
+        { title: 'الحضارة الرومانية', sourceUrl: `${MINHAJI}/55741` },
+        { title: 'الحياة العامة في الحضارة الرومانية', sourceUrl: `${MINHAJI}/129099` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الأيوبيون والمماليك',
+      lessons: [
+        { title: 'الدولة الأيوبية', sourceUrl: `${MINHAJI}/129298` },
+        { title: 'الحياة العامة في الدولة الأيوبية', sourceUrl: `${MINHAJI}/129444` },
+        { title: 'الدولة المملوكية', sourceUrl: `${MINHAJI}/129704` },
+        { title: 'الحياة العامة في الدولة المملوكية', sourceUrl: `${MINHAJI}/130146` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الغزو الخارجي للعالم العربي الإسلامي',
+      lessons: [
+        { title: 'الغزو الفرنجي للعالم العربي الإسلامي', sourceUrl: `${MINHAJI}/129709` },
+        { title: 'الغزو المغولي للعالم العربي الإسلامي', sourceUrl: `${MINHAJI}/129762` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'أوروبا في العصور الوسطى وعصر النهضة',
+      lessons: [
+        { title: 'أوروبا في العصور الوسطى', sourceUrl: `${MINHAJI}/131236` },
+        { title: 'أوروبا في عصر النهضة', sourceUrl: `${MINHAJI}/131313` },
+        { title: 'نتائج النهضة الأوروبية', sourceUrl: `${MINHAJI}/131323` },
+        { title: 'الإصلاح الديني في أوروبا', sourceUrl: `${MINHAJI}/131408` },
+        { title: 'الكشوف الجغرافية', sourceUrl: `${MINHAJI}/131425` },
+        { title: 'نتائج الكشوف الجغرافية', sourceUrl: `${MINHAJI}/131429` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'شخصيات من التاريخ',
+      lessons: [
+        { title: 'أروى الصليحي', sourceUrl: `${MINHAJI}/131496` },
+        { title: 'شجر الدر', sourceUrl: `${MINHAJI}/131504` },
+        { title: 'الرحالة ابن بطوطة', sourceUrl: `${MINHAJI}/131777` },
+        { title: 'مونتسيكيو', sourceUrl: `${MINHAJI}/132065` },
+        { title: 'عبد الرحمن الكواكبي', sourceUrl: `${MINHAJI}/132139` },
+        { title: 'نيلسون مانديلا', sourceUrl: `${MINHAJI}/132148` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الغلاف الصخري للكرة الأرضية',
+      lessons: [
+        { title: 'مكونات الغلاف الصخري وأهميته', sourceUrl: `${MINHAJI}/55678` },
+        { title: 'التجوية والتعرية', sourceUrl: `${MINHAJI}/55691` },
+        { title: 'الصخور والتربة', sourceUrl: `${MINHAJI}/57296` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الغلاف المائي للكرة الأرضية',
+      lessons: [
+        { title: 'مكونات الغلاف المائي', sourceUrl: `${MINHAJI}/57302` },
+        { title: 'حركة المياه في البحار والمحيطات', sourceUrl: `${MINHAJI}/129014` },
+        { title: 'إدارة الموارد المائية', sourceUrl: `${MINHAJI}/129712` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'جغرافية الوطن العربي',
+      lessons: [
+        { title: 'الملامح الطبيعية للوطن العربي', sourceUrl: `${MINHAJI}/129767` },
+        { title: 'الملامح البشرية للوطن العربي', sourceUrl: `${MINHAJI}/129771` },
+        {
+          title: 'التحديات الاقتصادية والاجتماعية في الوطن العربي',
+          sourceUrl: `${MINHAJI}/129976`,
+        },
+      ],
+    },
+    {
+      number: 9,
+      title: 'تحديات بيئية',
+      lessons: [
+        { title: 'تلوث المياه', sourceUrl: `${MINHAJI}/131247` },
+        { title: 'تلوث التربة', sourceUrl: `${MINHAJI}/131327` },
+        { title: 'التصحر', sourceUrl: `${MINHAJI}/131337` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'جغرافية المدن',
+      lessons: [
+        { title: 'نشأة المدن وتطورها', sourceUrl: `${MINHAJI}/131385` },
+        { title: 'التحضر', sourceUrl: `${MINHAJI}/131507` },
+        { title: 'المدن الذكية', sourceUrl: `${MINHAJI}/131518` },
+      ],
+    },
+    {
+      number: 11,
+      title: 'جغرافية العالم القديم',
+      lessons: [
+        {
+          title: 'قارة آسيا: الملامح الطبيعية والبشرية',
+          sourceUrl: `${MINHAJI}/131590`,
+        },
+        {
+          title: 'قارة إفريقيا: الملامح الطبيعية والبشرية',
+          sourceUrl: `${MINHAJI}/131780`,
+        },
+        {
+          title: 'قارة أوروبا: الملامح الطبيعية والبشرية',
+          sourceUrl: `${MINHAJI}/132154`,
+        },
+      ],
+    },
+    {
+      number: 12,
+      title: 'المجتمع الأردني',
+      lessons: [
+        { title: 'المجتمع الأردني وخصائصه', sourceUrl: `${MINHAJI}/55746` },
+        { title: 'الثقافة الوطنية الأردنية', sourceUrl: `${MINHAJI}/57305` },
+      ],
+    },
+    {
+      number: 13,
+      title: 'المشاركة السياسية',
+      lessons: [
+        { title: 'الديمقراطية', sourceUrl: `${MINHAJI}/129114` },
+        { title: 'الانتخابات', sourceUrl: `${MINHAJI}/129356` },
+        { title: 'منظمات المجتمع المدني', sourceUrl: `${MINHAJI}/129840` },
+        { title: 'العمل التطوعي', sourceUrl: `${MINHAJI}/129844` },
+      ],
+    },
+    {
+      number: 14,
+      title: 'دولة القانون',
+      lessons: [
+        { title: 'سيادة القانون', sourceUrl: `${MINHAJI}/129850` },
+        { title: 'المساءلة والمحاسبة', sourceUrl: `${MINHAJI}/129855` },
+      ],
+    },
+    {
+      number: 15,
+      title: 'التراث',
+      lessons: [
+        { title: 'التراث الوطني', sourceUrl: `${MINHAJI}/129869` },
+        { title: 'دور المتاحف في حفظ التراث الوطني', sourceUrl: `${MINHAJI}/130228` },
+      ],
+    },
+    {
+      number: 16,
+      title: 'حقوق الإنسان',
+      lessons: [
+        { title: 'حقوق المرأة والطفل', sourceUrl: `${MINHAJI}/131298` },
+        { title: 'حقوق الأشخاص ذوي الإعاقة', sourceUrl: `${MINHAJI}/131309` },
+      ],
+    },
+    {
+      number: 17,
+      title: 'التفكير',
+      lessons: [
+        { title: 'التفكير الناقد', sourceUrl: `${MINHAJI}/131375` },
+        { title: 'التفكير الإبداعي', sourceUrl: `${MINHAJI}/131863` },
+        { title: 'مهارة حل المشكلات', sourceUrl: `${MINHAJI}/131868` },
+        { title: 'الابتكار والريادة', sourceUrl: `${MINHAJI}/131890` },
+      ],
+    },
+    {
+      number: 18,
+      title: 'الثقافة الإعلامية',
+      lessons: [{ title: 'الرسالة الإعلامية وخصائصها', sourceUrl: `${MINHAJI}/131875` }],
+    },
+    {
+      number: 19,
+      title: 'التواصل الاجتماعي',
+      lessons: [
+        { title: 'مهارات اجتماعية', sourceUrl: `${MINHAJI}/131881` },
+        { title: 'الخصوصية الشخصية', sourceUrl: `${MINHAJI}/131885` },
+      ],
+    },
+  ],
+};
+
+/** المهارات الرقمية (الحاسوب) — الصف التاسع. */
+const G9_DIGITAL: ImportedBookOutline = {
+  key: 'g9-digital',
+  gradeNumber: 9,
+  subjectTitle: 'الحاسوب وتكنولوجيا المعلومات',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — المهارات الرقمية',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1094`,
+  verifiedBy:
+    'أسماء الوحدتين والدروس وترتيبها مأخوذة من صفحة مادة المهارات الرقمية للصف التاسع في المصدر (1094)؛ ولا تنص الصفحة على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'أثر الحوسبة',
+      lessons: [
+        { title: 'وسائل التكنولوجيا الحديثة', sourceUrl: `${MINHAJI}/129075` },
+        { title: 'التعلم الإلكتروني: الأدوات والمنصات', sourceUrl: `${MINHAJI}/129371` },
+        { title: 'الجريمة الإلكترونية', sourceUrl: `${MINHAJI}/129669` },
+        { title: 'التنمر الإلكتروني', sourceUrl: `${MINHAJI}/129673` },
+        { title: 'الإعلام الرقمي', sourceUrl: `${MINHAJI}/129676` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الخوارزميات والبرمجة',
+      lessons: [
+        {
+          title: 'المتغيرات البرمجية في برمجية سكراتش',
+          sourceUrl: `${MINHAJI}/129701`,
+        },
+        { title: 'الجمل الشرطية المركبة', sourceUrl: `${MINHAJI}/129980` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -2571,6 +2812,8 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G9_SCIENCE,
   G9_ISLAMIC_S1,
   G9_ISLAMIC_S2,
+  G9_SOCIAL,
+  G9_DIGITAL,
   G2_MATH,
   G3_MATH,
   G4_MATH,
