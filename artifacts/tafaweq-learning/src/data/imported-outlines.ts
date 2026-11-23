@@ -3241,6 +3241,107 @@ const G6_SOCIAL: ImportedBookOutline = {
   ],
 };
 
+/**
+ * الدراسات الاجتماعية — الصف الخامس.
+ * المصدر يسمّيها «الدراسات الاجتماعية»؛ تُربط بمادة «التربية الاجتماعية والوطنية» في السجل.
+ */
+const G5_SOCIAL: ImportedBookOutline = {
+  key: 'g5-social',
+  gradeNumber: 5,
+  subjectTitle: 'التربية الاجتماعية والوطنية',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الدراسات الاجتماعية',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/957`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة الدراسات الاجتماعية للصف الخامس في المصدر (957)؛ ولا تنص الصفحة على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'التواصل المجتمعي',
+      lessons: [
+        { title: 'الدرس الأول: أتواصل مع مجتمعي', sourceUrl: `${MINHAJI}/33868` },
+        { title: 'الدرس الثاني: المشاركة في خدمة مجتمعي', sourceUrl: `${MINHAJI}/33873` },
+        { title: 'الدرس الثالث: التكافل المجتمعي', sourceUrl: `${MINHAJI}/33911` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'النظام السياسي في الأردن',
+      lessons: [
+        {
+          title: 'الدرس الأول: الملك وصلاحياته الدستورية',
+          sourceUrl: `${MINHAJI}/33917`,
+        },
+        { title: 'الدرس الثاني: السلطة التشريعية', sourceUrl: `${MINHAJI}/33922` },
+        { title: 'الدرس الثالث: السلطة التنفيذية', sourceUrl: `${MINHAJI}/33926` },
+        { title: 'الدرس الرابع: السلطة القضائية', sourceUrl: `${MINHAJI}/34033` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'رحلة في وطني',
+      lessons: [
+        { title: 'الدرس الأول: رحلتي في محافظة العاصمة', sourceUrl: `${MINHAJI}/34017` },
+        { title: 'الدرس الثاني: رحلتي في محافظة معان', sourceUrl: `${MINHAJI}/34022` },
+        { title: 'الدرس الثالث: رحلتي في محافظة إربد', sourceUrl: `${MINHAJI}/34190` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'وطني الأردن',
+      lessons: [
+        { title: 'الدرس الأول: أشكال سطح الأرض', sourceUrl: `${MINHAJI}/34027` },
+        { title: 'الدرس الثاني: خصائص السكان في وطني', sourceUrl: `${MINHAJI}/34502` },
+        { title: 'الدرس الثالث: التوزع السكاني في وطني', sourceUrl: `${MINHAJI}/34509` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'مسيرة وطن',
+      lessons: [
+        { title: 'الدرس الأول: الثورة العربية الكبرى', sourceUrl: `${MINHAJI}/34824` },
+        { title: 'الدرس الثاني: الدولة الأردنية', sourceUrl: `${MINHAJI}/34828` },
+        {
+          title: 'الدرس الثالث: الإنجازات الحضارية للدولة الأردنية',
+          sourceUrl: `${MINHAJI}/35066`,
+        },
+      ],
+    },
+    {
+      number: 6,
+      title: 'الأنشطة الاقتصادية',
+      lessons: [
+        { title: 'الدرس الأول: مفاهيم اقتصادية', sourceUrl: `${MINHAJI}/35192` },
+        { title: 'الدرس الثاني: قطاع التجارة', sourceUrl: `${MINHAJI}/35199` },
+        { title: 'الدرس الثالث: قطاع الخدمات', sourceUrl: `${MINHAJI}/35207` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'الجغرافيا',
+      lessons: [
+        { title: 'الدرس الأول: الموقع', sourceUrl: `${MINHAJI}/35229` },
+        { title: 'الدرس الثاني: نظام تحديد الموقع العالمي', sourceUrl: `${MINHAJI}/35339` },
+        {
+          title: 'الدرس الثالث: دول وادي النيل والقرن الإفريقي',
+          sourceUrl: `${MINHAJI}/35346`,
+        },
+        { title: 'الدرس الرابع: دول المغرب العربي', sourceUrl: `${MINHAJI}/35573` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'الثقافة والتراث',
+      lessons: [
+        { title: 'الدرس الأول: الثقافة', sourceUrl: `${MINHAJI}/35582` },
+        { title: 'الدرس الثاني: التراث الثقافي الأردني', sourceUrl: `${MINHAJI}/35637` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -3257,6 +3358,7 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G3_SCIENCE,
   G4_SCIENCE,
   G5_SCIENCE,
+  G5_SOCIAL,
   G6_SCIENCE,
   G6_SOCIAL,
   G7_SCIENCE,
