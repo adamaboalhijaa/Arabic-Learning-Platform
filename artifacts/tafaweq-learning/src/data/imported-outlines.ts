@@ -4504,7 +4504,44 @@ const G8_DIGITAL: ImportedBookOutline = {
   ],
 };
 
+const G7_DIGITAL: ImportedBookOutline = {
+  key: 'g7-digital',
+  gradeNumber: 7,
+  subjectTitle: 'الحاسوب وتكنولوجيا المعلومات',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — المهارات الرقمية، الصف السابع',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1070`,
+  verifiedBy:
+    'صفحة المهارات الرقمية للصف السابع (1070) تعرض وحدتين: «أنظمة الحوسبة» بخمسة دروس و«شبكات الحاسوب» بأربعة دروس.',
+  units: [
+    {
+      number: 1,
+      title: 'أنظمة الحوسبة',
+      lessons: [
+        lessonRef('جهاز الحاسوب', 57326),
+        lessonRef('مكونات الحاسوب المادية', 129343),
+        lessonRef('مكونات الحاسوب البرمجية', 129373),
+        lessonRef('أنظمة التشغيل', 129376),
+        lessonRef('تفاعل الإنسان مع أجهزة الحاسوب', 129686),
+      ],
+    },
+    {
+      number: 2,
+      title: 'شبكات الحاسوب',
+      lessons: [
+        lessonRef('مقدمة إلى شبكات الحاسوب', 129793),
+        lessonRef('مكونات شبكات الحاسوب', 130201),
+        lessonRef('نماذج الربط في الشبكات السلكية', 130203),
+        lessonRef('أنواع شبكات الحاسوب', 130432),
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G7_DIGITAL,
   G8_DIGITAL,
   G10_VOCATIONAL,
   G11_ARABIC,
