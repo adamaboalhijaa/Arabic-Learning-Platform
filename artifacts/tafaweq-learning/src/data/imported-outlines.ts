@@ -3113,6 +3113,134 @@ const G7_SOCIAL: ImportedBookOutline = {
   ],
 };
 
+/**
+ * الدراسات الاجتماعية — الصف السادس.
+ * المصدر يسمّيها «الدراسات الاجتماعية»؛ تُربط بمادة «التربية الاجتماعية والوطنية» في السجل.
+ */
+const G6_SOCIAL: ImportedBookOutline = {
+  key: 'g6-social',
+  gradeNumber: 6,
+  subjectTitle: 'التربية الاجتماعية والوطنية',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الدراسات الاجتماعية',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/55664`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة الدراسات الاجتماعية للصف السادس في المصدر (55664)؛ ولا تنص الصفحة على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'السلطة والحكم',
+      lessons: [
+        { title: 'الدرس الأول: الدولة ومكوناتها', sourceUrl: `${MINHAJI}/55696` },
+        { title: 'الدرس الثاني: الدستور', sourceUrl: `${MINHAJI}/57278` },
+        { title: 'الدرس الثالث: القوانين', sourceUrl: `${MINHAJI}/57287` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'التاريخ والحضارة',
+      lessons: [
+        { title: 'الدرس الأول: عصور ما قبل التاريخ', sourceUrl: `${MINHAJI}/57437` },
+        { title: 'الدرس الثاني: العصور التاريخية', sourceUrl: `${MINHAJI}/57441` },
+        { title: 'الدرس الثالث: الحضارة', sourceUrl: `${MINHAJI}/57445` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الجغرافيا',
+      lessons: [
+        { title: 'الدرس الأول: الخريطة: مفهومها وأنواعها', sourceUrl: `${MINHAJI}/57450` },
+        { title: 'الدرس الثاني: حركة الأرض وما عليها', sourceUrl: `${MINHAJI}/57454` },
+        { title: 'الدرس الثالث: الإقليم', sourceUrl: `${MINHAJI}/129681` },
+        {
+          title: 'الدرس الرابع: التفاعل بين الإنسان والبيئة',
+          sourceUrl: `${MINHAJI}/130562`,
+        },
+      ],
+    },
+    {
+      number: 4,
+      title: 'الحضارات القديمة في شبه الجزيرة العربية',
+      lessons: [
+        {
+          title: 'الدرس الأول: شبه الجزيرة العربية: الموقع والأهمية',
+          sourceUrl: `${MINHAJI}/57542`,
+        },
+        { title: 'الدرس الثاني: الحضارات القديمة في اليمن', sourceUrl: `${MINHAJI}/57547` },
+        { title: 'الدرس الثالث: حضارة مدن الحجاز', sourceUrl: `${MINHAJI}/130020` },
+      ],
+    },
+    {
+      number: 5,
+      title: 'الإعلام',
+      lessons: [
+        { title: 'الدرس الأول: حرية التعبير', sourceUrl: `${MINHAJI}/129726` },
+        { title: 'الدرس الثاني: أخلاقيات الإعلام', sourceUrl: `${MINHAJI}/129809` },
+        { title: 'الدرس الثالث: النقد', sourceUrl: `${MINHAJI}/130540` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'فجر الإسلام',
+      lessons: [
+        { title: 'الدرس الأول: بداية الدعوة الإسلامية', sourceUrl: `${MINHAJI}/131260` },
+        { title: 'الدرس الثاني: المجتمع في المدينة المنورة', sourceUrl: `${MINHAJI}/131276` },
+        {
+          title: 'الدرس الثالث: الدعوة خارج شبه الجزيرة العربية',
+          sourceUrl: `${MINHAJI}/131287`,
+        },
+      ],
+    },
+    {
+      number: 7,
+      title: 'النظام الطبيعي',
+      lessons: [
+        {
+          title: 'الدرس الأول: عناصر المناخ: الحرارة والتكاثف والتساقط',
+          sourceUrl: `${MINHAJI}/131397`,
+        },
+        {
+          title: 'الدرس الثاني: عناصر المناخ: الضغط الجوي والرياح',
+          sourceUrl: `${MINHAJI}/131437`,
+        },
+        { title: 'الدرس الثالث: أثر المناخ في الأنشطة البشرية', sourceUrl: `${MINHAJI}/131610` },
+        { title: 'الدرس الرابع: الأقاليم المناخية في الأردن', sourceUrl: `${MINHAJI}/131619` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'مفاهيم اقتصادية',
+      lessons: [
+        { title: 'الدرس الأول: التنمية المستدامة', sourceUrl: `${MINHAJI}/131630` },
+        {
+          title: 'الدرس الثاني: الاستثمار الأمثل للموارد الطبيعية',
+          sourceUrl: `${MINHAJI}/132019`,
+        },
+        { title: 'الدرس الثالث: الإنتاج والتوزيع والاستهلاك', sourceUrl: `${MINHAJI}/132027` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'المهارات الحياتية',
+      lessons: [
+        { title: 'الدرس الأول: إدارة الوقت', sourceUrl: `${MINHAJI}/132038` },
+        { title: 'الدرس الثاني: الاحترام', sourceUrl: `${MINHAJI}/132071` },
+        { title: 'الدرس الثالث: التعاون', sourceUrl: `${MINHAJI}/132079` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'رحلة في وطني',
+      lessons: [
+        { title: 'الدرس الأول: رحلة في محافظة المفرق', sourceUrl: `${MINHAJI}/132089` },
+        { title: 'الدرس الثاني: رحلة إلى محافظة البلقاء', sourceUrl: `${MINHAJI}/132131` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -3130,6 +3258,7 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G4_SCIENCE,
   G5_SCIENCE,
   G6_SCIENCE,
+  G6_SOCIAL,
   G7_SCIENCE,
   G7_SOCIAL,
   G8_SCIENCE,
