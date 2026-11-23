@@ -3342,6 +3342,142 @@ const G5_SOCIAL: ImportedBookOutline = {
   ],
 };
 
+/** التربية الإسلامية — الصف الخامس، الفصل الأول. */
+const G5_ISLAMIC_S1: ImportedBookOutline = {
+  key: 'g5-islamic-s1',
+  gradeNumber: 5,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 1,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية، الفصل الأول',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/27195`,
+  verifiedBy:
+    'صفحة مادة التربية الإسلامية للصف الخامس تفصل دروس الفصل الأول (27195) وتسمّي وحداته الأربع؛ وأسماء الدروس مأخوذة من صفحات الوحدات 27196 و27241 و31319 و34740.',
+  units: [
+    {
+      number: 1,
+      title: 'بقرآني أرتقي',
+      lessons: [
+        { title: 'الدرس الأول: الرسم القرآني', sourceUrl: `${MINHAJI}/27196` },
+        { title: 'الدرس الثاني: من فضائل قراءة القرآن الكريم', sourceUrl: `${MINHAJI}/27196` },
+        {
+          title: 'الدرس الثالث: التلاوة والتجويد: سورة الواقعة',
+          sourceUrl: `${MINHAJI}/27196`,
+        },
+        { title: 'الدرس الرابع: نبي الله نوح عليه السلام', sourceUrl: `${MINHAJI}/27196` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'بديني أسمو',
+      lessons: [
+        { title: 'الدرس الأول: آية الكرسي', sourceUrl: `${MINHAJI}/27241` },
+        { title: 'الدرس الثاني: أم المؤمنين السيدة عائشة', sourceUrl: `${MINHAJI}/27241` },
+        { title: 'الدرس الثالث: النون الساكنة والتنوين', sourceUrl: `${MINHAJI}/27241` },
+        { title: 'الدرس الرابع: صيام شهر رمضان', sourceUrl: `${MINHAJI}/27241` },
+        {
+          title: 'الدرس الخامس: صلاة التراويح وقيام ليلة القدر',
+          sourceUrl: `${MINHAJI}/27241`,
+        },
+      ],
+    },
+    {
+      number: 3,
+      title: 'بأخلاقي أفتخر',
+      lessons: [
+        { title: 'الدرس الأول: سورة الهمزة', sourceUrl: `${MINHAJI}/31319` },
+        { title: 'الدرس الثاني: الهجرة إلى الحبشة', sourceUrl: `${MINHAJI}/31319` },
+        { title: 'الدرس الثالث: التلاوة والتجويد: الإظهار', sourceUrl: `${MINHAJI}/31319` },
+        { title: 'الدرس الرابع: الرفق بالحيوان', sourceUrl: `${MINHAJI}/31319` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'بقيمي أعتز',
+      lessons: [
+        { title: 'الدرس الأول: خلق الشكر', sourceUrl: `${MINHAJI}/34740` },
+        {
+          title: 'الدرس الثاني: من أسماء الله الحسنى: المعطي',
+          sourceUrl: `${MINHAJI}/34740`,
+        },
+        { title: 'الدرس الرابع: بر الوالدين', sourceUrl: `${MINHAJI}/34740` },
+        { title: 'الدرس الخامس: السيدة بلقيس ملكة سبأ', sourceUrl: `${MINHAJI}/34740` },
+      ],
+    },
+  ],
+};
+
+/** التربية الإسلامية — الصف الخامس، الفصل الثاني. */
+const G5_ISLAMIC_S2: ImportedBookOutline = {
+  key: 'g5-islamic-s2',
+  gradeNumber: 5,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 2,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية، الفصل الثاني',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/32282`,
+  verifiedBy:
+    'صفحة مادة التربية الإسلامية للصف الخامس تفصل دروس الفصل الثاني (32282) وتسمّي وحداته الأربع؛ وأسماء الدروس مأخوذة من صفحات الوحدات 32283 و32327 و32494 و32841.',
+  units: [
+    {
+      number: 1,
+      title: 'أحمدك ربي',
+      lessons: [
+        { title: 'الدرس الأول: سورة النبأ الآيات (1-16)', sourceUrl: `${MINHAJI}/32283` },
+        { title: 'الدرس الثاني: تكريم الله تعالى للإنسان', sourceUrl: `${MINHAJI}/32283` },
+        {
+          title: 'الدرس الثالث: تطبيقات على الإظهار والإدغام',
+          sourceUrl: `${MINHAJI}/32283`,
+        },
+        { title: 'الدرس الرابع: دعوة سيدنا إبراهيم قومه', sourceUrl: `${MINHAJI}/32283` },
+        { title: 'الدرس الخامس: الدعاء في حياة المسلم', sourceUrl: `${MINHAJI}/32283` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'أقتدي لأرتقي',
+      lessons: [
+        { title: 'الدرس الأول: سورة النبأ الآيات (17-30)', sourceUrl: `${MINHAJI}/32327` },
+        { title: 'الدرس الثاني: الحديث الشريف', sourceUrl: `${MINHAJI}/32327` },
+        { title: 'الدرس الثالث: التلاوة والتجويد: الإقلاب', sourceUrl: `${MINHAJI}/32327` },
+        { title: 'الدرس الرابع: عام الحزن', sourceUrl: `${MINHAJI}/32327` },
+        { title: 'الدرس الخامس: سيدنا عمر بن الخطاب', sourceUrl: `${MINHAJI}/32327` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'أسمو بعبادتي',
+      lessons: [
+        { title: 'الدرس الأول: سورة النبأ الآيات (31-40)', sourceUrl: `${MINHAJI}/32494` },
+        { title: 'الدرس الثاني: قصة أصحاب الجنة', sourceUrl: `${MINHAJI}/32494` },
+        { title: 'الدرس الرابع: صدقة الفطر', sourceUrl: `${MINHAJI}/32494` },
+        { title: 'الدرس الخامس: صلاة العيد', sourceUrl: `${MINHAJI}/32494` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'أرتقي بأخلاقي',
+      lessons: [
+        {
+          title: 'الدرس الأول: احترام خصوصية الآخرين',
+          sourceUrl: `${MINHAJI}/32841`,
+        },
+        {
+          title: 'الدرس الثاني: آداب الزيارة والضيافة في الإسلام',
+          sourceUrl: `${MINHAJI}/32841`,
+        },
+        {
+          title: 'الدرس الثالث: تطبيقات على أحكام النون الساكنة والتنوين',
+          sourceUrl: `${MINHAJI}/32841`,
+        },
+        { title: 'الدرس الرابع: السيدة فاطمة الأزدية', sourceUrl: `${MINHAJI}/32841` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -3359,6 +3495,8 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G4_SCIENCE,
   G5_SCIENCE,
   G5_SOCIAL,
+  G5_ISLAMIC_S1,
+  G5_ISLAMIC_S2,
   G6_SCIENCE,
   G6_SOCIAL,
   G7_SCIENCE,
