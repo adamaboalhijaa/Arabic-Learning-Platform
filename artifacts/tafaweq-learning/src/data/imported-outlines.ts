@@ -4540,8 +4540,18 @@ const G7_DIGITAL: ImportedBookOutline = {
   ],
 };
 
-export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
-  G7_DIGITAL,
+const G4_SOCIAL: ImportedBookOutline = {
+  key: 'g4-social',
+  gradeNumber: 4,
+  subjectTitle: 'التربية الاجتماعية والوطنية',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — التربية الاجتماعية والوطنية، الصف الرابع',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/31094`,
+  verifiedBy:
+    'صفحة الدراسات الاجتماعية للصف الرابع (31094) تعرض 8 وحدات و27 درسًا بعناوينها وروابطها.
+[Older evidence: 1104 more characters of inserted text omitted; the file in the workspace is authoritative.]
   G8_DIGITAL,
   G10_VOCATIONAL,
   G11_ARABIC,
