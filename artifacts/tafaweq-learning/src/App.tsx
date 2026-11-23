@@ -335,6 +335,7 @@ function LessonRow({ lesson }: { lesson: Lesson }) {
 
 import { BOOK_STATUS_LABEL, booksOfSubject, curriculumCompletion } from './lib/official-books';
 import { outlineFor } from './data/imported-outlines';
+import { resolveSubjectId } from './lib/curriculum-books';
 
 function BooksInventory() {
   const completion = curriculumCompletion();
@@ -388,7 +389,7 @@ function GradeSubjects() {
 
 function SubjectUnits() {
   const [, params] = useRoute('/curriculum/subject/:subjectId');
-  const id = Number(params?.subjectId || 0);
+  const id = resolveSubjectId(params?.subjectId);
   const q = useListSubjectUnits(id, { query: { queryKey: getListSubjectUnitsQueryKey(id), enabled: !!id } });
   const [semester, setSemester] = useState<1 | 2>(1);
   const subjectBooks = booksOfSubject(id);

@@ -151,6 +151,23 @@ export function subjectById(subjectId: number) {
   return subjectByIdMap.get(subjectId);
 }
 
+/**
+ * يحوّل معرّف مادة قادمًا من المسار إلى معرّف السجل الرقمي.
+ * بعض الصفوف موادّها بمعرّفات نصّية (sub_…)، وروابط المواد تمرّر المعرّف كما هو،
+ * فلا يصح تحويله إلى رقم مباشرة (كان يصبح صفرًا ولا تُفتح وحدات المادة).
+ */
+export function resolveSubjectId(rawId: string | undefined): number {
+  const raw = (rawId ?? '').trim();
+  if (!raw) return 0;
+  const numeric = Number(raw);
+  if (Number.isFinite(numeric) && numeric > 0) return numeric;
+  for (const grade of CURRICULUM_GRADES) {
+    const index = grade.subjects.findIndex((subject) => subject.id === raw);
+    if (index >= 0) return SUBJECT_ID_BASE + grade.gradeNumber * SUBJECT_ID_STRIDE + index;
+  }
+  return 0;
+}
+
 export function unitById(unitId: number) {
   return unitByIdMap.get(unitId);
 }
