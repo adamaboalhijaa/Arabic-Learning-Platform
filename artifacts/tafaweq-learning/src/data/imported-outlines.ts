@@ -2942,6 +2942,177 @@ const G8_SOCIAL: ImportedBookOutline = {
   ],
 };
 
+/**
+ * الدراسات الاجتماعية — الصف السابع.
+ * المصدر يسمّيها «الدراسات الاجتماعية»؛ تُربط بمادة «الاجتماعيات» في السجل.
+ */
+const G7_SOCIAL: ImportedBookOutline = {
+  key: 'g7-social',
+  gradeNumber: 7,
+  subjectTitle: 'الاجتماعيات',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الدراسات الاجتماعية',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/31090`,
+  verifiedBy:
+    'أسماء الوحدات والدروس وترتيبها مأخوذة من صفحة مادة الدراسات الاجتماعية للصف السابع في المصدر (31090)؛ ولا تنص الصفحة على تقسيم الفصل الدراسي.',
+  units: [
+    {
+      number: 1,
+      title: 'المواطنة',
+      lessons: [
+        { title: 'الدرس الأول: المواطنة ومقوماتها', sourceUrl: `${MINHAJI}/31105` },
+        { title: 'الدرس الثاني: الهوية الوطنية', sourceUrl: `${MINHAJI}/31114` },
+        { title: 'الدرس الثالث: المواطنة العالمية', sourceUrl: `${MINHAJI}/31118` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الديمقراطية وحقوق الإنسان',
+      lessons: [
+        { title: 'الدرس الأول: الديمقراطية', sourceUrl: `${MINHAJI}/31123` },
+        {
+          title: 'الدرس الثاني: الإعلان العالمي لحقوق الإنسان',
+          sourceUrl: `${MINHAJI}/31128`,
+        },
+        { title: 'الدرس الثالث: حقوق المرأة والطفل', sourceUrl: `${MINHAJI}/31302` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'البيئة والموارد والسكان',
+      lessons: [
+        {
+          title: 'الدرس الأول: تطور علاقة الإنسان بالبيئة',
+          sourceUrl: `${MINHAJI}/31307`,
+        },
+        {
+          title: 'الدرس الثاني: العوامل الطبيعية وتوزيع السكان',
+          sourceUrl: `${MINHAJI}/31539`,
+        },
+        {
+          title: 'الدرس الثالث: الأنشطة البشرية وأشكال سطح الأرض',
+          sourceUrl: `${MINHAJI}/31543`,
+        },
+        { title: 'الدرس الرابع: التجارة الدولية', sourceUrl: `${MINHAJI}/31788` },
+        { title: 'الدرس الخامس: الاقتصاد والريادة', sourceUrl: `${MINHAJI}/31791` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'حضارات بلاد الشام',
+      lessons: [
+        {
+          title: 'الدرس الأول: حضارات بلاد الشام القديمة: النشأة',
+          sourceUrl: `${MINHAJI}/31311`,
+        },
+        {
+          title: 'الدرس الثاني: حضارات بلاد الشام القديمة: المظاهر الحضارية',
+          sourceUrl: `${MINHAJI}/31316`,
+        },
+        {
+          title: 'الدرس الثالث: حضارات الممالك القديمة في الأردن',
+          sourceUrl: `${MINHAJI}/31782`,
+        },
+        {
+          title: 'الدرس الرابع: حضارات بلاد الشام القديمة',
+          sourceUrl: `${MINHAJI}/31785`,
+        },
+      ],
+    },
+    {
+      number: 5,
+      title: 'التنوع الثقافي والتراث',
+      lessons: [
+        { title: 'الدرس الأول: التنوع الثقافي', sourceUrl: `${MINHAJI}/31815` },
+        { title: 'الدرس الثاني: نماذج من تراثنا الأردني', sourceUrl: `${MINHAJI}/31822` },
+      ],
+    },
+    {
+      number: 6,
+      title: 'المهارات الحياتية',
+      lessons: [
+        { title: 'الدرس الأول: السلوك الإيجابي', sourceUrl: `${MINHAJI}/31830` },
+        { title: 'الدرس الثاني: لغة الجسد', sourceUrl: `${MINHAJI}/31909` },
+        { title: 'الدرس الثالث: احترام خصوصية الآخرين', sourceUrl: `${MINHAJI}/32069` },
+      ],
+    },
+    {
+      number: 7,
+      title: 'أنا والإعلام',
+      lessons: [
+        { title: 'الدرس الأول: المحتوى الإعلامي', sourceUrl: `${MINHAJI}/32169` },
+        { title: 'الدرس الثاني: التضليل الإعلامي', sourceUrl: `${MINHAJI}/32214` },
+        { title: 'الدرس الثالث: الشائعات', sourceUrl: `${MINHAJI}/32222` },
+        { title: 'الدرس الرابع: وسائل التواصل الاجتماعي', sourceUrl: `${MINHAJI}/32227` },
+      ],
+    },
+    {
+      number: 8,
+      title: 'السلطة والحكم',
+      lessons: [
+        {
+          title: 'الدرس الأول: تطور السلطات الدستورية في الأردن',
+          sourceUrl: `${MINHAJI}/32313`,
+        },
+        { title: 'الدرس الثاني: سيادة القانون', sourceUrl: `${MINHAJI}/32316` },
+        { title: 'الدرس الثالث: النزاهة والشفافية', sourceUrl: `${MINHAJI}/32365` },
+      ],
+    },
+    {
+      number: 9,
+      title: 'نحيا معًا',
+      lessons: [
+        { title: 'الدرس الأول: التسامح ونبذ التعصب', sourceUrl: `${MINHAJI}/32355` },
+        { title: 'الدرس الثاني: المساواة وعدم التمييز', sourceUrl: `${MINHAJI}/32360` },
+        { title: 'الدرس الثالث: التغير الاجتماعي', sourceUrl: `${MINHAJI}/32535` },
+      ],
+    },
+    {
+      number: 10,
+      title: 'رحلة في وطني',
+      lessons: [
+        { title: 'الدرس الأول: رحلة في محافظة الكرك', sourceUrl: `${MINHAJI}/32413` },
+        { title: 'الدرس الثاني: رحلة في محافظة الزرقاء', sourceUrl: `${MINHAJI}/32417` },
+        { title: 'الدرس الثالث: رحلة في محافظة جرش', sourceUrl: `${MINHAJI}/32421` },
+      ],
+    },
+    {
+      number: 11,
+      title: 'الحضارة الإسلامية',
+      lessons: [
+        { title: 'الدرس الأول: عهد الخلفاء الراشدين', sourceUrl: `${MINHAJI}/32427` },
+        {
+          title: 'الدرس الثاني: الدولة الأموية: النشأة والتوسع',
+          sourceUrl: `${MINHAJI}/32508`,
+        },
+        {
+          title: 'الدرس الثالث: الدولة الأموية: الإنجازات الحضارية',
+          sourceUrl: `${MINHAJI}/32610`,
+        },
+        { title: 'الدرس الرابع: نهاية الدولة الأموية', sourceUrl: `${MINHAJI}/32619` },
+        {
+          title: 'الدرس الخامس: المصادر التاريخية الأولية والثانوية',
+          sourceUrl: `${MINHAJI}/32624`,
+        },
+      ],
+    },
+    {
+      number: 12,
+      title: 'السكان في الأردن',
+      lessons: [
+        { title: 'الدرس الأول: النمو السكاني في الأردن', sourceUrl: `${MINHAJI}/32614` },
+        { title: 'الدرس الثاني: التوزيع السكاني في الأردن', sourceUrl: `${MINHAJI}/32651` },
+        {
+          title: 'الدرس الثالث: التركيب العمري والتركيب النوعي للسكان',
+          sourceUrl: `${MINHAJI}/32869`,
+        },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -2960,6 +3131,7 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G5_SCIENCE,
   G6_SCIENCE,
   G7_SCIENCE,
+  G7_SOCIAL,
   G8_SCIENCE,
   G8_SOCIAL,
   G9_SCIENCE,
