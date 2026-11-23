@@ -2438,6 +2438,117 @@ const G9_SCIENCE: ImportedBookOutline = {
   ],
 };
 
+/** التربية الإسلامية — الصف التاسع، الفصل الدراسي الأول (الوحدات 1–4). */
+const G9_ISLAMIC_S1: ImportedBookOutline = {
+  key: 'g9-islamic-s1',
+  gradeNumber: 9,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 1,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية — الفصل الأول',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1086`,
+  verifiedBy:
+    'صفحة المادة تفصل صراحةً «دروس الفصل الأول» (31169) عن «دروس الفصل الثاني» (32549). وحدات هذا الفهرس من قسم الفصل الأول: 31170، 31184، 31202، 34355، ودروس كل وحدة مأخوذة من صفحتها.',
+  units: [
+    {
+      number: 1,
+      title: 'وكان أمر الله قدراً مقدوراً',
+      lessons: [
+        { title: 'سورة الإسراء الآيات (8-1)', sourceUrl: `${MINHAJI}/31172` },
+        { title: 'من خصائص الشريعة الإسلامية الربانية', sourceUrl: `${MINHAJI}/31175` },
+        { title: 'الإيمان بالقدر', sourceUrl: `${MINHAJI}/31178` },
+        { title: 'يوم أحد', sourceUrl: `${MINHAJI}/31182` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'وبالحق أنزلناه وبالحق نزل',
+      lessons: [
+        { title: 'سورة الإسراء الآيات (12-9)', sourceUrl: `${MINHAJI}/31186` },
+        { title: 'أحكام الأيمان في الإسلام', sourceUrl: `${MINHAJI}/31189` },
+        { title: 'تفخيم لفظ الجلالة وترقيقها', sourceUrl: `${MINHAJI}/31194` },
+        { title: 'من مصادر التشريع الإسلامي: الإجماع', sourceUrl: `${MINHAJI}/31197` },
+        { title: 'سيدنا أيوب عليه السلام', sourceUrl: `${MINHAJI}/31200` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'ومن يعظم شعائر الله',
+      lessons: [
+        { title: 'سورة الإسراء الآيات (17-13)', sourceUrl: `${MINHAJI}/31204` },
+        { title: 'أقسام الحديث الشريف', sourceUrl: `${MINHAJI}/31207` },
+        { title: 'المسجد الحرام', sourceUrl: `${MINHAJI}/31211` },
+        { title: 'أحكام الطعام والشراب في الإسلام', sourceUrl: `${MINHAJI}/34359` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'وأحسنوا إن الله يحب المحسنين',
+      lessons: [
+        { title: 'علامات المنافق', sourceUrl: `${MINHAJI}/34363` },
+        { title: 'العمرة', sourceUrl: `${MINHAJI}/34365` },
+        { title: 'موقف الإسلام من العنف المجتمعي', sourceUrl: `${MINHAJI}/34554` },
+      ],
+    },
+  ],
+};
+
+/** التربية الإسلامية — الصف التاسع، الفصل الدراسي الثاني (الوحدات 1–4). */
+const G9_ISLAMIC_S2: ImportedBookOutline = {
+  key: 'g9-islamic-s2',
+  gradeNumber: 9,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 2,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية — الفصل الثاني',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1086`,
+  verifiedBy:
+    'صفحة المادة تفصل صراحةً «دروس الفصل الثاني» (32549). وحدات هذا الفهرس من قسم الفصل الثاني: 32580، 32550، 32569، 35441، ودروس كل وحدة مأخوذة من صفحتها.',
+  units: [
+    {
+      number: 1,
+      title: 'فاعتبروا يا أولي الأبصار',
+      lessons: [
+        { title: 'الحديث الشريف: احفظ الله يحفظك', sourceUrl: `${MINHAJI}/35177` },
+        { title: 'التوبة إلى الله تعالى', sourceUrl: `${MINHAJI}/35172` },
+        { title: 'من مصادر التشريع الإسلامي: القياس', sourceUrl: `${MINHAJI}/32592` },
+        { title: 'شهداء من الصحابة على ثرى الأردن', sourceUrl: `${MINHAJI}/32582` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'وأذن في الناس بالحج',
+      lessons: [
+        { title: 'سورة الإسراء الآيات (33-26)', sourceUrl: `${MINHAJI}/32552` },
+        { title: 'معركة الخندق', sourceUrl: `${MINHAJI}/32555` },
+        { title: 'الحج: فضله وشروطه ومواقيته', sourceUrl: `${MINHAJI}/32558` },
+        { title: 'مناسك الحج', sourceUrl: `${MINHAJI}/32563` },
+        { title: 'إدارة الوقت في الإسلام', sourceUrl: `${MINHAJI}/32567` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'رب اجعل هذا بلداً آمناً',
+      lessons: [
+        { title: 'سورة الإسراء الآيات (39-34)', sourceUrl: `${MINHAJI}/32571` },
+        { title: 'المسجد النبوي الشريف', sourceUrl: `${MINHAJI}/32585` },
+        { title: 'أحكام الأضحية والعقيقة في الإسلام', sourceUrl: `${MINHAJI}/32588` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'وأوفوا بالعهد إن العهد كان مسؤولاً',
+      lessons: [
+        { title: 'التثبت في نقل الأخبار', sourceUrl: `${MINHAJI}/35443` },
+        { title: 'أسباب نزول القرآن الكريم', sourceUrl: `${MINHAJI}/35609` },
+        { title: 'أحكام النذور', sourceUrl: `${MINHAJI}/35613` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
