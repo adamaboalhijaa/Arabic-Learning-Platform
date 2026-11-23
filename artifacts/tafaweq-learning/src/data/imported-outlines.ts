@@ -4651,7 +4651,95 @@ const G3_SOCIAL: ImportedBookOutline = {
   ],
 };
 
+const G1_ISLAMIC_S1: ImportedBookOutline = {
+  key: 'g1-islamic-s1',
+  gradeNumber: 1,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 1,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية، الصف الأول، الفصل الأول',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/33648`,
+  verifiedBy:
+    'صفحة «دروس الفصل الأول» للتربية الإسلامية الصف الأول (33648) تعرض الوحدة الأولى «أحبك ربي» ودرسها الأول «من أسماء الله تعالى الحسنى (الخالق)» (33650)، ولم يُضف درس غير وارد فيها.',
+  units: [
+    {
+      number: 1,
+      title: 'أحبك ربي',
+      lessons: [lessonRef('من أسماء الله تعالى الحسنى (الخالق)', 33650)],
+    },
+  ],
+};
+
+const G2_ISLAMIC_S1: ImportedBookOutline = {
+  key: 'g2-islamic-s1',
+  gradeNumber: 2,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 1,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية، الصف الثاني، الفصل الأول',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/27254`,
+  verifiedBy:
+    'صفحة «دروس الفصل الأول» للتربية الإسلامية الصف الثاني (27254) تعرض وحدتين: «الله ربي» بدروسه الثلاثة (27312، 27256، 27261) و«محمد صلى الله عليه وسلم رسولي» بدروسه الثلاثة (27317، 33659، 33662).',
+  units: [
+    {
+      number: 1,
+      title: 'الله ربي',
+      lessons: [
+        lessonRef('أركان الإيمان', 27312),
+        lessonRef('فضل تلاوة القرآن الكريم', 27256),
+        lessonRef('سورة الفيل', 27261),
+      ],
+    },
+    {
+      number: 2,
+      title: 'محمد صلى الله عليه وسلم رسولي',
+      lessons: [
+        lessonRef('سورة الشرح', 27317),
+        lessonRef('الصادق الأمين', 33659),
+        lessonRef('محبة الوالدين', 33662),
+      ],
+    },
+  ],
+};
+
+const G3_ISLAMIC_S1: ImportedBookOutline = {
+  key: 'g3-islamic-s1',
+  gradeNumber: 3,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 1,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية، الصف الثالث، الفصل الأول',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/31534`,
+  verifiedBy:
+    'صفحة «دروس الفصل الأول» للتربية الإسلامية الصف الثالث (31534) تعرض وحدتين: «نور الإيمان» بدروسه الثلاثة (31526، 31530، 31532) و«علم وعمل» بدروسه (31536، 132789).',
+  units: [
+    {
+      number: 1,
+      title: 'نور الإيمان',
+      lessons: [
+        lessonRef('بدء نزول الوحي', 31526),
+        lessonRef('سورة العلق الآيات (1-8)', 31530),
+        lessonRef('سورة العلق الآيات (9-19)', 31532),
+      ],
+    },
+    {
+      number: 2,
+      title: 'علم وعمل',
+      lessons: [
+        lessonRef('أهمية تعلم القرآن الكريم', 31536),
+        lessonRef('أعمال الصلاة', 132789),
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G1_ISLAMIC_S1,
+  G2_ISLAMIC_S1,
+  G3_ISLAMIC_S1,
   G3_SOCIAL,
   G4_SOCIAL,
   G7_DIGITAL,
