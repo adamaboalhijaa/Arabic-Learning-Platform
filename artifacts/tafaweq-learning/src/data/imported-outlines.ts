@@ -4631,7 +4631,28 @@ const G4_SOCIAL: ImportedBookOutline = {
   ],
 };
 
+const G3_SOCIAL: ImportedBookOutline = {
+  key: 'g3-social',
+  gradeNumber: 3,
+  subjectTitle: 'التربية الاجتماعية والوطنية',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الدراسات الاجتماعية، الصف الثالث',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/125`,
+  verifiedBy:
+    'صفحة الدراسات الاجتماعية للصف الثالث (125) تعرض الوحدة الأولى «واجبي ومسؤوليتي» ودروسيها: الأسرة (132726) والمدرسة (132732)، ولم تُضف أي وحدة أو درس غير وارد فيها.',
+  units: [
+    {
+      number: 1,
+      title: 'واجبي ومسؤوليتي',
+      lessons: [lessonRef('الأسرة', 132726), lessonRef('المدرسة', 132732)],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G3_SOCIAL,
   G4_SOCIAL,
   G7_DIGITAL,
   G8_DIGITAL,
