@@ -4406,10 +4406,181 @@ const G12_PHYSICS_ACADEMIC: ImportedBookOutline = {
   ],
 };
 
+/** العلوم الحياتية — الصف الثاني عشر (المسار الأكاديمي): تسع وحدات ودروسها من صفحة المادة. */
+const G12_BIOLOGY_ACADEMIC: ImportedBookOutline = {
+  key: 'g12-biology-academic',
+  gradeNumber: 12,
+  subjectTitle: 'الأحياء',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العلوم الحياتية، المسار الأكاديمي',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/55557`,
+  verifiedBy:
+    'صفحة العلوم الحياتية للصف الثاني عشر/المسار الأكاديمي (55557) تسرد الوحدات التسع ودروسها (3+3+2+1+3+2+3+2+2) ولا تفصل الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'كيمياء الحياة',
+      lessons: [
+        lessonRef('المركبات العضوية الحيوية', 57583),
+        lessonRef('الإنزيمات وجزيء حفظ الطاقة', 57592),
+        lessonRef('التفاعلات الكيميائية في الخلية', 57598),
+      ],
+    },
+    {
+      number: 2,
+      title: 'دورة الخلية وتصنيع البروتينات',
+      lessons: [
+        lessonRef('دورة الخلية', 129988),
+        lessonRef('الانقسام الخلوي وأهميته', 129992),
+        lessonRef('تضاعف DNA والتعبير الجيني', 129996),
+      ],
+    },
+    {
+      number: 3,
+      title: 'الوراثة',
+      lessons: [
+        lessonRef('وراثة الصفات المندلية', 130002),
+        lessonRef('الوراثة بعد مندل', 130005),
+      ],
+    },
+    {
+      number: 4,
+      title: 'التكنولوجيا الحيوية',
+      lessons: [lessonRef('أدوات التكنولوجيا الحيوية', 131068)],
+    },
+    {
+      number: 5,
+      title: 'التنظيم والاتزان',
+      lessons: [
+        lessonRef('الجهاز العصبي: التركيب والوظيفة', 131056),
+        lessonRef('الإحساس والاستجابة في جسم الإنسان', 131061),
+        lessonRef('الغدد الصم والاتزان وبعض مشكلاتهما', 131072),
+      ],
+    },
+    {
+      number: 6,
+      title: 'الدعامة والحركة',
+      lessons: [
+        lessonRef('الجهاز الهيكلي', 131924),
+        lessonRef('العضلات وبعض مشكلاتها', 131929),
+      ],
+    },
+    {
+      number: 7,
+      title: 'الهضم والنقل وتبادل الغازات',
+      lessons: [
+        lessonRef('الجهاز الهضمي', 131936),
+        lessonRef('جهاز الدوران', 131941),
+        lessonRef('الجهاز التنفسي', 131946),
+      ],
+    },
+    {
+      number: 8,
+      title: 'الإخراج والتكاثر',
+      lessons: [
+        lessonRef('جهاز الإخراج', 131953),
+        lessonRef('الأجهزة التناسلية', 131958),
+      ],
+    },
+    {
+      number: 9,
+      title: 'المناعة والمضادات الحيوية',
+      lessons: [
+        lessonRef('جهاز المناعة وبعض مشكلاته', 131964),
+        lessonRef('المضادات الحيوية', 131968),
+      ],
+    },
+  ],
+};
+
+/** علوم الأرض والبيئة — الصف الثاني عشر (المسار الأكاديمي): سبع وحدات ودروسها. */
+const G12_EARTH_ACADEMIC: ImportedBookOutline = {
+  key: 'g12-earth-academic',
+  gradeNumber: 12,
+  subjectTitle: 'علوم الأرض والبيئة',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — علوم الأرض والبيئة، المسار الأكاديمي',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/8751`,
+  verifiedBy:
+    'صفحة علوم الأرض والبيئة للصف الثاني عشر/المسار الأكاديمي (8751) تسرد الوحدات السبع ودروسها (3+3+3+3+4+3+3) ولا تفصل الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'الوقود الأحفوري والبيئة',
+      lessons: [
+        lessonRef('الوقود الأحفوري وغازات الدفيئة', 57606),
+        lessonRef('الوقود الأحفوري والتغير المناخي', 129544),
+        lessonRef('الحد من التغير المناخي', 129549),
+      ],
+    },
+    {
+      number: 2,
+      title: 'الاستكشاف الجيولوجي',
+      lessons: [
+        lessonRef('الخرائط الجيولوجية', 133046),
+        lessonRef('طرائق الاستكشاف الجيولوجي', 133049),
+        lessonRef('تعدين الخامات المعدنية', 133052),
+      ],
+    },
+    {
+      number: 3,
+      title: 'التراكيب الجيولوجية',
+      lessons: [
+        lessonRef('تشوه الصخور', 129634),
+        lessonRef('الصدوع', 129639),
+        lessonRef('الطيات', 129644),
+      ],
+    },
+    {
+      number: 4,
+      title: 'الصفائح التكتونية',
+      lessons: [
+        lessonRef('انجراف القارات', 129650),
+        lessonRef('توسع قاع المحيط', 130468),
+        lessonRef('حدود الصفائح', 133055),
+      ],
+    },
+    {
+      number: 5,
+      title: 'المجرات ونشأة الكون',
+      lessons: [
+        lessonRef('المجرات وأنواعها', 131046),
+        lessonRef('توسع الكون', 131051),
+        lessonRef('تسارع توسع الكون', 131042),
+        lessonRef('نظريات نشأة الكون', 131037),
+      ],
+    },
+    {
+      number: 6,
+      title: 'أحوال الطقس القاسية',
+      lessons: [
+        lessonRef('قياس عناصر الطقس', 131898),
+        lessonRef('الأعاصير القمعية والأعاصير المدارية', 131902),
+        lessonRef('التغير المناخي وأنماط الطقس القاسية', 131907),
+      ],
+    },
+    {
+      number: 7,
+      title: 'تاريخ الأرض',
+      lessons: [
+        lessonRef('التأريخ النسبي للصخور', 131913),
+        lessonRef('التأريخ المطلق للصخور', 131917),
+        lessonRef('جيولوجية الأردن', 131920),
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_ARABIC,
   G12_CHEMISTRY,
   G12_PHYSICS_ACADEMIC,
+  G12_BIOLOGY_ACADEMIC,
+  G12_EARTH_ACADEMIC,
   G12_PHYSICS,
   G12_BIOLOGY,
   G12_EARTH,
