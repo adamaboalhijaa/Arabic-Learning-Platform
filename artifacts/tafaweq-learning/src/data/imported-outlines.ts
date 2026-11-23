@@ -4319,7 +4319,106 @@ const G12_HISTORY: ImportedBookOutline = {
   ],
 };
 
+/** اللغة العربية — الصف الحادي عشر: الوحدتان المدرجتان في المصدر ودروسهما. */
+const G11_ARABIC: ImportedBookOutline = {
+  key: 'g11-arabic',
+  gradeNumber: 11,
+  subjectTitle: 'اللغة العربية',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — العربية لغتي، الصف الحادي عشر',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/8840`,
+  verifiedBy:
+    'صفحة العربية لغتي للصف الحادي عشر (8840) تعرض الوحدة الأولى بخمسة دروس والثانية بدرس واحد؛ لم تُدرج بقية الوحدات في المصدر فلم تُضف.',
+  units: [
+    {
+      number: 1,
+      title: 'من القيم الإنسانية في القرآن',
+      lessons: [
+        lessonRef('أستمع بانتباه وتركيز', 33724),
+        lessonRef('أتحدث بطلاقة', 132866),
+        lessonRef('أقرأ بطلاقة وفهم', 33725),
+        lessonRef('أكتب محتوى', 132867),
+        lessonRef('أبني لغتي', 33936),
+      ],
+    },
+    {
+      number: 2,
+      title: 'في حب الوطن',
+      lessons: [lessonRef('أستمع بانتباه وتركيز', 34295)],
+    },
+  ],
+};
+
+/** الفيزياء — الصف الحادي عشر (علمي): الوحدات الثلاث المدرجة ودروسها. */
+const G11_PHYSICS: ImportedBookOutline = {
+  key: 'g11-physics',
+  gradeNumber: 11,
+  subjectTitle: 'الفيزياء',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الفيزياء، الصف الحادي عشر',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/8831`,
+  verifiedBy:
+    'صفحة الفيزياء للصف الحادي عشر (8831) تعرض ثلاث وحدات بدروسها (الشغل والطاقة، الديناميكا الحرارية، الكهرباء السكونية)؛ لم تُدرج بقية الدروس في المصدر فلم تُضف.',
+  units: [
+    {
+      number: 1,
+      title: 'الشغل والطاقة',
+      lessons: [
+        lessonRef('الشغل والقدرة', 33492),
+        lessonRef('الطاقة الميكانيكية', 33498),
+        lessonRef('الشغل وحفظ الطاقة الميكانيكية', 33850),
+      ],
+    },
+    {
+      number: 2,
+      title: 'الديناميكا الحرارية',
+      lessons: [
+        lessonRef('حالات المادة', 33508),
+        lessonRef('التمدد الحراري', 33513),
+      ],
+    },
+    {
+      number: 3,
+      title: 'الكهرباء السكونية',
+      lessons: [
+        lessonRef('قياس قوة التنافر الكهربائية بين شحنتين عمليًا', 131032),
+      ],
+    },
+  ],
+};
+
+/** الحاسوب وتكنولوجيا المعلومات (المهارات الرقمية) — الصف الحادي عشر. */
+const G11_DIGITAL: ImportedBookOutline = {
+  key: 'g11-digital',
+  gradeNumber: 11,
+  subjectTitle: 'الحاسوب وتكنولوجيا المعلومات',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — المهارات الرقمية، الصف الحادي عشر',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/8844`,
+  verifiedBy:
+    'صفحة المهارات الرقمية للصف الحادي عشر (8844) تعرض الوحدة الأولى «الخوارزميات والبرمجة» بدرسين؛ لم تُدرج بقية الوحدات في المصدر فلم تُضف.',
+  units: [
+    {
+      number: 1,
+      title: 'الخوارزميات والبرمجة',
+      lessons: [
+        lessonRef('مقدمة في لغات البرمجة', 129369),
+        lessonRef('أساسيات لغة البرمجة بايثون', 132945),
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
+  G11_ARABIC,
+  G11_PHYSICS,
+  G11_DIGITAL,
   G12_HISTORY,
   G12_ARABIC,
   G12_PHYSICS,
