@@ -4295,8 +4295,121 @@ const G12_ARABIC: ImportedBookOutline = {
   ],
 };
 
+/** الكيمياء — الصف الثاني عشر (المسار الأكاديمي): سبع وحدات ودروسها من صفحة المادة. */
+const G12_CHEMISTRY: ImportedBookOutline = {
+  key: 'g12-chemistry-academic',
+  gradeNumber: 12,
+  subjectTitle: 'الكيمياء',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الكيمياء، المسار الأكاديمي',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/55555`,
+  verifiedBy:
+    'صفحة الكيمياء للصف الثاني عشر/المسار الأكاديمي (55555) تسرد الوحدات السبع ودروسها (3+2+2+4+3+3+3) ولا تفصل الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'حالات المادة',
+      lessons: [
+        lessonRef('الحالة الغازية', 35259),
+        lessonRef('الحالة السائلة', 35277),
+        lessonRef('الحالة الصلبة', 35301),
+      ],
+    },
+    {
+      number: 2,
+      title: 'المحاليل',
+      lessons: [
+        lessonRef('تصنيف المحاليل', 35351),
+        lessonRef('خصائص المحاليل', 35366),
+      ],
+    },
+    {
+      number: 3,
+      title: 'الاتزان الكيميائي',
+      lessons: [
+        lessonRef('الاتزان الكيميائي والعوامل المؤثرة فيه', 35381),
+        lessonRef('تعبيرات ثابت الاتزان', 35390),
+      ],
+    },
+    {
+      number: 4,
+      title: 'الحموض والقواعد وتطبيقاتها',
+      lessons: [
+        lessonRef('الحموض والقواعد', 35939),
+        lessonRef('الرقم الهيدروجيني ومحاليل الحموض والقواعد القوية', 35954),
+        lessonRef('محاليل الحموض والقواعد الضعيفة', 35967),
+        lessonRef('الأملاح والمحاليل المنظمة', 35976),
+      ],
+    },
+    {
+      number: 5,
+      title: 'الكيمياء الحركية',
+      lessons: [
+        lessonRef('سرعة التفاعلات الكيميائية', 129876),
+        lessonRef('قوانين سرعة التفاعلات', 129886),
+        lessonRef('نظرية التصادم والعوامل المؤثرة في سرعة التفاعل', 129894),
+      ],
+    },
+    {
+      number: 6,
+      title: 'الكيمياء الكهربائية',
+      lessons: [
+        lessonRef('التأكسد والاختزال', 129909),
+        lessonRef('الخلايا الجلفانية', 129923),
+        lessonRef('خلايا التحليل الكهربائي', 129937),
+      ],
+    },
+    {
+      number: 7,
+      title: 'الكيمياء العضوية',
+      lessons: [
+        lessonRef('تفاعلات الإضافة والحذف', 35403),
+        lessonRef('تفاعلات الاستبدال والتأكسد والاختزال', 35413),
+        lessonRef('تحضير المركبات العضوية', 35425),
+      ],
+    },
+  ],
+};
+
+/** الفيزياء — الصف الثاني عشر (المسار الأكاديمي): وحدتان ودروسهما من صفحة المادة. */
+const G12_PHYSICS_ACADEMIC: ImportedBookOutline = {
+  key: 'g12-physics-academic',
+  gradeNumber: 12,
+  subjectTitle: 'الفيزياء',
+  semester: null,
+  semesterVerified: false,
+  bookTitle: 'كتاب الطالب — الفيزياء، المسار الأكاديمي',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/55556`,
+  verifiedBy:
+    'صفحة الفيزياء للصف الثاني عشر/المسار الأكاديمي (55556) تسرد الوحدتين ودروسهما (2+3) ولا تفصل الفصلين الدراسيين.',
+  units: [
+    {
+      number: 1,
+      title: 'الزخم الخطي والتصادمات',
+      lessons: [
+        lessonRef('الزخم الخطي والدفع', 57612),
+        lessonRef('التصادمات', 57618),
+      ],
+    },
+    {
+      number: 2,
+      title: 'الحركة الدورانية',
+      lessons: [
+        lessonRef('العزم والاتزان السكوني', 57627),
+        lessonRef('ديناميكا الحركة الدورانية', 57632),
+        lessonRef('الزخم الزاوي', 57637),
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_ARABIC,
+  G12_CHEMISTRY,
+  G12_PHYSICS_ACADEMIC,
   G12_PHYSICS,
   G12_BIOLOGY,
   G12_EARTH,
