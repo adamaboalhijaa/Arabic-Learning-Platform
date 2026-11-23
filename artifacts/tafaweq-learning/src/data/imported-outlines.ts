@@ -3635,6 +3635,132 @@ const G6_ISLAMIC_S2: ImportedBookOutline = {
   ],
 };
 
+const lessonRef = (title: string, id: number) => ({
+  title,
+  sourceUrl: `${MINHAJI}/${id}`,
+});
+
+/** التربية الإسلامية — الصف السابع، الفصل الأول. */
+const G7_ISLAMIC_S1: ImportedBookOutline = {
+  key: 'g7-islamic-s1',
+  gradeNumber: 7,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 1,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية، الفصل الأول',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1065`,
+  verifiedBy:
+    'صفحة مادة التربية الإسلامية للصف السابع تفصل «دروس الفصل الأول» (26831) عن «دروس الفصل الثاني» (26147) وتسمّي وحدات كل فصل وأسماء دروسها.',
+  units: [
+    {
+      number: 1,
+      title: 'وليتم نعمته عليكم',
+      lessons: [
+        lessonRef('من مصادر التشريع: القرآن الكريم', 26838),
+        lessonRef('سورة الملك الآيات (5-1)', 26834),
+        lessonRef('الإيمان بالملائكة الكرام', 27723),
+        lessonRef('التلاوة والتجويد (مخارج الحروف)', 31520),
+        lessonRef('الوضوء أركانه وسننه', 27728),
+        lessonRef('نعمة الماء', 27734),
+      ],
+    },
+    {
+      number: 2,
+      title: 'إن الله يحب المحسنين',
+      lessons: [
+        lessonRef('سورة الملك الآيات (14-6)', 27739),
+        lessonRef('لا تغضب', 27743),
+        lessonRef('محبة سيدنا محمد', 27783),
+        lessonRef('التلاوة والتجويد (مخرج الخيشوم)', 34256),
+        lessonRef('أركان الصلاة وسننها', 27795),
+        lessonRef('إنسانية الإسلام', 31607),
+      ],
+    },
+    {
+      number: 3,
+      title: 'والله متم نوره',
+      lessons: [
+        lessonRef('سورة الملك الآيات (24-15)', 30956),
+        lessonRef('صلاة الاستسقاء', 31752),
+        lessonRef('بيعتا العقبة والهجرة النبوية الشريفة', 31758),
+        lessonRef('التلاوة والتجويد: مخرج الشفتين', 129832),
+        lessonRef('الصحابي الجليل علي بن أبي طالب', 31762),
+        lessonRef('المحافظة على الممتلكات العامة', 31765),
+      ],
+    },
+    {
+      number: 4,
+      title: 'فاستقم كما أمرت',
+      lessons: [
+        lessonRef('سورة الملك الآيات (30-25)', 31769),
+        lessonRef('الاعتذار', 31943),
+        lessonRef('حقوق الطفل في الإسلام', 31947),
+        lessonRef('مقام أهل الكهف', 32007),
+        lessonRef('رعاية الأشخاص ذوي الإعاقة', 32010),
+      ],
+    },
+  ],
+};
+
+/** التربية الإسلامية — الصف السابع، الفصل الثاني. */
+const G7_ISLAMIC_S2: ImportedBookOutline = {
+  key: 'g7-islamic-s2',
+  gradeNumber: 7,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 2,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية، الفصل الثاني',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1065`,
+  verifiedBy:
+    'وحدات الفصل الثاني ودروسها مأخوذة من صفحة المادة (1065) وقسم «دروس الفصل الثاني» (26147) في المصدر نفسه.',
+  units: [
+    {
+      number: 1,
+      title: 'وبالوالدين إحسانا',
+      lessons: [
+        lessonRef('سورة لقمان', 26149),
+        lessonRef('التقوى', 26154),
+        lessonRef('دور الأم في بناء الأسرة', 26160),
+        lessonRef('السور المكية والسور المدنية', 26166),
+        lessonRef('نبي الله موسى: نبوته', 131207),
+      ],
+    },
+    {
+      number: 2,
+      title: 'يريد الله بكم اليسر',
+      lessons: [
+        lessonRef('حديث شريف (يسر الإسلام)', 26412),
+        lessonRef('قصر الصلاة', 26420),
+        lessonRef('حفظ النفس الإنسانية', 26424),
+        lessonRef('الإسلام والصحة', 26435),
+        lessonRef('الجمع بين الصلاتين', 26467),
+      ],
+    },
+    {
+      number: 3,
+      title: 'إنما المؤمنون إخوة',
+      lessons: [
+        lessonRef('سورة لقمان', 26561),
+        lessonRef('أعمال رسول الله بعد الهجرة', 26564),
+        lessonRef('التلاوة والتجويد: مخرج اللسان', 132053),
+        lessonRef('الصحابية الجليلة رفيدة الأسلمية', 32657),
+      ],
+    },
+    {
+      number: 4,
+      title: 'إقرأ باسم ربك',
+      lessons: [
+        lessonRef('صلة الأرحام: حديث شريف', 32663),
+        lessonRef('حق التعلم', 32669),
+        lessonRef('المؤسسات التعليمية ودورها في ازدهار الحضارة الإسلامية', 32673),
+        lessonRef('مواقع التواصل الاجتماعي', 32756),
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -3656,6 +3782,8 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G5_ISLAMIC_S2,
   G6_ISLAMIC_S1,
   G6_ISLAMIC_S2,
+  G7_ISLAMIC_S1,
+  G7_ISLAMIC_S2,
   G6_SCIENCE,
   G6_SOCIAL,
   G7_SCIENCE,
