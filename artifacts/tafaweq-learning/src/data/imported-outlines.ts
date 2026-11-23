@@ -3478,6 +3478,163 @@ const G5_ISLAMIC_S2: ImportedBookOutline = {
   ],
 };
 
+/** التربية الإسلامية — الصف السادس، الفصل الأول. */
+const G6_ISLAMIC_S1: ImportedBookOutline = {
+  key: 'g6-islamic-s1',
+  gradeNumber: 6,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 1,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية، الفصل الأول',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1057`,
+  verifiedBy:
+    'صفحة مادة التربية الإسلامية للصف السادس تفصل صراحةً «دروس الفصل الأول» وتسمّي وحداته الأربع؛ وأسماء الدروس مأخوذة من صفحات الوحدات 31245 و31261 و31901 و31963.',
+  units: [
+    {
+      number: 1,
+      title: 'عظمة الله تعالى',
+      lessons: [
+        { title: 'الدرس الأول: سورة الزلزلة', sourceUrl: `${MINHAJI}/31245` },
+        {
+          title: 'الدرس الثاني: من أسماء الله الحسنى المحيي والمميت',
+          sourceUrl: `${MINHAJI}/31245`,
+        },
+        {
+          title: 'الدرس الثالث: التلاوة والتجويد: الميم الساكنة',
+          sourceUrl: `${MINHAJI}/31245`,
+        },
+        { title: 'الدرس الرابع: نزول القرآن الكريم', sourceUrl: `${MINHAJI}/31245` },
+        { title: 'الدرس الخامس: قضاء الصلاة', sourceUrl: `${MINHAJI}/31245` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'جزاء المؤمنين الجنة',
+      lessons: [
+        {
+          title: 'الدرس الأول: سورة الأنفال الآيات (2 – 4)',
+          sourceUrl: `${MINHAJI}/31261`,
+        },
+        { title: 'الدرس الثاني: نعيم الجنة', sourceUrl: `${MINHAJI}/31261` },
+        { title: 'الدرس الرابع: سيدنا عثمان بن عفان', sourceUrl: `${MINHAJI}/31261` },
+        { title: 'الدرس الخامس: صلاة المسبوق', sourceUrl: `${MINHAJI}/31261` },
+      ],
+    },
+    {
+      number: 3,
+      title: 'الإسلام دين الرحمة',
+      lessons: [
+        {
+          title: 'الدرس الأول: سورة الجمعة الآيات (9-11)',
+          sourceUrl: `${MINHAJI}/31901`,
+        },
+        { title: 'الدرس الثاني: خلق الرفق', sourceUrl: `${MINHAJI}/31901` },
+        {
+          title: 'الدرس الرابع: دعوة أهل الطائف إلى الإسلام',
+          sourceUrl: `${MINHAJI}/31901`,
+        },
+        { title: 'الدرس الخامس: أعذار الإفطار في رمضان', sourceUrl: `${MINHAJI}/31901` },
+        { title: 'الدرس السادس: حق الإنسان في الحياة', sourceUrl: `${MINHAJI}/31901` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'التعامل بالأخلاق الحميدة',
+      lessons: [
+        { title: 'الدرس الأول: سورة الليل', sourceUrl: `${MINHAJI}/31963` },
+        {
+          title: 'الدرس الثاني: مراعاة مشاعر الآخرين',
+          sourceUrl: `${MINHAJI}/31963`,
+        },
+        { title: 'الدرس الرابع: الأمانة', sourceUrl: `${MINHAJI}/31963` },
+        {
+          title: 'الدرس الخامس: موقف الإسلام من التدخين',
+          sourceUrl: `${MINHAJI}/31963`,
+        },
+      ],
+    },
+  ],
+};
+
+/** التربية الإسلامية — الصف السادس، الفصل الثاني. */
+const G6_ISLAMIC_S2: ImportedBookOutline = {
+  key: 'g6-islamic-s2',
+  gradeNumber: 6,
+  subjectTitle: 'التربية الإسلامية',
+  semester: 2,
+  semesterVerified: true,
+  bookTitle: 'كتاب الطالب — التربية الإسلامية، الفصل الثاني',
+  sourceName: 'شبكة منهاجي الأردنية',
+  sourceUrl: `${MINHAJI}/1057`,
+  verifiedBy:
+    'صفحة مادة التربية الإسلامية للصف السادس تفصل صراحةً «دروس الفصل الثاني» وتسمّي وحداته الأربع؛ وأسماء الدروس مأخوذة من صفحات الوحدات 32232 و32248 و32517 و32832.',
+  units: [
+    {
+      number: 1,
+      title: 'محبة الله تعالى',
+      lessons: [
+        { title: 'الدرس الأول: سورة نوح الآيات (1-4)', sourceUrl: `${MINHAJI}/32232` },
+        {
+          title: 'الدرس الثاني: محبة المسلم لله تعالى',
+          sourceUrl: `${MINHAJI}/32232`,
+        },
+        { title: 'الدرس الرابع: من ثمرات الإيمان', sourceUrl: `${MINHAJI}/32232` },
+        { title: 'الدرس الخامس: صلاة الوتر', sourceUrl: `${MINHAJI}/32232` },
+      ],
+    },
+    {
+      number: 2,
+      title: 'الدعوة إلى الله تعالى',
+      lessons: [
+        { title: 'الدرس الأول: سورة نوح الآيات (5-12)', sourceUrl: `${MINHAJI}/32248` },
+        { title: 'الدرس الثاني: بناء الكعبة المشرفة', sourceUrl: `${MINHAJI}/32248` },
+        { title: 'الدرس الرابع: المسح على الخفين', sourceUrl: `${MINHAJI}/32248` },
+        {
+          title: 'الدرس الخامس: الصحابي الجليل مصعب بن عمير',
+          sourceUrl: `${MINHAJI}/32248`,
+        },
+      ],
+    },
+    {
+      number: 3,
+      title: 'قدرة الله تعالى',
+      lessons: [
+        {
+          title: 'الدرس الأول: سورة نوح الآيات (13-20)',
+          sourceUrl: `${MINHAJI}/32517`,
+        },
+        { title: 'الدرس الثاني: الإسراء والمعراج', sourceUrl: `${MINHAJI}/32517` },
+        {
+          title: 'الدرس الرابع: الحديث الشريف: طلب العلم',
+          sourceUrl: `${MINHAJI}/32517`,
+        },
+        { title: 'الدرس الخامس: التيمم', sourceUrl: `${MINHAJI}/32517` },
+        { title: 'الدرس السادس: حق الإنسان في المسكن', sourceUrl: `${MINHAJI}/32517` },
+      ],
+    },
+    {
+      number: 4,
+      title: 'طاعة الله تعالى',
+      lessons: [
+        {
+          title: 'الدرس الأول: سورة نوح الآيات (21-28)',
+          sourceUrl: `${MINHAJI}/32832`,
+        },
+        {
+          title: 'الدرس الثاني: الصحابية الجليلة نسيبة بنت كعب',
+          sourceUrl: `${MINHAJI}/32832`,
+        },
+        {
+          title: 'الدرس الرابع: آداب التنزه والرحلات',
+          sourceUrl: `${MINHAJI}/32832`,
+        },
+        { title: 'الدرس الخامس: ترشيد الاستهلاك', sourceUrl: `${MINHAJI}/32832` },
+      ],
+    },
+  ],
+};
+
 export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G12_PHYSICS,
   G12_BIOLOGY,
@@ -3497,6 +3654,8 @@ export const IMPORTED_OUTLINES: ImportedBookOutline[] = [
   G5_SOCIAL,
   G5_ISLAMIC_S1,
   G5_ISLAMIC_S2,
+  G6_ISLAMIC_S1,
+  G6_ISLAMIC_S2,
   G6_SCIENCE,
   G6_SOCIAL,
   G7_SCIENCE,
