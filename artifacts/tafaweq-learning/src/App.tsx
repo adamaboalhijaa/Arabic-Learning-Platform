@@ -358,6 +358,7 @@ function LessonRow({ lesson }: { lesson: Lesson }) {
 
 import { BOOK_STATUS_LABEL, booksOfSubject, curriculumCompletion } from './lib/official-books';
 import { IMPORTED_OUTLINES, outlineFor } from './data/imported-outlines';
+import { lessonBySourceUrl } from './lib/curriculum-books';
 import { resolveSubjectId } from './lib/curriculum-books';
 
 function BooksInventory() {
@@ -423,7 +424,8 @@ function SubjectUnits() {
   // رقم الفصل الدراسي يأتي من البيانات؛ أي قيمة غير معروفة تُعامل كالفصل الأول.
   const semesterOf = (unit: unknown) =>
     (unit as { semester?: number | null } | null)?.semester === 2 ? 2 : 1;
-  const units = q.data ?? [];
+  // الوحدات المستوردة تُعرض في بطاقات الفهرس أدناه، فلا تتكرر كصفوف وحدات.
+  const units = (q.data ?? []).filter(unit => (unit as { imported?: boolean }).imported !== true);
   const visible = units.filter(unit => semesterOf(unit) === semester);
   const countOf = (value: 1 | 2) => units.filter(unit => semesterOf(unit) === value).length;
   return <AppShell><Breadcrumb href="/curriculum" label="المنهاج" /><PageIntro eyebrow="المواد" title="وحدات المادة" subtitle="اختر الفصل الدراسي، ثم الوحدة للانتقال إلى دروسها." />
@@ -449,9 +451,15 @@ function SubjectUnits() {
           <div className="row-meta">{unit.lessons.length} دروس</div>
         </div>
         <ul style={{ marginTop: 10, paddingInlineStart: 18 }}>
-          {unit.lessons.map(lesson => <li key={lesson.title} style={{ marginTop: 6 }}>
-            {lesson.sourceUrl ? <a href={lesson.sourceUrl} target="_blank" rel="noreferrer noopener">{lesson.title}</a> : lesson.title}
-          </li>)}
+          {unit.lessons.map(lesson => {
+            const linked = lessonBySourceUrl(lesson.sourceUrl);
+            return <li key={lesson.title} style={{ marginTop: 6 }}>
+              {linked
+                ? <Link href={`/lessons/${linked.id}`} data-testid={`link-outline-lesson-${linked.id}`}>{lesson.title}</Link>
+                : <span>{lesson.title}</span>}
+              {lesson.sourceUrl ? <a href={lesson.sourceUrl} target="_blank" rel="noreferrer noopener" className="row-meta" style={{ marginInlineStart: 10, fontSize: 12 }} data-testid={`outline-lesson-source-${unit.number}`}>المصدر</a> : null}
+            </li>;
+          })}
         </ul>
       </article>)}
     </div> : null}
@@ -484,16 +492,18 @@ function LessonPage() {
   if (q.isError || !q.data) return <AppShell><ErrorState retry={() => q.refetch()} /></AppShell>;
   const lesson = q.data;
   const questions = quizQ.data ?? [];
+  const importedInfo = lesson as typeof lesson & { imported?: boolean; sourceUrl?: string | null };
+  const isImported = importedInfo.imported === true;
   return <AppShell><Breadcrumb href={`/curriculum/unit/${lesson.unitId}`} label={lesson.unitTitle} />
     <div className="card" style={{ padding: 'clamp(22px,4vw,42px)' }} data-testid={`lesson-detail-${lesson.id}`}>
       <div style={{ display:'flex', justifyContent:'space-between', gap:12, alignItems:'center', flexWrap:'wrap' }}><span className="eyebrow">{lesson.subjectTitle} · الصف {lesson.gradeNumber}</span><Status value={lesson.contentStatus} /></div>
       <h1 className="page-title" style={{ marginTop:15 }}>{lesson.title}</h1><p className="page-subtitle">{lesson.description}</p>
       <div className="banner" style={{ marginTop:20 }} data-testid="lesson-source-status"><ShieldAlert size={18} /><div><strong>حالة المصدر: {contentLabel[lesson.contentStatus] ?? contentLabel.draft}</strong><br />{lesson.sourceReference ? `مرجع المحتوى: ${lesson.sourceReference}` : 'لا يوجد مرجع مصدر موثق لهذا المحتوى. لا يُعرض على أنه مادة رسمية.'}</div></div>
-      <section style={{ marginTop:30 }}><span className="eyebrow">هدف الدرس</span><h2 style={{ fontSize:20 }}>{lesson.objective}</h2></section>
-      <section style={{ marginTop:24 }}><div className="section-heading" style={{ marginTop:0 }}><h2>ماذا ستتعلّم؟</h2><span className="row-meta"><Clock3 size={14} style={{ verticalAlign:'middle' }} /> {lesson.durationMinutes} دقيقة</span></div><ul style={{ lineHeight:2.2 }}>{lesson.objectives.map((obj,i)=><li key={`${i}-${obj}`} data-testid={`objective-${i}`}>{obj}</li>)}</ul></section>
-      <section style={{ marginTop:24 }}><h2 style={{ fontSize:19 }}>الشرح</h2><div className="prose" style={{ lineHeight:2, whiteSpace:'pre-line' }} data-testid="lesson-explanation">{lesson.explanation}</div></section>
+      {lesson.objective ? <section style={{ marginTop:30 }}><span className="eyebrow">هدف الدرس</span><h2 style={{ fontSize:20 }}>{lesson.objective}</h2></section> : null}
+      {lesson.objectives.length ? <section style={{ marginTop:24 }}><div className="section-heading" style={{ marginTop:0 }}><h2>ماذا ستتعلّم؟</h2><span className="row-meta"><Clock3 size={14} style={{ verticalAlign:'middle' }} /> {lesson.durationMinutes} دقيقة</span></div><ul style={{ lineHeight:2.2 }}>{lesson.objectives.map((obj,i)=><li key={`${i}-${obj}`} data-testid={`objective-${i}`}>{obj}</li>)}</ul></section> : null}
+      {lesson.explanation ? <section style={{ marginTop:24 }}><h2 style={{ fontSize:19 }}>الشرح</h2><div className="prose" style={{ lineHeight:2, whiteSpace:'pre-line' }} data-testid="lesson-explanation">{lesson.explanation}</div></section> : <p className="row-meta" data-testid="lesson-explanation-pending">الشرح الكامل لهذا الدرس لم يُستورد بعد؛ المعروض الآن عنوان الدرس وموقعه في الفهرس الرسمي فقط.</p>}
       <section style={{ marginTop:24 }} data-testid="lesson-questions"><div className="section-heading" style={{ marginTop:0 }}><h2>أسئلة الدرس التفاعلية</h2><span className="row-meta">{questions.length} أسئلة · تصحيح فوري</span></div>{questions.length ? <LessonPractice lessonId={lesson.id} questions={questions} /> : <p className="row-meta">لم تُضف أسئلة لهذا الدرس بعد.</p>}</section>
-      <div style={{ display:'flex', gap:10, marginTop:30, flexWrap:'wrap' }}><Link href={`/lessons/${lesson.id}/quiz`} className="btn btn-primary" data-testid={`link-lesson-quiz-${lesson.id}`}>اختبار شامل للدرس <ArrowLeft size={16} /></Link><Link href={`/curriculum/unit/${lesson.unitId}`} className="btn btn-quiet" data-testid="link-back-to-lessons">العودة للدروس</Link></div>
+      <div style={{ display:'flex', gap:10, marginTop:30, flexWrap:'wrap' }}>{questions.length ? <Link href={`/lessons/${lesson.id}/quiz`} className="btn btn-primary" data-testid={`link-lesson-quiz-${lesson.id}`}>اختبار شامل للدرس <ArrowLeft size={16} /></Link> : null}{isImported && importedInfo.sourceUrl ? <a className="btn btn-quiet" href={importedInfo.sourceUrl} target="_blank" rel="noreferrer noopener" data-testid="lesson-source-link">صفحة الدرس في المصدر</a> : null}<Link href={`/curriculum/unit/${lesson.unitId}`} className="btn btn-quiet" data-testid="link-back-to-lessons">العودة للدروس</Link></div>
     </div>
   </AppShell>;
 }
