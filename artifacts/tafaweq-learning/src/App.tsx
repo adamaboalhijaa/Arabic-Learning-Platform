@@ -245,9 +245,9 @@ function AppShell({ children }: { children: ReactNode }) {
   const clerkReady = useClerkReady(isLoaded);
   const [location, navigate] = useLocation();
   if (CLERK_ENABLED && !clerkReady) return <PageLoading />;
-  // تصفّح المنهاج (صفوف ← مواد ← فصل ← وحدات ← دروس) متاح للزائر بلا حساب،
+  // تصفّح المنهاج (صفوف ← مواد ← فصل ← وحدات ← دروس) وصفحة الدرس متاحة للزائر بلا حساب،
   // بينما تبقى مساحات التقدّم والاختبارات والإدارة للمسجلين.
-  const guestBrowse = /^\/(curriculum|math)(\/|$)/.test(location);
+  const guestBrowse = /^\/(curriculum|math)(\/|$)/.test(location) || /^\/lessons\/\d+\/?$/.test(location);
   if (!isSignedIn && !localStudent && !guestBrowse) return <Unauthorized />;
   const handleSignOut = () => {
     if (localStudent) {
@@ -488,6 +488,9 @@ function LessonPage() {
   const id = Number(params?.lessonId || 0);
   const q = useGetLesson(id, { query: { queryKey: getGetLessonQueryKey(id), enabled: !!id } });
   const quizQ = useGetLessonQuiz(id, { query: { queryKey: getGetLessonQuizQueryKey(id), enabled: !!id } });
+  const { isSignedIn } = useAuth();
+  const localStudent = useLocalStudent();
+  const canPractice = Boolean(isSignedIn || localStudent);
   if (q.isLoading || quizQ.isLoading) return <PageLoading />;
   if (q.isError || !q.data) return <AppShell><ErrorState retry={() => q.refetch()} /></AppShell>;
   const lesson = q.data;
@@ -502,7 +505,7 @@ function LessonPage() {
       {lesson.objective ? <section style={{ marginTop:30 }}><span className="eyebrow">هدف الدرس</span><h2 style={{ fontSize:20 }}>{lesson.objective}</h2></section> : null}
       {lesson.objectives.length ? <section style={{ marginTop:24 }}><div className="section-heading" style={{ marginTop:0 }}><h2>ماذا ستتعلّم؟</h2><span className="row-meta"><Clock3 size={14} style={{ verticalAlign:'middle' }} /> {lesson.durationMinutes} دقيقة</span></div><ul style={{ lineHeight:2.2 }}>{lesson.objectives.map((obj,i)=><li key={`${i}-${obj}`} data-testid={`objective-${i}`}>{obj}</li>)}</ul></section> : null}
       {lesson.explanation ? <section style={{ marginTop:24 }}><h2 style={{ fontSize:19 }}>الشرح</h2><div className="prose" style={{ lineHeight:2, whiteSpace:'pre-line' }} data-testid="lesson-explanation">{lesson.explanation}</div></section> : <p className="row-meta" data-testid="lesson-explanation-pending">الشرح الكامل لهذا الدرس لم يُستورد بعد؛ المعروض الآن عنوان الدرس وموقعه في الفهرس الرسمي فقط.</p>}
-      <section style={{ marginTop:24 }} data-testid="lesson-questions"><div className="section-heading" style={{ marginTop:0 }}><h2>أسئلة الدرس التفاعلية</h2><span className="row-meta">{questions.length} أسئلة · تصحيح فوري</span></div>{questions.length ? <LessonPractice lessonId={lesson.id} questions={questions} /> : <p className="row-meta">لم تُضف أسئلة لهذا الدرس بعد.</p>}</section>
+      <section style={{ marginTop:24 }} data-testid="lesson-questions"><div className="section-heading" style={{ marginTop:0 }}><h2>أسئلة الدرس التفاعلية</h2><span className="row-meta">{questions.length} أسئلة · تصحيح فوري</span></div>{questions.length ? (canPractice ? <LessonPractice lessonId={lesson.id} questions={questions} /> : <p className="row-meta" data-testid="lesson-practice-signin">أسئلة هذا الدرس للطلاب المسجلين — <Link href="/sign-in">سجّل الدخول</Link> لتتدرب وتحصل على XP.</p>) : <p className="row-meta">لم تُضف أسئلة لهذا الدرس بعد.</p>}</section>
       <div style={{ display:'flex', gap:10, marginTop:30, flexWrap:'wrap' }}>{questions.length ? <Link href={`/lessons/${lesson.id}/quiz`} className="btn btn-primary" data-testid={`link-lesson-quiz-${lesson.id}`}>اختبار شامل للدرس <ArrowLeft size={16} /></Link> : null}{isImported && importedInfo.sourceUrl ? <a className="btn btn-quiet" href={importedInfo.sourceUrl} target="_blank" rel="noreferrer noopener" data-testid="lesson-source-link">صفحة الدرس في المصدر</a> : null}<Link href={`/curriculum/unit/${lesson.unitId}`} className="btn btn-quiet" data-testid="link-back-to-lessons">العودة للدروس</Link></div>
     </div>
   </AppShell>;
