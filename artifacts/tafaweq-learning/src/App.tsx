@@ -102,11 +102,34 @@ const links = [
   { href: '/leaderboard', label: 'لوحة المتصدرين', icon: Trophy },
   { href: '/admin', label: 'إدارة المحتوى', icon: ShieldAlert },
 ];
-const contentLabel: Record<string, string> = { draft: 'مسودة · غير متحقق', reviewed: 'قيد المراجعة', verified: 'متحقق' };
+const contentLabel: Record<string, string> = { draft: 'مسودة · غير متحقق', reviewed: 'قيد المراجعة', verified: 'متحقق', sourced: 'محتوى مستورد من مصدر أردني', awaiting: 'بانتظار الاستيراد' };
 
 function Status({ value }: { value: string }) {
   const state = value in contentLabel ? value : 'draft';
   return <span className={`status status-${state}`} data-testid={`status-content-${state}`}>{contentLabel[state]}</span>;
+}
+
+/** إحصاء الوحدات والدروس المستوردة لصف من فهارس المصدر الفعلية. */
+function importedTotalsOfGrade(gradeNumber: number) {
+  const outlines = IMPORTED_OUTLINES.filter(o => o.gradeNumber === gradeNumber);
+  return {
+    outlines: outlines.length,
+    units: outlines.reduce((total, o) => total + o.units.length, 0),
+    lessons: outlines.reduce((total, o) => total + o.units.reduce((n, u) => n + u.lessons.length, 0), 0),
+  };
+}
+
+/** حالة الصف مشتقة من محتواه: مستورد من مصدر أردني، أو مربوط في قاعدة البيانات، أو بانتظار الاستيراد. */
+function gradeStatus(gradeNumber: number, backendStatus?: string): string {
+  if (importedTotalsOfGrade(gradeNumber).outlines > 0) return 'sourced';
+  if (backendStatus === 'verified') return 'verified';
+  return 'awaiting';
+}
+
+/** عدد وحدات المادة المستوردة من المصدر عندما لا تكون وحداتها في قاعدة البيانات بعد. */
+function importedUnitsOfSubject(subjectId: number, subjectTitle: string, gradeNumber: number): number {
+  const outline = outlineFor(gradeNumber, subjectTitle, 1, subjectId) ?? outlineFor(gradeNumber, subjectTitle, 2, subjectId);
+  return outline ? outline.units.length : 0;
 }
 
 function Brand() {
@@ -334,7 +357,7 @@ function LessonRow({ lesson }: { lesson: Lesson }) {
 }
 
 import { BOOK_STATUS_LABEL, booksOfSubject, curriculumCompletion } from './lib/official-books';
-import { outlineFor } from './data/imported-outlines';
+import { IMPORTED_OUTLINES, outlineFor } from './data/imported-outlines';
 import { resolveSubjectId } from './lib/curriculum-books';
 
 function BooksInventory() {
@@ -367,10 +390,10 @@ function Curriculum() {
   return <AppShell><PageIntro eyebrow="المنهاج" title="اختر صفك الدراسي" subtitle="استكشف المواد والوحدات والدروس، مع حالة المحتوى موضحة بوضوح." />
     <div className="card" style={{ marginTop: 22 }} data-testid="panel-books-summary">
       <div className="section-heading" style={{ marginTop: 0 }}><h2>حالة الكتب المدرسية</h2><Link href="/curriculum/books" className="btn btn-quiet" data-testid="link-books-inventory">سجل الكتب <ArrowLeft size={15} /></Link></div>
-      <p className="row-meta">الصفوف {books.grades.length} · المواد {books.totals.subjects} · كتب الفصلين {books.totals.books} · مربوطة {books.totals.booksLinked} · بانتظار الاستيراد {books.totals.booksPending}</p>
+      <p className="row-meta">الصفوف {books.grades.length} · المواد {books.totals.subjects} · كتب الفصلين {books.totals.books} · وحدات مستوردة {IMPORTED_OUTLINES.length} · مربوطة {books.totals.booksLinked} · بانتظار الاستيراد {books.totals.booksPending}</p>
     </div>
     <div className="toolbar"><label className="field" style={{ margin: 0, minWidth: 250 }}><span className="sr-only">ابحث عن صف</span><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="ابحث عن الصف..." data-testid="input-search-grades" /></label></div>
-    {grades.length ? <div className="tile-grid">{grades.map(g=><Link href={`/curriculum/grade/${g.id}`} key={g.id} className="card tile" data-testid={`card-grade-${g.id}`}><div className="tile-icon"><GraduationCap size={22} /></div><div className="tile-copy"><h3>{g.title}</h3><p>{g.stage} · {g.subjectCount} مواد</p><div style={{ marginTop: 12 }}><Status value={g.contentStatus} /></div></div><ChevronLeft size={18} /></Link>)}</div> : <EmptyState title="لا توجد صفوف مطابقة" body="جرّب كلمة بحث أخرى أو عد إلى قائمة الصفوف." />}
+    {grades.length ? <div className="tile-grid">{grades.map(g=><Link href={`/curriculum/grade/${g.id}`} key={g.id} className="card tile" data-testid={`card-grade-${g.id}`}><div className="tile-icon"><GraduationCap size={22} /></div><div className="tile-copy"><h3>{g.title}</h3><p>{g.stage} · {g.subjectCount} مواد</p><div style={{ marginTop: 12 }}><Status value={gradeStatus(g.gradeNumber, g.contentStatus)} /></div><p style={{ marginTop: 6, fontSize: 12 }} data-testid={`grade-content-${g.id}`}>{importedTotalsOfGrade(g.gradeNumber).units ? `${importedTotalsOfGrade(g.gradeNumber).units} وحدة · ${importedTotalsOfGrade(g.gradeNumber).lessons} درسًا من المصدر` : 'لم تُستورد وحدات لهذا الصف بعد'}</p></div><ChevronLeft size={18} /></Link>)}</div> : <EmptyState title="لا توجد صفوف مطابقة" body="جرّب كلمة بحث أخرى أو عد إلى قائمة الصفوف." />}
   </AppShell>;
 }
 
@@ -383,7 +406,7 @@ function GradeSubjects() {
   if (q.isError) return <AppShell><ErrorState retry={() => q.refetch()} /></AppShell>;
   const grade = gradesQ.data?.find(g=>g.id===id);
   return <AppShell><Breadcrumb href="/curriculum" label="الصفوف" /><PageIntro eyebrow={grade?.stage ?? 'المنهاج'} title={grade?.title ?? 'مواد الصف'} subtitle="اختر مادة لعرض وحداتها ودروسها." />
-    {(q.data ?? []).length ? <div className="tile-grid" style={{ marginTop: 26 }}>{q.data?.map(s=><Link key={s.id} href={`/curriculum/subject/${s.id}`} className="card tile" data-testid={`card-subject-${s.id}`}><div className="tile-icon"><BookOpen size={22} /></div><div className="tile-copy"><h3>{s.title}</h3><p>{s.description || 'وحدات ودروس المنهاج'}</p><p style={{ marginTop: 8 }} data-testid={`subject-units-${s.id}`}>{s.unitCount ? `${s.unitCount} وحدات` : 'لم يُضف الكتاب بعد'}</p></div><ChevronLeft size={18} /></Link>)}</div> : <EmptyState title="لا توجد مواد متاحة بعد" body="لم تتم إضافة مواد لهذا الصف حتى الآن." />}
+    {(q.data ?? []).length ? <div className="tile-grid" style={{ marginTop: 26 }}>{q.data?.map(s => { const imported = importedUnitsOfSubject(s.id, s.title, grade?.gradeNumber ?? 0); return <Link key={s.id} href={`/curriculum/subject/${s.id}`} className="card tile" data-testid={`card-subject-${s.id}`}><div className="tile-icon"><BookOpen size={22} /></div><div className="tile-copy"><h3>{s.title}</h3><p>{s.description || 'وحدات ودروس المنهاج'}</p><p style={{ marginTop: 8 }} data-testid={`subject-units-${s.id}`}>{s.unitCount ? `${s.unitCount} وحدات` : imported ? `${imported} وحدات مستوردة من المصدر` : 'بانتظار استيراد وحدات الكتاب'}</p></div><ChevronLeft size={18} /></Link>; })}</div> : <EmptyState title="لا توجد مواد متاحة بعد" body="لم تتم إضافة مواد لهذا الصف حتى الآن." />}
   </AppShell>;
 }
 

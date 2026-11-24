@@ -146,6 +146,8 @@
 .status-draft { background:hsl(38 65% 89%); color:hsl(29 61% 33%); }
 .status-reviewed { background:hsl(195 49% 88%); color:hsl(194 47% 29%); }
 .status-verified { background:hsl(154 39% 85%); color:hsl(164 46% 24%); }
+.status-sourced { background:hsl(212 52% 89%); color:hsl(214 48% 30%); }
+.status-awaiting { background:hsl(220 13% 92%); color:hsl(220 11% 38%); }
 .grid { display:grid; gap:16px; }
 .grid-stats { grid-template-columns:repeat(4,minmax(0,1fr)); }
 .stat-card { padding:20px; min-height:126px; position:relative; overflow:hidden; }
