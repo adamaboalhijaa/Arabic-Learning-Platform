@@ -8,6 +8,7 @@
  * - كل عنصر له معرّف رقمي ثابت مشتق من ترتيبه، ويُستخدم في مسارات التنقل وحفظ التقدّم.
  */
 import { buildCatalog } from '../curriculum/catalog';
+import { IMPORTED_OUTLINES } from '../data/imported-outlines';
 import { MATH_GRADES } from '../data/math-grades';
 import type { MathContent, MathLesson, MathQuestion, MathUnit } from '../data/math-content';
 
@@ -41,6 +42,8 @@ export interface BookUnit {
   position: number;
   unit: MathUnit;
   lessonIds: number[];
+  /** وحدة مستوردة من فهرس كتاب رسمي: عنوانها موثّق، وشرحها وأسئلتها لم تُستورد بعد. */
+  imported?: boolean;
 }
 
 export interface BookLesson {
@@ -50,7 +53,12 @@ export interface BookLesson {
   gradeNumber: number;
   semester: SemesterNumber;
   lesson: MathLesson;
-  content: MathContent;
+  /** كتاب الرياضيات المبني عليه الدرس، أو null للدروس المستوردة من الفهرس فقط. */
+  content: MathContent | null;
+  /** درس من فهرس كتاب رسمي: صفحة داخلية بعنوانه ومرجعه، بلا شرح أو أسئلة بعد. */
+  imported?: boolean;
+  /** رابط صفحة الدرس في المصدر الأصلي، ويُعرض كمرجع فقط. */
+  sourceUrl?: string;
 }
 
 export interface BookQuestion {
@@ -133,6 +141,65 @@ for (const subject of subjectRecords) {
   }
 }
 
+// 3) الفهارس المستوردة (وحدات ودروس بلا أسئلة): تُسجّل كوحدات ودروس داخلية
+//    حتى يُفتح الدرس داخل المنصة بدل تحويل الطالب إلى موقع المصدر،
+//    ويبقى رابط المصدر مرجعًا صغيرًا في صفحة الدرس.
+for (const outline of IMPORTED_OUTLINES) {
+  const subject = subjectRecords.find(
+    (record) =>
+      record.gradeNumber === outline.gradeNumber &&
+      record.title === outline.subjectTitle.trim() &&
+      (outline.subjectId === undefined || record.id === outline.subjectId),
+  );
+  // لا نكرر فهرسًا لمادة لها كتاب كامل مربوط فعلًا.
+  if (!subject || subject.book) continue;
+  const semesterNumber: SemesterNumber = outline.semester === 2 ? 2 : 1;
+  outline.units.forEach((unit) => {
+    const unitId = UNIT_ID_BASE + unitRecords.length;
+    const unitRecord: BookUnit = {
+      id: unitId,
+      subjectId: subject.id,
+      gradeNumber: subject.gradeNumber,
+      semester: semesterNumber,
+      position: Math.max(unit.number - 1, 0),
+      unit: {
+        id: `imp-${outline.key}-u${unit.number}`,
+        title: unit.title,
+        description: '',
+        lessons: [],
+      },
+      lessonIds: [],
+      imported: true,
+    };
+    unitRecords.push(unitRecord);
+    unit.lessons.forEach((lesson, lessonIndex) => {
+      const lessonId = LESSON_ID_BASE + lessonRecords.length;
+      lessonRecords.push({
+        id: lessonId,
+        unitId,
+        subjectId: subject.id,
+        gradeNumber: subject.gradeNumber,
+        semester: semesterNumber,
+        imported: true,
+        sourceUrl: lesson.sourceUrl,
+        lesson: {
+          id: `imp-${outline.key}-u${unit.number}-l${lessonIndex + 1}`,
+          title: lesson.title,
+          durationMinutes: 0,
+          objective: '',
+          objectives: [],
+          explanation: '',
+          formulas: [],
+          examples: [],
+          questions: [],
+        },
+        content: null,
+      });
+      unitRecord.lessonIds.push(lessonId);
+    });
+  });
+}
+
 export const ALL_SUBJECTS: readonly BookSubject[] = subjectRecords;
 export const ALL_UNITS: readonly BookUnit[] = unitRecords;
 export const ALL_LESSONS: readonly BookLesson[] = lessonRecords;
@@ -174,6 +241,16 @@ export function unitById(unitId: number) {
 
 export function lessonById(lessonId: number) {
   return lessonByIdMap.get(lessonId);
+}
+
+const lessonBySourceUrlMap = new Map<string, BookLesson>();
+for (const record of lessonRecords) {
+  if (record.sourceUrl) lessonBySourceUrlMap.set(record.sourceUrl, record);
+}
+
+/** الدرس الداخلي المقابل لرابط درس في المصدر الأصلي (minhaji.net). */
+export function lessonBySourceUrl(sourceUrl: string | undefined): BookLesson | undefined {
+  return sourceUrl ? lessonBySourceUrlMap.get(sourceUrl) : undefined;
 }
 
 export function subjectsOfGrade(gradeNumber: number): BookSubject[] {

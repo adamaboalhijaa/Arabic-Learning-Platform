@@ -53,8 +53,9 @@ function unitPayload(unit: BookUnit) {
     title: unit.unit.title,
     position: unit.position,
     semester: unit.semester,
-    contentStatus: 'verified' as const,
+    contentStatus: unit.imported ? ('draft' as const) : ('verified' as const),
     lessonCount: unit.lessonIds.length,
+    imported: unit.imported === true,
   };
 }
 
@@ -69,15 +70,21 @@ function lessonPayload(entry: BookLesson) {
     gradeId: entry.gradeNumber,
     semester: entry.semester,
     title: entry.lesson.title,
-    description: entry.lesson.objective,
+    description: entry.imported
+      ? 'درس من فهرس كتاب الطالب الرسمي: العنوان موثّق، والشرح والأسئلة لم تُستورد بعد.'
+      : entry.lesson.objective,
     objective: entry.lesson.objective,
     explanation: entry.lesson.explanation,
     objectives: entry.lesson.objectives,
     durationMinutes: entry.lesson.durationMinutes,
-    contentStatus: 'verified' as const,
-    sourceReference: entry.lesson.page
-      ? `كتاب الطالب — صفحة ${entry.lesson.page}`
-      : `كتاب الطالب: ${entry.lesson.title}`,
+    contentStatus: entry.imported ? ('draft' as const) : ('verified' as const),
+    imported: entry.imported === true,
+    sourceUrl: entry.sourceUrl ?? null,
+    sourceReference: entry.imported
+      ? `فهرس كتاب الطالب (شبكة منهاجي) — ${entry.lesson.title}`
+      : entry.lesson.page
+        ? `كتاب الطالب — صفحة ${entry.lesson.page}`
+        : `كتاب الطالب: ${entry.lesson.title}`,
     questionCount: total,
     isCompleted: bestScore >= Math.round(MASTERY_RATIO * 100),
     bestScore: bestScore > 0 ? bestScore : null,
@@ -119,6 +126,7 @@ function progressPayload() {
   const progress = getProgress();
   return ALL_LESSONS.map((entry) => {
     const total = entry.lesson.questions.length;
+    if (total === 0) return null;
     const bestScore = lessonScore(progress, entry.lesson.id, total);
     if (bestScore <= 0) return null;
     return {
